@@ -156,10 +156,10 @@ export default function StartScreen() {
 
             {/* Start buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button variant="outline" size="lg" className="flex-1 gap-2 py-4 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startPractice()}>
+              <Button variant="outline" size="lg" className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startPractice()}>
                 <Play className="h-4 w-4" /> {canResume ? 'Restart Practice' : 'Practice Mode'}
               </Button>
-              <Button size="lg" variant={canResume ? 'outline' : 'default'} className="flex-1 gap-2 py-4 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startExam(selectedDuration)}>
+              <Button size="lg" variant={canResume ? 'outline' : 'default'} className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startExam(selectedDuration)}>
                 <Play className="h-4 w-4" /> {canResume ? 'Restart Exam' : 'Start Exam'}
               </Button>
             </div>
