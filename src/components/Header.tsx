@@ -1,0 +1,115 @@
+import { Award, Keyboard, Layers, Moon, Sun, Timer, X } from 'lucide-react';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useApp } from '../context/AppContext';
+import { useExam } from '../context/ExamContext';
+import { useTimer } from '../hooks/useTimer';
+
+export default function Header() {
+  const { toggleTheme, theme, guardedNavigation, showExamSelect, showFlashcards, screen } = useApp();
+  const { timerEndTime, timerDuration, isGraded, practiceMode, examStarted, submitExam } = useExam();
+  const [showShortcuts, setShowShortcuts] = useState(false);
+
+  const timerActive = examStarted && !isGraded && !practiceMode && timerDuration > 0;
+  const timer = useTimer(timerEndTime, submitExam, timerActive);
+
+  return (
+    <>
+      <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-14 items-center justify-between">
+          {/* Logo */}
+          <button
+            onClick={() => guardedNavigation(showExamSelect)}
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer bg-transparent border-0 p-0"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <Award className="h-4 w-4" />
+            </div>
+            <span className="font-bold text-sm tracking-tight">Prepwise</span>
+          </button>
+
+          {/* Nav links */}
+          <nav className="hidden sm:flex items-center gap-0.5 ml-4">
+            <button
+              onClick={() => guardedNavigation(showExamSelect)}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                ['select','start','workspace'].includes(screen)
+                  ? 'bg-accent text-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/60'
+              }`}
+            >
+              Exams
+            </button>
+            <button
+              onClick={() => guardedNavigation(showFlashcards)}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                screen === 'flashcards' || screen === 'flashcard-study'
+                  ? 'bg-accent text-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/60'
+              }`}
+            >
+              <Layers className="h-3.5 w-3.5" /> Flashcards
+            </button>
+          </nav>
+
+          {/* Right controls */}
+          <div className="flex items-center gap-2">
+            {timerActive && timer.formattedTime && (
+              <Badge variant={timer.isUrgent ? 'destructive' : 'secondary'} className="gap-1.5 tabular-nums">
+                <Timer className="h-3 w-3 animate-pulse" />
+                {timer.formattedTime}
+              </Badge>
+            )}
+            {isGraded && !practiceMode && screen === 'workspace' && (
+              <Badge variant="outline" className="gap-1.5 border-emerald-500 text-emerald-600 dark:text-emerald-400">
+                <Timer className="h-3 w-3" /> Submitted
+              </Badge>
+            )}
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              title="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowShortcuts(s => !s)}
+              title="Keyboard shortcuts"
+            >
+              <Keyboard className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+
+        {showShortcuts && (
+          <>
+            <Separator />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between text-xs text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-4">
+                <span className="font-semibold text-foreground">Shortcuts</span>
+                <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">←</kbd> Prev</span>
+                <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">→</kbd> Next</span>
+                <span>
+                  <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">1</kbd>
+                  {' – '}
+                  <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">5</kbd>
+                  {' '}Select answer
+                </span>
+              </div>
+              <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setShowShortcuts(false)}>
+                <X className="h-3 w-3" />
+              </Button>
+            </div>
+          </>
+        )}
+      </header>
+    </>
+  );
+}

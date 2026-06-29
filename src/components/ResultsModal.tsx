@@ -1,0 +1,128 @@
+import { Award, BarChart2, CheckCircle, RefreshCw, XCircle } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
+import { useApp } from '../context/AppContext';
+import { useExam } from '../context/ExamContext';
+import { saveTake, updateQuestionStats } from '../hooks/useProgress';
+
+export default function ResultsModal() {
+  const { showExamSelect } = useApp();
+  const {
+    exam, questions, indicesMap,
+    userAnswers, isGraded,
+    practiceMode, practiceAnswers, practiceRevealedIds,
+    practiceStreak, practiceBestStreak,
+    timerEndTime, timerDuration,
+    showResults, setShowResults,
+    resetProgress,
+    startExam, startPractice,
+    keys,
+  } = useExam();
+
+  const savedRef = useRef(false);
+
+  const answersToScore = practiceMode ? practiceAnswers : userAnswers;
+  const correctCount = questions.filter(q => answersToScore[q.id] === q.correctAnswer).length;
+  const totalQ = questions.length;
+  const pct = totalQ > 0 ? Math.round((correctCount / totalQ) * 100) : 0;
+  const passed = pct >= 70;
+
+  useEffect(() => {
+    if (!exam || !showResults || savedRef.current) return;
+    savedRef.current = true;
+
+    const now = Date.now();
+    const startedAt = parseInt(localStorage.getItem(keys.started) ?? '0', 10) || now - 60000;
+    const timeUsedMs = timerDuration > 0 && timerEndTime > 0
+      ? Math.max(0, timerDuration * 60 * 1000 - (timerEndTime - now))
+      : undefined;
+
+    saveTake({ examId: exam.id, examTitle: exam.title, mode: practiceMode ? 'practice' : 'exam', startedAt, finishedAt: now, score: correctCount, total: totalQ, timeUsedMs });
+    updateQuestionStats(exam.id, answersToScore, questions);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showResults, exam?.id]);
+
+  function handleRetake() {
+    savedRef.current = false;
+    if (practiceMode) startPractice();
+    else startExam(timerDuration);
+    setShowResults(false);
+  }
+
+  return (
+    <Dialog open={showResults} onOpenChange={open => !open && setShowResults(false)}>
+      <DialogContent className="max-w-md">
+        <DialogHeader className="items-center text-center">
+          <div className={`mb-2 inline-flex rounded-full p-3 ${passed ? 'bg-emerald-50 dark:bg-emerald-950/30' : 'bg-muted'}`}>
+            {passed
+              ? <Award className="h-7 w-7 text-emerald-500" />
+              : <BarChart2 className="h-7 w-7 text-muted-foreground" />}
+          </div>
+          <DialogTitle className="text-xl">
+            {passed ? 'You Passed!' : 'Keep Practicing'}
+          </DialogTitle>
+          <DialogDescription>
+            {practiceMode ? 'Practice Session Complete' : 'Exam Submitted'}
+          </DialogDescription>
+        </DialogHeader>
+
+        {/* Score */}
+        <div className={`rounded-xl border p-5 text-center ${passed ? 'border-emerald-200 bg-emerald-50 dark:border-emerald-900/40 dark:bg-emerald-950/20' : 'border-border bg-muted/50'}`}>
+          <div className={`text-5xl font-black tabular-nums ${passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-destructive'}`}>
+            {pct}%
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">{correctCount} / {totalQ} correct</p>
+        </div>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-lg border bg-card p-3 text-center">
+            <CheckCircle className="mx-auto mb-1 h-4 w-4 text-emerald-500" />
+            <div className="text-lg font-black text-emerald-600 dark:text-emerald-400">{correctCount}</div>
+            <div className="text-[11px] text-muted-foreground font-medium">Correct</div>
+          </div>
+          <div className="rounded-lg border bg-card p-3 text-center">
+            <XCircle className="mx-auto mb-1 h-4 w-4 text-destructive" />
+            <div className="text-lg font-black text-destructive">{totalQ - correctCount}</div>
+            <div className="text-[11px] text-muted-foreground font-medium">Wrong</div>
+          </div>
+          {practiceMode && (
+            <>
+              <div className="rounded-lg border bg-card p-3 text-center">
+                <div className="text-lg font-black text-violet-600 dark:text-violet-400">🔥 {practiceBestStreak}</div>
+                <div className="text-[11px] text-muted-foreground font-medium">Best Streak</div>
+              </div>
+              <div className="rounded-lg border bg-card p-3 text-center">
+                <div className="text-lg font-black text-primary">{practiceRevealedIds.size}</div>
+                <div className="text-[11px] text-muted-foreground font-medium">Answered</div>
+              </div>
+            </>
+          )}
+        </div>
+
+        <Separator />
+
+        {/* Actions */}
+        <div className="flex gap-2">
+          <Button variant="outline" className="flex-1" onClick={() => setShowResults(false)}>
+            Review Answers
+          </Button>
+          <Button className="flex-1 gap-2" onClick={handleRetake}>
+            <RefreshCw className="h-4 w-4" /> Retake
+          </Button>
+        </div>
+
+        <Button
+          variant="ghost"
+          className="w-full text-xs text-muted-foreground"
+          onClick={() => { setShowResults(false); showExamSelect(); }}
+        >
+          Choose Different Exam
+        </Button>
+      </DialogContent>
+    </Dialog>
+  );
+}

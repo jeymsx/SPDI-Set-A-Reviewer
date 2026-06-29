@@ -1,0 +1,122 @@
+import { Search } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useExam } from '../context/ExamContext';
+
+export default function Navigator() {
+  const {
+    indicesMap, questions, currentIdx, navigateTo,
+    userAnswers, isGraded,
+    practiceMode, practiceAnswers, practiceRevealedIds,
+    bookmarks,
+    reviewBookmarkedOnly, reviewIncorrectOnly, setReviewBookmarked, setReviewIncorrect,
+  } = useExam();
+
+  const [search, setSearch] = useState('');
+
+  function getButtonClass(virtualIdx: number) {
+    const realIdx = indicesMap[virtualIdx];
+    const q = questions[realIdx];
+    if (!q) return 'bg-muted text-muted-foreground hover:bg-muted/80';
+
+    const isCurrent = virtualIdx === currentIdx;
+    const isBookmarked = bookmarks[q.id];
+
+    if (practiceMode) {
+      const answered = practiceRevealedIds.has(q.id);
+      const chosen = practiceAnswers[q.id];
+      const isCorrect = answered && chosen === q.correctAnswer;
+      if (isCurrent) return 'bg-primary text-primary-foreground ring-2 ring-white ring-inset';
+      if (answered && isCorrect) return 'bg-emerald-500 text-white hover:bg-emerald-600';
+      if (answered && !isCorrect) return 'bg-destructive text-destructive-foreground hover:bg-destructive/90';
+      if (isBookmarked) return 'bg-amber-400 text-white hover:bg-amber-500';
+      return 'bg-muted text-muted-foreground hover:bg-muted/80';
+    }
+
+    const answered = userAnswers[q.id] !== undefined;
+    if (isCurrent) return 'bg-primary text-primary-foreground ring-2 ring-white ring-inset';
+    if (isGraded) {
+      if (answered && userAnswers[q.id] === q.correctAnswer) return 'bg-emerald-500 text-white hover:bg-emerald-600';
+      if (answered) return 'bg-destructive text-destructive-foreground hover:bg-destructive/90';
+      return 'bg-muted text-muted-foreground';
+    }
+    if (answered) return 'bg-primary/70 text-white hover:bg-primary/80';
+    if (isBookmarked) return 'bg-amber-400 text-white hover:bg-amber-500';
+    return 'bg-muted text-muted-foreground hover:bg-muted/80';
+  }
+
+  const filteredIndices = search.trim()
+    ? indicesMap
+        .map((realIdx, virtualIdx) => ({ realIdx, virtualIdx }))
+        .filter(({ realIdx }) => questions[realIdx]?.question.toLowerCase().includes(search.toLowerCase()))
+    : indicesMap.map((_, i) => ({ realIdx: indicesMap[i], virtualIdx: i }));
+
+  return (
+    <div className="space-y-3">
+      {/* Legend */}
+      <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground font-medium">
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-primary/70" />Answered</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-emerald-500" />Correct</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-destructive" />Wrong</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-amber-400" />Bookmarked</span>
+      </div>
+
+      {/* Filter toggles */}
+      <div className="flex gap-2">
+        <Button
+          variant={reviewIncorrectOnly ? 'destructive' : 'outline'}
+          size="sm"
+          className="h-7 text-[11px] px-2.5"
+          onClick={() => setReviewIncorrect(!reviewIncorrectOnly)}
+        >
+          Wrong only
+        </Button>
+        <Button
+          variant={reviewBookmarkedOnly ? 'secondary' : 'outline'}
+          size="sm"
+          className={`h-7 text-[11px] px-2.5 ${reviewBookmarkedOnly ? 'bg-amber-100 text-amber-800 hover:bg-amber-200 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300' : ''}`}
+          onClick={() => setReviewBookmarked(!reviewBookmarkedOnly)}
+        >
+          Bookmarked
+        </Button>
+      </div>
+
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+        <Input
+          placeholder="Search questions…"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="pl-8 h-8 text-xs"
+        />
+      </div>
+
+      {/* Grid */}
+      <div className="max-h-[280px] overflow-y-auto pr-0.5">
+        {filteredIndices.length === 0 ? (
+          <p className="py-4 text-center text-xs text-muted-foreground">
+            {search.trim() ? 'No questions match your search.' : 'No questions match the active filter.'}
+          </p>
+        ) : (
+          <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-6 gap-1.5">
+            {filteredIndices.map(({ realIdx, virtualIdx }) => {
+              const q = questions[realIdx];
+              return (
+                <button
+                  key={virtualIdx}
+                  onClick={() => navigateTo(virtualIdx)}
+                  title={q ? q.question.substring(0, 60) : ''}
+                  className={`aspect-square rounded-md text-[11px] font-bold transition-all ${getButtonClass(virtualIdx)}`}
+                >
+                  {virtualIdx + 1}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

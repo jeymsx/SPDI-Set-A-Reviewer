@@ -1,0 +1,553 @@
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import type { Exam, Question } from '../types';
+import { loadExamData } from '../exams';
+import { useApp } from './AppContext';
+
+// ---- localStorage helpers ----
+function makeKeys(prefix: string) {
+  return {
+    answers:         `${prefix}_user_answers`,
+    idx:             `${prefix}_current_idx`,
+    graded:          `${prefix}_is_graded`,
+    welcome:         `${prefix}_welcome_dismissed`,
+    shuffleQ:        `${prefix}_shuffle_questions`,
+    shuffleC:        `${prefix}_shuffle_choices`,
+    started:         `${prefix}_exam_started`,
+    timerDuration:   `${prefix}_timer_duration`,
+    timerEnd:        `${prefix}_timer_end_time`,
+    timerPausedMs:   `${prefix}_timer_paused_ms`,
+    bookmarks:       `${prefix}_bookmarks`,
+    practiceMode:    `${prefix}_practice_mode`,
+    practiceAnswers: `${prefix}_practice_answers`,
+    pool:            `${prefix}_shuffled_pool_indices`,
+  };
+}
+
+type LSKeys = ReturnType<typeof makeKeys>;
+
+function lsGet<T>(key: string, fallback: T): T {
+  try {
+    const v = localStorage.getItem(key);
+    if (v === null) return fallback;
+    return JSON.parse(v) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ---- context value type ----
+export interface ExamContextValue {
+  exam: Exam | null;
+  questions: Question[];
+  loading: boolean;
+  error: string | null;
+
+  // navigation
+  currentIdx: number;
+  indicesMap: number[];        // virtual → real question indices
+  currentQuestion: Question | null;
+  navigateTo: (idx: number) => void;
+  navigateNext: () => void;
+  navigatePrev: () => void;
+
+  // answers
+  userAnswers: Record<number, string>;
+  setAnswer: (qId: number, answer: string) => void;
+  isGraded: boolean;
+
+  // exam state
+  examStarted: boolean;
+  timerDuration: number;       // minutes; 0 = no timer
+  timerEndTime: number;        // ms epoch
+  startExam: (durationMinutes: number) => void;
+  submitExam: () => void;
+  resetProgress: () => void;
+  setTimerEndTime: (t: number) => void;
+
+  // settings
+  shuffleQuestionsEnabled: boolean;
+  shuffleChoicesEnabled: boolean;
+  reviewIncorrectOnly: boolean;
+  reviewBookmarkedOnly: boolean;
+  setShuffleQ: (v: boolean) => void;
+  setShuffleC: (v: boolean) => void;
+  setReviewIncorrect: (v: boolean) => void;
+  setReviewBookmarked: (v: boolean) => void;
+  shuffledChoicesFor: (q: Question) => string[];
+
+  // welcome card
+  welcomeDismissed: boolean;
+  dismissWelcome: () => void;
+
+  // bookmarks
+  bookmarks: Record<number, boolean>;
+  toggleBookmark: (qId: number) => void;
+
+  // practice mode
+  practiceMode: boolean;
+  practiceAnswers: Record<number, string>;  // questionId → chosen
+  practiceRevealedIds: Set<number>;
+  practiceStreak: number;
+  practiceBestStreak: number;
+  practiceCompleted: boolean;
+  startPractice: () => void;
+  setPracticeAnswer: (qId: number, answer: string) => void;
+  finishPractice: () => void;
+
+  // results (set when graded/practice done)
+  showResults: boolean;
+  setShowResults: (v: boolean) => void;
+
+  // reset start (go back to start screen without full reset)
+  returnToStart: () => void;
+
+  // resume an in-progress session
+  canResume: boolean;
+  timerPausedMs: number;
+  resumeExam: () => void;
+
+  keys: LSKeys;
+}
+
+const ExamContext = createContext<ExamContextValue | null>(null);
+
+export function ExamProvider({ children }: { children: React.ReactNode }) {
+  const { currentExam, setScreen, setSessionActive, screen } = useApp();
+
+  const [exam, setExam] = useState<Exam | null>(null);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const keys = useMemo(() => makeKeys(exam?.id ?? 'exam'), [exam?.id]);
+
+  // ---- navigation ----
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  // ---- answers ----
+  const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
+  const [isGraded, setIsGraded] = useState(false);
+
+  // ---- exam state ----
+  const [examStarted, setExamStarted] = useState(false);
+  const [timerDuration, setTimerDuration] = useState(90);
+  const [timerEndTime, setTimerEndTimeState] = useState(0);
+  const [timerPausedMs, setTimerPausedMs] = useState(0);
+
+  // ---- settings ----
+  const [shuffleQuestionsEnabled, setShuffleQuestionsEnabled] = useState(false);
+  const [shuffleChoicesEnabled, setShuffleChoicesEnabled] = useState(false);
+  const [reviewIncorrectOnly, setReviewIncorrectOnly] = useState(false);
+  const [reviewBookmarkedOnly, setReviewBookmarkedOnly] = useState(false);
+  const shuffledChoicesPoolRef = useRef<Record<number, string[]>>({});
+
+  // ---- welcome ----
+  const [welcomeDismissed, setWelcomeDismissed] = useState(false);
+
+  // ---- bookmarks ----
+  const [bookmarks, setBookmarks] = useState<Record<number, boolean>>({});
+
+  // ---- practice mode ----
+  const [practiceMode, setPracticeMode] = useState(false);
+  const [practiceAnswers, setPracticeAnswers] = useState<Record<number, string>>({});
+  const [practiceRevealedIds, setPracticeRevealedIds] = useState<Set<number>>(new Set());
+  const [practiceStreak, setPracticeStreak] = useState(0);
+  const [practiceBestStreak, setPracticeBestStreak] = useState(0);
+  const [practiceCompleted, setPracticeCompleted] = useState(false);
+
+  // ---- results modal ----
+  const [showResults, setShowResults] = useState(false);
+
+  // ---- indices map ----
+  const indicesMap = useMemo(() => {
+    if (!questions.length) return [];
+    let indices = Array.from({ length: questions.length }, (_, i) => i);
+
+    if (shuffleQuestionsEnabled) {
+      const saved = localStorage.getItem(keys.pool);
+      if (saved) {
+        try { indices = JSON.parse(saved); } catch { /* ignore */ }
+      } else {
+        indices = shuffle(indices);
+        localStorage.setItem(keys.pool, JSON.stringify(indices));
+      }
+    } else {
+      localStorage.removeItem(keys.pool);
+    }
+
+    if (reviewIncorrectOnly) {
+      indices = indices.filter(i => {
+        const q = questions[i];
+        return q && userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.correctAnswer;
+      });
+    }
+
+    if (reviewBookmarkedOnly) {
+      indices = indices.filter(i => {
+        const q = questions[i];
+        return q && bookmarks[q.id];
+      });
+    }
+
+    return indices;
+  }, [questions, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, userAnswers, bookmarks, keys.pool]);
+
+  const currentQuestion = useMemo(() => {
+    const realIdx = indicesMap[currentIdx];
+    return realIdx !== undefined ? (questions[realIdx] ?? null) : null;
+  }, [questions, indicesMap, currentIdx]);
+
+  // ---- pause timer when leaving workspace ----
+  const prevScreenRef = useRef(screen);
+  useEffect(() => {
+    const prev = prevScreenRef.current;
+    prevScreenRef.current = screen;
+    if (prev === 'workspace' && screen !== 'workspace' && timerEndTime > 0 && !isGraded) {
+      const remaining = Math.max(0, timerEndTime - Date.now());
+      setTimerPausedMs(remaining);
+      localStorage.setItem(keys.timerPausedMs, String(remaining));
+      localStorage.removeItem(keys.timerEnd);
+      setTimerEndTimeState(0);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen]);
+
+  // ---- load exam data when currentExam changes ----
+  const loadedExamId = useRef<string | null>(null);
+  useEffect(() => {
+    if (!currentExam || loadedExamId.current === currentExam.id) return;
+    loadedExamId.current = currentExam.id;
+    setExam(currentExam);
+    setLoading(true);
+    setError(null);
+
+    loadExamData(currentExam)
+      .then(qs => {
+        setQuestions(qs);
+        hydrate(currentExam, qs);
+        setLoading(false);
+      })
+      .catch(e => {
+        setError(String(e));
+        setLoading(false);
+      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentExam]);
+
+  function hydrate(ex: Exam, qs: Question[]) {
+    const k = makeKeys(ex.id);
+    const savedAnswers = lsGet<Record<number, string>>(k.answers, {});
+    setUserAnswers(savedAnswers);
+
+    const savedBookmarks = lsGet<Record<number, boolean>>(k.bookmarks, {});
+    setBookmarks(savedBookmarks);
+
+    const graded = localStorage.getItem(k.graded) === 'true';
+    setIsGraded(graded);
+
+    const practice = localStorage.getItem(k.practiceMode) === 'true';
+    setPracticeMode(practice);
+    if (practice) {
+      const pa = lsGet<Record<number, string>>(k.practiceAnswers, {});
+      setPracticeAnswers(pa);
+      setPracticeRevealedIds(new Set(Object.keys(pa).map(Number)));
+    }
+
+    const shuffQ = localStorage.getItem(k.shuffleQ) === 'true';
+    const shuffC = localStorage.getItem(k.shuffleC) === 'true';
+    setShuffleQuestionsEnabled(shuffQ);
+    setShuffleChoicesEnabled(shuffC);
+
+    const dur = parseInt(localStorage.getItem(k.timerDuration) ?? '90', 10);
+    setTimerDuration(isNaN(dur) ? 90 : dur);
+
+    const end = parseInt(localStorage.getItem(k.timerEnd) ?? '0', 10);
+    setTimerEndTimeState(isNaN(end) ? 0 : end);
+
+    const pausedMs = parseInt(localStorage.getItem(k.timerPausedMs) ?? '0', 10);
+    setTimerPausedMs(isNaN(pausedMs) ? 0 : pausedMs);
+
+    const savedIdx = parseInt(localStorage.getItem(k.idx) ?? '0', 10);
+
+    const dismissed = localStorage.getItem(k.welcome) === 'true';
+    setWelcomeDismissed(dismissed);
+
+    const started = localStorage.getItem(k.started) === 'true';
+    setExamStarted(started || graded);
+
+    if (started || graded) {
+      setSessionActive(true);
+      setScreen('workspace');
+    }
+
+    // defer setting idx until after indicesMap is built (next render)
+    setTimeout(() => {
+      setCurrentIdx(prev => {
+        const validIdx = isNaN(savedIdx) ? 0 : savedIdx;
+        return validIdx;
+      });
+    }, 0);
+
+    // restore practice completion state
+    if (practice && qs.length > 0) {
+      const answered = Object.keys(lsGet<Record<number, string>>(k.practiceAnswers, {})).length;
+      if (answered >= qs.length) setPracticeCompleted(true);
+    }
+  }
+
+  // ---- persist current idx ----
+  useEffect(() => {
+    if (exam) localStorage.setItem(keys.idx, String(currentIdx));
+  }, [currentIdx, exam, keys.idx]);
+
+  // ---- navigation ----
+  const navigateTo = useCallback((idx: number) => {
+    setCurrentIdx(Math.max(0, Math.min(idx, indicesMap.length - 1)));
+  }, [indicesMap.length]);
+
+  const navigateNext = useCallback(() => {
+    setCurrentIdx(prev => Math.min(prev + 1, indicesMap.length - 1));
+  }, [indicesMap.length]);
+
+  const navigatePrev = useCallback(() => {
+    setCurrentIdx(prev => Math.max(prev - 1, 0));
+  }, []);
+
+  // ---- answers ----
+  const setAnswer = useCallback((qId: number, answer: string) => {
+    setUserAnswers(prev => {
+      const next = { ...prev, [qId]: answer };
+      localStorage.setItem(keys.answers, JSON.stringify(next));
+      return next;
+    });
+  }, [keys.answers]);
+
+  // ---- shuffled choices ----
+  const shuffledChoicesFor = useCallback((q: Question): string[] => {
+    if (!shuffleChoicesEnabled) return q.choices;
+    if (!shuffledChoicesPoolRef.current[q.id]) {
+      shuffledChoicesPoolRef.current[q.id] = shuffle([...q.choices]);
+    }
+    return shuffledChoicesPoolRef.current[q.id];
+  }, [shuffleChoicesEnabled]);
+
+  // ---- settings ----
+  const setShuffleQ = useCallback((v: boolean) => {
+    setShuffleQuestionsEnabled(v);
+    localStorage.setItem(keys.shuffleQ, String(v));
+    localStorage.removeItem(keys.pool);
+    setCurrentIdx(0);
+  }, [keys.shuffleQ, keys.pool]);
+
+  const setShuffleC = useCallback((v: boolean) => {
+    setShuffleChoicesEnabled(v);
+    localStorage.setItem(keys.shuffleC, String(v));
+    shuffledChoicesPoolRef.current = {};
+  }, [keys.shuffleC]);
+
+  const setReviewIncorrect = useCallback((v: boolean) => {
+    setReviewIncorrectOnly(v);
+    setCurrentIdx(0);
+  }, []);
+
+  const setReviewBookmarked = useCallback((v: boolean) => {
+    setReviewBookmarkedOnly(v);
+    setCurrentIdx(0);
+  }, []);
+
+  // ---- welcome ----
+  const dismissWelcome = useCallback(() => {
+    setWelcomeDismissed(true);
+    localStorage.setItem(keys.welcome, 'true');
+  }, [keys.welcome]);
+
+  // ---- bookmarks ----
+  const toggleBookmark = useCallback((qId: number) => {
+    setBookmarks(prev => {
+      const next = { ...prev, [qId]: !prev[qId] };
+      if (!next[qId]) delete next[qId];
+      localStorage.setItem(keys.bookmarks, JSON.stringify(next));
+      return next;
+    });
+  }, [keys.bookmarks]);
+
+  // ---- exam start ----
+  const startExam = useCallback((durationMinutes: number) => {
+    // clear previous session state
+    setUserAnswers({});
+    localStorage.removeItem(keys.answers);
+    setIsGraded(false);
+    localStorage.removeItem(keys.graded);
+    setShowResults(false);
+    setTimerPausedMs(0);
+    localStorage.removeItem(keys.timerPausedMs);
+
+    setTimerDuration(durationMinutes);
+    localStorage.setItem(keys.timerDuration, String(durationMinutes));
+
+    const endTime = durationMinutes > 0 ? Date.now() + durationMinutes * 60 * 1000 : 0;
+    setTimerEndTimeState(endTime);
+    if (endTime) localStorage.setItem(keys.timerEnd, String(endTime));
+    else localStorage.removeItem(keys.timerEnd);
+
+    setPracticeMode(false);
+    setExamStarted(true);
+    localStorage.setItem(keys.started, 'true');
+    setCurrentIdx(0);
+    setSessionActive(true);
+    setScreen('workspace');
+  }, [keys, setScreen, setSessionActive]);
+
+  // ---- practice start ----
+  const startPractice = useCallback(() => {
+    // clear previous session state
+    setIsGraded(false);
+    localStorage.removeItem(keys.graded);
+    setUserAnswers({});
+    localStorage.removeItem(keys.answers);
+    setShowResults(false);
+
+    setPracticeMode(true);
+    setPracticeAnswers({});
+    setPracticeRevealedIds(new Set());
+    setPracticeStreak(0);
+    setPracticeBestStreak(0);
+    setPracticeCompleted(false);
+    localStorage.setItem(keys.practiceMode, 'true');
+    localStorage.setItem(keys.practiceAnswers, '{}');
+    setExamStarted(true);
+    localStorage.setItem(keys.started, 'true');
+    setCurrentIdx(0);
+    setSessionActive(true);
+    setScreen('workspace');
+  }, [keys, setScreen, setSessionActive]);
+
+  // ---- practice answer ----
+  const setPracticeAnswer = useCallback((qId: number, answer: string) => {
+    const q = questions.find(q => q.id === qId);
+    const isCorrect = q ? answer === q.correctAnswer : false;
+
+    setPracticeRevealedIds(prev => new Set([...prev, qId]));
+    setPracticeAnswers(prev => {
+      const next = { ...prev, [qId]: answer };
+      localStorage.setItem(keys.practiceAnswers, JSON.stringify(next));
+      return next;
+    });
+
+    if (isCorrect) {
+      setPracticeStreak(s => {
+        const next = s + 1;
+        setPracticeBestStreak(b => Math.max(b, next));
+        return next;
+      });
+    } else {
+      setPracticeStreak(0);
+    }
+  }, [questions, keys.practiceAnswers]);
+
+  // ---- submit exam ----
+  const submitExam = useCallback(() => {
+    setIsGraded(true);
+    localStorage.setItem(keys.graded, 'true');
+    setSessionActive(false);
+    setShowResults(true);
+  }, [keys.graded, setSessionActive]);
+
+  // ---- finish practice ----
+  const finishPractice = useCallback(() => {
+    setPracticeCompleted(true);
+    setSessionActive(false);
+    setShowResults(true);
+  }, [setSessionActive]);
+
+  // ---- reset progress ----
+  const resetProgress = useCallback(() => {
+    if (!exam) return;
+    const k = makeKeys(exam.id);
+    Object.values(k).forEach(key => localStorage.removeItem(key));
+    setUserAnswers({});
+    setIsGraded(false);
+    setCurrentIdx(0);
+    setExamStarted(false);
+    setPracticeMode(false);
+    setPracticeAnswers({});
+    setPracticeRevealedIds(new Set());
+    setPracticeStreak(0);
+    setPracticeBestStreak(0);
+    setPracticeCompleted(false);
+    setTimerEndTimeState(0);
+    setTimerPausedMs(0);
+    setWelcomeDismissed(false);
+    shuffledChoicesPoolRef.current = {};
+    setSessionActive(false);
+    setShowResults(false);
+    setScreen('start');
+  }, [exam, setScreen, setSessionActive]);
+
+  // ---- resume in-progress session ----
+  const canResume = examStarted && !isGraded;
+
+  const resumeExam = useCallback(() => {
+    if (timerPausedMs > 0) {
+      const newEnd = Date.now() + timerPausedMs;
+      setTimerEndTimeState(newEnd);
+      localStorage.setItem(keys.timerEnd, String(newEnd));
+      localStorage.removeItem(keys.timerPausedMs);
+      setTimerPausedMs(0);
+    }
+    setSessionActive(true);
+    setScreen('workspace');
+  }, [timerPausedMs, keys, setScreen, setSessionActive]);
+
+  // ---- return to start ----
+  const returnToStart = useCallback(() => {
+    setSessionActive(false);
+    setScreen('start');
+  }, [setScreen, setSessionActive]);
+
+  const setTimerEndTime = useCallback((t: number) => {
+    setTimerEndTimeState(t);
+    localStorage.setItem(keys.timerEnd, String(t));
+  }, [keys.timerEnd]);
+
+  return (
+    <ExamContext.Provider value={{
+      exam, questions, loading, error,
+      currentIdx, indicesMap, currentQuestion,
+      navigateTo, navigateNext, navigatePrev,
+      userAnswers, setAnswer, isGraded,
+      examStarted, timerDuration, timerEndTime,
+      startExam, submitExam, resetProgress, setTimerEndTime,
+      shuffleQuestionsEnabled, shuffleChoicesEnabled,
+      reviewIncorrectOnly, reviewBookmarkedOnly,
+      setShuffleQ, setShuffleC, setReviewIncorrect, setReviewBookmarked,
+      shuffledChoicesFor,
+      welcomeDismissed, dismissWelcome,
+      bookmarks, toggleBookmark,
+      practiceMode, practiceAnswers, practiceRevealedIds,
+      practiceStreak, practiceBestStreak, practiceCompleted,
+      startPractice, setPracticeAnswer, finishPractice,
+      showResults, setShowResults,
+      returnToStart,
+      canResume, timerPausedMs, resumeExam,
+      keys,
+    }}>
+      {children}
+    </ExamContext.Provider>
+  );
+}
+
+export function useExam() {
+  const ctx = useContext(ExamContext);
+  if (!ctx) throw new Error('useExam must be used within ExamProvider');
+  return ctx;
+}
