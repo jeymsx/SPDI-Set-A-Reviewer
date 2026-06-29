@@ -10,6 +10,7 @@ import { tagColorClass } from '@/lib/tags';
 import { db } from '../db';
 import { useApp } from '../context/AppContext';
 import { BUILT_IN_FLASHCARD_SETS } from '../flashcard-sets';
+import ChipScroller from './ChipScroller';
 import TagEditor from './TagEditor';
 import type { Flashcard, FlashcardSet } from '../types';
 
@@ -442,7 +443,7 @@ export default function FlashcardsScreen() {
       {/* Tag filter chips */}
       {allTags.length > 0 && (
         <div className="flex items-center gap-2">
-          <div className="flex gap-2 overflow-x-auto chips-scroll flex-1 min-w-0">
+          <ChipScroller>
             {allTags.map(tag => {
               const active = selectedTags.includes(tag);
               return (
@@ -460,7 +461,7 @@ export default function FlashcardsScreen() {
                 </button>
               );
             })}
-          </div>
+          </ChipScroller>
           {selectedTags.length > 0 && (
             <button
               onClick={() => setSelectedTags([])}

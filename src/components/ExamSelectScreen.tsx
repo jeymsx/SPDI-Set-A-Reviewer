@@ -6,6 +6,7 @@ import { tagColorClass } from '@/lib/tags';
 import { db } from '../db';
 import { EXAMS } from '../exams';
 import { useApp } from '../context/AppContext';
+import ChipScroller from './ChipScroller';
 import ExamCard from './ExamCard';
 import OverallStatsCard from './OverallStatsCard';
 import TagEditor from './TagEditor';
@@ -52,7 +53,7 @@ export default function ExamSelectScreen() {
       {/* Tag filter chips */}
       {allTags.length > 0 && (
         <div className="flex items-center gap-2">
-          <div className="flex gap-2 overflow-x-auto chips-scroll flex-1 min-w-0">
+          <ChipScroller>
             {allTags.map(tag => {
               const active = selectedTags.includes(tag);
               return (
@@ -70,7 +71,7 @@ export default function ExamSelectScreen() {
                 </button>
               );
             })}
-          </div>
+          </ChipScroller>
           {selectedTags.length > 0 && (
             <button
               onClick={() => setSelectedTags([])}

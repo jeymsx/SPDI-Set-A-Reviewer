@@ -91,9 +91,3 @@
 .scrollbar-none { scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-.chips-scroll {
-  scrollbar-width: none;
-  -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
-  mask-image: linear-gradient(to right, black 80%, transparent 100%);
-}
-.chips-scroll::-webkit-scrollbar { display: none; }
