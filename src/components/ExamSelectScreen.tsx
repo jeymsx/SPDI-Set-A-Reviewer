@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { X } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { cn } from '@/lib/utils';
 import { tagColorClass } from '@/lib/tags';
@@ -50,30 +51,33 @@ export default function ExamSelectScreen() {
 
       {/* Tag filter chips */}
       {allTags.length > 0 && (
-        <div className="flex flex-wrap gap-2 items-center">
-          {allTags.map(tag => {
-            const active = selectedTags.includes(tag);
-            return (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={cn(
-                  'rounded-full px-3 py-1 text-xs font-medium border transition-all',
-                  active
-                    ? cn(tagColorClass(tag), 'border-transparent shadow-sm')
-                    : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground',
-                )}
-              >
-                {tag}
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-2">
+          <div className="flex gap-2 overflow-x-auto scrollbar-none flex-1 min-w-0">
+            {allTags.map(tag => {
+              const active = selectedTags.includes(tag);
+              return (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={cn(
+                    'rounded-full px-3 py-1 text-xs font-medium border transition-all whitespace-nowrap shrink-0',
+                    active
+                      ? cn(tagColorClass(tag), 'border-transparent shadow-sm')
+                      : 'border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground',
+                  )}
+                >
+                  {tag}
+                </button>
+              );
+            })}
+          </div>
           {selectedTags.length > 0 && (
             <button
               onClick={() => setSelectedTags([])}
-              className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2"
+              title="Clear filters"
+              className="shrink-0 flex items-center justify-center h-6 w-6 rounded-full border border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground hover:bg-muted transition-all"
             >
-              Clear
+              <X className="h-3 w-3" />
             </button>
           )}
         </div>
