@@ -8,6 +8,7 @@ import StartScreen from './components/StartScreen';
 import ExamWorkspace from './components/ExamWorkspace';
 import FlashcardsScreen from './components/FlashcardsScreen';
 import FlashcardStudyScreen from './components/FlashcardStudyScreen';
+import TakeReviewScreen from './components/TakeReviewScreen';
 import ResultsModal from './components/ResultsModal';
 import NavGuardModal from './components/NavGuardModal';
 import { seedDefaultTags } from './tag-seeds';
@@ -26,6 +27,7 @@ function AppShell() {
         {screen === 'workspace'       && <ExamWorkspace />}
         {screen === 'flashcards'      && <FlashcardsScreen />}
         {screen === 'flashcard-study' && <FlashcardStudyScreen />}
+        {screen === 'take-review'     && <TakeReviewScreen />}
       </main>
       <ResultsModal />
       <NavGuardModal />

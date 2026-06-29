@@ -18,7 +18,7 @@ export interface Exam {
   defaultTags: string[];
 }
 
-export type Screen = 'select' | 'start' | 'workspace' | 'flashcards' | 'flashcard-study';
+export type Screen = 'select' | 'start' | 'workspace' | 'flashcards' | 'flashcard-study' | 'take-review';
 
 export interface FlashcardSet {
   id?: number;
@@ -52,6 +52,7 @@ export interface Take {
   score: number;
   total: number;
   timeUsedMs?: number;
+  answers?: Record<number, string>; // questionId → chosen answer (stored for history review)
 }
 
 export interface QuestionStat {

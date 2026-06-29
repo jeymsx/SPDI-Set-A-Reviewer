@@ -40,7 +40,7 @@ export default function ResultsModal() {
       ? Math.max(0, timerDuration * 60 * 1000 - (timerEndTime - now))
       : undefined;
 
-    saveTake({ examId: exam.id, examTitle: exam.title, mode: practiceMode ? 'practice' : 'exam', startedAt, finishedAt: now, score: correctCount, total: totalQ, timeUsedMs });
+    saveTake({ examId: exam.id, examTitle: exam.title, mode: practiceMode ? 'practice' : 'exam', startedAt, finishedAt: now, score: correctCount, total: totalQ, timeUsedMs, answers: answersToScore });
     updateQuestionStats(exam.id, answersToScore, questions);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showResults, exam?.id]);

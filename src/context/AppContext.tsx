@@ -26,6 +26,10 @@ interface AppContextValue {
   currentFlashcardSetId: number | null;
   showFlashcards: () => void;
   studyFlashcardSet: (setId: number) => void;
+
+  // take review
+  currentTakeId: number | null;
+  reviewTake: (takeId: number) => void;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -34,6 +38,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [currentExam, setCurrentExam] = useState<Exam | null>(null);
   const [screen, setScreen] = useState<Screen>('select');
   const [currentFlashcardSetId, setCurrentFlashcardSetId] = useState<number | null>(null);
+  const [currentTakeId, setCurrentTakeId] = useState<number | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>(() =>
     localStorage.getItem(LS_KEY_THEME) === 'true' ? 'dark' : 'light'
   );
@@ -68,6 +73,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const studyFlashcardSet = useCallback((setId: number) => {
     setCurrentFlashcardSetId(setId);
     setScreen('flashcard-study');
+  }, []);
+
+  const reviewTake = useCallback((takeId: number) => {
+    setCurrentTakeId(takeId);
+    setScreen('take-review');
   }, []);
 
   const guardedNavigation = useCallback((callback: () => void) => {
@@ -107,6 +117,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       guardedNavigation, navGuardConfirm, navGuardCancel,
       sessionActive, setSessionActive,
       currentFlashcardSetId, showFlashcards, studyFlashcardSet,
+      currentTakeId, reviewTake,
     }}>
       {children}
     </AppContext.Provider>
