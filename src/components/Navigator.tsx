@@ -27,39 +27,40 @@ export default function Navigator() {
       const answered = practiceRevealedIds.has(q.id);
       const chosen = practiceAnswers[q.id];
       const isCorrect = answered && chosen === q.correctAnswer;
-      if (isCurrent) return 'bg-primary text-primary-foreground ring-2 ring-white ring-inset';
-      if (answered && isCorrect) return 'bg-emerald-500 text-white hover:bg-emerald-600';
-      if (answered && !isCorrect) return 'bg-destructive text-destructive-foreground hover:bg-destructive/90';
-      if (isBookmarked) return 'bg-amber-400 text-white hover:bg-amber-500';
+      if (isCurrent) return 'bg-primary text-primary-foreground outline outline-2 outline-primary/40 outline-offset-1';
+      if (answered && isCorrect) return 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400';
+      if (answered && !isCorrect) return 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400';
+      if (isBookmarked) return 'bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400';
       return 'bg-muted text-muted-foreground hover:bg-muted/80';
     }
 
     const answered = userAnswers[q.id] !== undefined;
-    if (isCurrent) return 'bg-primary text-primary-foreground ring-2 ring-white ring-inset';
+    if (isCurrent) return 'bg-primary text-primary-foreground outline outline-2 outline-primary/40 outline-offset-1';
     if (isGraded) {
-      if (answered && userAnswers[q.id] === q.correctAnswer) return 'bg-emerald-500 text-white hover:bg-emerald-600';
-      if (answered) return 'bg-destructive text-destructive-foreground hover:bg-destructive/90';
+      if (answered && userAnswers[q.id] === q.correctAnswer) return 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400';
+      if (answered) return 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400';
       return 'bg-muted text-muted-foreground';
     }
-    if (answered) return 'bg-primary/70 text-white hover:bg-primary/80';
-    if (isBookmarked) return 'bg-amber-400 text-white hover:bg-amber-500';
+    if (answered) return 'bg-primary/15 text-primary hover:bg-primary/25';
+    if (isBookmarked) return 'bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400';
     return 'bg-muted text-muted-foreground hover:bg-muted/80';
   }
 
-  const filteredIndices = search.trim()
+  const searchQuery = search.trim().toLowerCase();
+  const filteredIndices = searchQuery
     ? indicesMap
         .map((realIdx, virtualIdx) => ({ realIdx, virtualIdx }))
-        .filter(({ realIdx }) => questions[realIdx]?.question.toLowerCase().includes(search.toLowerCase()))
+        .filter(({ realIdx }) => questions[realIdx]?.question.toLowerCase().includes(searchQuery))
     : indicesMap.map((_, i) => ({ realIdx: indicesMap[i], virtualIdx: i }));
 
   return (
     <div className="space-y-3">
       {/* Legend */}
       <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground font-medium">
-        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-primary/70" />Answered</span>
-        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-emerald-500" />Correct</span>
-        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-destructive" />Wrong</span>
-        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-amber-400" />Bookmarked</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-primary/20 ring-1 ring-primary/40" />Answered</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-emerald-200 ring-1 ring-emerald-400 dark:bg-emerald-900/50" />Correct</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-red-200 ring-1 ring-red-400 dark:bg-red-900/50" />Wrong</span>
+        <span className="flex items-center gap-1"><span className="h-2 w-2 rounded bg-amber-200 ring-1 ring-amber-400 dark:bg-amber-900/50" />Bookmarked</span>
       </div>
 
       {/* Filter toggles */}
@@ -94,7 +95,7 @@ export default function Navigator() {
       </div>
 
       {/* Grid */}
-      <div className="max-h-[280px] overflow-y-auto pr-0.5">
+      <div className="max-h-[280px] overflow-y-auto p-1 -m-1">
         {filteredIndices.length === 0 ? (
           <p className="py-4 text-center text-xs text-muted-foreground">
             {search.trim() ? 'No questions match your search.' : 'No questions match the active filter.'}
