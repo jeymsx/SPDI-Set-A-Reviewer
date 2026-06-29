@@ -1,4 +1,4 @@
-import { BookOpen, ChevronLeft, Clock, Play, RotateCcw, Shuffle, Trash2 } from 'lucide-react';
+import { AlertTriangle, BookOpen, ChevronLeft, Clock, Play, RotateCcw, Shuffle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -8,8 +8,10 @@ import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
+import { useWeakQuestions } from '../hooks/useProgress';
 import HistoryTab from './HistoryTab';
 import WeakQuestionsPanel from './WeakQuestionsPanel';
+import WeakQuestionsTab from './WeakQuestionsTab';
 
 const TIMER_OPTIONS = [
   { label: 'No Timer', value: 0 },
@@ -37,10 +39,11 @@ export default function StartScreen() {
   }
 
   const [selectedDuration, setSelectedDuration] = useState(timerDuration);
-  const [tab, setTab] = useState<'settings' | 'history'>('settings');
+  const [tab, setTab] = useState<'settings' | 'history' | 'weak'>('settings');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const exam = currentExam;
+  const weakQuestions = useWeakQuestions(exam?.id ?? null);
   if (!exam) return null;
 
   const total = questions.length || exam.questionCount;
@@ -76,20 +79,35 @@ export default function StartScreen() {
 
       {/* Tab buttons */}
       <div className="flex rounded-lg border bg-muted p-1 gap-1">
-        {(['settings', 'history'] as const).map(t => (
+        {(['settings', 'history', 'weak'] as const).map(t => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={cn(
-              'flex-1 flex items-center justify-center gap-2 rounded-md py-2 text-sm font-medium transition-all',
+              'flex-1 flex items-center justify-center gap-1.5 rounded-md py-2 text-xs sm:text-sm font-medium transition-all relative',
               tab === t
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >
-            {t === 'settings'
-              ? <><Shuffle className="h-3.5 w-3.5" /> Settings</>
-              : <><Clock className="h-3.5 w-3.5" /> History</>}
+            {t === 'settings' && <><Shuffle className="h-3.5 w-3.5" /> Settings</>}
+            {t === 'history'  && <><Clock className="h-3.5 w-3.5" /> History</>}
+            {t === 'weak'     && (
+              <>
+                <AlertTriangle className="h-3.5 w-3.5" />
+                <span>Weak</span>
+                {(weakQuestions?.length ?? 0) > 0 && (
+                  <span className={cn(
+                    'ml-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none',
+                    tab === 'weak'
+                      ? 'bg-amber-500 text-white'
+                      : 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400',
+                  )}>
+                    {weakQuestions!.length}
+                  </span>
+                )}
+              </>
+            )}
           </button>
         ))}
       </div>
@@ -189,11 +207,17 @@ export default function StartScreen() {
             </div>
           </CardContent>
         </Card>
-      ) : (
+      ) : tab === 'history' ? (
         <Card>
           <CardContent className="pt-6 space-y-4">
             <HistoryTab />
             <WeakQuestionsPanel />
+          </CardContent>
+        </Card>
+      ) : (
+        <Card>
+          <CardContent className="pt-6">
+            <WeakQuestionsTab />
           </CardContent>
         </Card>
       )}

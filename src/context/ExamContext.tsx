@@ -68,7 +68,8 @@ export interface ExamContextValue {
   examStarted: boolean;
   timerDuration: number;       // minutes; 0 = no timer
   timerEndTime: number;        // ms epoch
-  startExam: (durationMinutes: number) => void;
+  startExam: (durationMinutes: number, questionIds?: number[]) => void;
+  questionFilter: number[] | null;
   submitExam: () => void;
   resetProgress: () => void;
   setTimerEndTime: (t: number) => void;
@@ -99,7 +100,7 @@ export interface ExamContextValue {
   practiceStreak: number;
   practiceBestStreak: number;
   practiceCompleted: boolean;
-  startPractice: () => void;
+  startPractice: (questionIds?: number[]) => void;
   setPracticeAnswer: (qId: number, answer: string) => void;
   finishPractice: () => void;
 
@@ -167,6 +168,9 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   // ---- results modal ----
   const [showResults, setShowResults] = useState(false);
 
+  // ---- question filter (retry mistakes / weak questions mode) ----
+  const [questionFilter, setQuestionFilter] = useState<number[] | null>(null);
+
   // ---- indices map ----
   const indicesMap = useMemo(() => {
     if (!questions.length) return [];
@@ -182,6 +186,14 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       }
     } else {
       localStorage.removeItem(keys.pool);
+    }
+
+    if (questionFilter !== null) {
+      const filterSet = new Set(questionFilter);
+      indices = indices.filter(i => {
+        const q = questions[i];
+        return q && filterSet.has(q.id);
+      });
     }
 
     if (reviewIncorrectOnly) {
@@ -203,7 +215,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     }
 
     return indices;
-  }, [questions, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, userAnswers, practiceAnswers, practiceRevealedIds, practiceMode, bookmarks, keys.pool]);
+  }, [questions, questionFilter, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, userAnswers, practiceAnswers, practiceRevealedIds, practiceMode, bookmarks, keys.pool]);
 
   const currentQuestion = useMemo(() => {
     const realIdx = indicesMap[currentIdx];
@@ -290,7 +302,6 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
 
     if (started || graded) {
       setSessionActive(true);
-      setScreen('workspace');
     }
 
     // defer setting idx until after indicesMap is built (next render)
@@ -385,7 +396,8 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   }, [keys.bookmarks]);
 
   // ---- exam start ----
-  const startExam = useCallback((durationMinutes: number) => {
+  const startExam = useCallback((durationMinutes: number, questionIds?: number[]) => {
+    setQuestionFilter(questionIds ?? null);
     // clear previous session state
     setUserAnswers({});
     localStorage.removeItem(keys.answers);
@@ -412,7 +424,8 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   }, [keys, setScreen, setSessionActive]);
 
   // ---- practice start ----
-  const startPractice = useCallback(() => {
+  const startPractice = useCallback((questionIds?: number[]) => {
+    setQuestionFilter(questionIds ?? null);
     // clear previous session state
     setIsGraded(false);
     localStorage.removeItem(keys.graded);
@@ -494,6 +507,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     shuffledChoicesPoolRef.current = {};
     setSessionActive(false);
     setShowResults(false);
+    setQuestionFilter(null);
     setScreen('start');
   }, [exam, setScreen, setSessionActive]);
 
@@ -529,7 +543,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       currentIdx, indicesMap, currentQuestion,
       navigateTo, navigateNext, navigatePrev,
       userAnswers, setAnswer, isGraded,
-      examStarted, timerDuration, timerEndTime,
+      examStarted, timerDuration, timerEndTime, questionFilter,
       startExam, submitExam, resetProgress, setTimerEndTime,
       shuffleQuestionsEnabled, shuffleChoicesEnabled,
       reviewIncorrectOnly, reviewBookmarkedOnly,

@@ -1,4 +1,4 @@
-import { Award, BarChart2, CheckCircle, RefreshCw, XCircle } from 'lucide-react';
+import { Award, BarChart2, CheckCircle, RefreshCw, Target, XCircle } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -26,6 +26,9 @@ export default function ResultsModal() {
 
   const answersToScore = practiceMode ? practiceAnswers : userAnswers;
   const correctCount = questions.filter(q => answersToScore[q.id] === q.correctAnswer).length;
+  const wrongIds = questions
+    .filter(q => answersToScore[q.id] !== undefined && answersToScore[q.id] !== q.correctAnswer)
+    .map(q => q.id);
   const totalQ = questions.length;
   const pct = totalQ > 0 ? Math.round((correctCount / totalQ) * 100) : 0;
   const passed = pct >= 70;
@@ -114,6 +117,17 @@ export default function ResultsModal() {
             <RefreshCw className="h-4 w-4" /> Retake
           </Button>
         </div>
+
+        {wrongIds.length > 0 && (
+          <Button
+            variant="outline"
+            className="w-full gap-2 border-amber-400 text-amber-700 hover:bg-amber-50 hover:text-amber-800 dark:border-amber-600 dark:text-amber-400 dark:hover:bg-amber-950/20"
+            onClick={() => { savedRef.current = false; startPractice(wrongIds); setShowResults(false); }}
+          >
+            <Target className="h-4 w-4" />
+            Retry Mistakes ({wrongIds.length} question{wrongIds.length !== 1 ? 's' : ''})
+          </Button>
+        )}
 
         <Button
           variant="ghost"
