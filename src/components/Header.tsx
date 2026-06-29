@@ -5,15 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
-import { useTimer } from '../hooks/useTimer';
 
 export default function Header() {
   const { toggleTheme, theme, guardedNavigation, showExamSelect, showFlashcards, screen } = useApp();
-  const { timerEndTime, timerDuration, isGraded, practiceMode, examStarted, submitExam } = useExam();
+  const { isGraded, practiceMode } = useExam();
   const [showShortcuts, setShowShortcuts] = useState(false);
-
-  const timerActive = examStarted && !isGraded && !practiceMode && timerDuration > 0;
-  const timer = useTimer(timerEndTime, submitExam, timerActive);
 
   return (
     <>
@@ -56,12 +52,6 @@ export default function Header() {
 
           {/* Right controls */}
           <div className="flex items-center gap-2">
-            {timerActive && timer.formattedTime && (
-              <Badge variant={timer.isUrgent ? 'destructive' : 'secondary'} className="gap-1.5 tabular-nums">
-                <Timer className="h-3 w-3 animate-pulse" />
-                {timer.formattedTime}
-              </Badge>
-            )}
             {isGraded && !practiceMode && screen === 'workspace' && (
               <Badge variant="outline" className="gap-1.5 border-emerald-500 text-emerald-600 dark:text-emerald-400">
                 <Timer className="h-3 w-3" /> Submitted
