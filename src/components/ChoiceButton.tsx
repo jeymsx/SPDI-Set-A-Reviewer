@@ -47,7 +47,7 @@ export default function ChoiceButton({ choice, index, question, selectedAnswer, 
         variant === 'default' && 'bg-muted text-muted-foreground',
         variant === 'selected' && 'bg-primary text-primary-foreground',
         variant === 'correct' && 'bg-emerald-500 text-white',
-        variant === 'wrong' && 'bg-destructive text-destructive-foreground',
+        variant === 'wrong' && 'bg-destructive text-white',
       )}>
         {showResult && isCorrect ? <Check className="h-3.5 w-3.5" /> :
          showResult && isSelected ? <X className="h-3.5 w-3.5" /> :

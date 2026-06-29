@@ -187,7 +187,11 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     if (reviewIncorrectOnly) {
       indices = indices.filter(i => {
         const q = questions[i];
-        return q && userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.correctAnswer;
+        if (!q) return false;
+        if (practiceMode) {
+          return practiceRevealedIds.has(q.id) && practiceAnswers[q.id] !== q.correctAnswer;
+        }
+        return userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.correctAnswer;
       });
     }
 
@@ -199,7 +203,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     }
 
     return indices;
-  }, [questions, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, userAnswers, bookmarks, keys.pool]);
+  }, [questions, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, userAnswers, practiceAnswers, practiceRevealedIds, practiceMode, bookmarks, keys.pool]);
 
   const currentQuestion = useMemo(() => {
     const realIdx = indicesMap[currentIdx];

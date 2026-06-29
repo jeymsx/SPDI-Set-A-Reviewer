@@ -53,8 +53,7 @@ export default function StartScreen() {
       </Button>
 
       {/* Exam header card */}
-      <Card className="overflow-hidden">
-        <div className="h-1 bg-primary" />
+      <Card>
         <CardHeader className="pb-3">
           <div className="flex items-start gap-3">
             <div className="rounded-lg bg-primary/10 p-2.5 text-primary shrink-0">

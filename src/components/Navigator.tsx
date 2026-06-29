@@ -103,14 +103,19 @@ export default function Navigator() {
           <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-6 gap-1.5">
             {filteredIndices.map(({ realIdx, virtualIdx }) => {
               const q = questions[realIdx];
+              const isCurrent = virtualIdx === currentIdx;
+              const isBookmarked = q ? !!bookmarks[q.id] : false;
               return (
                 <button
                   key={virtualIdx}
                   onClick={() => navigateTo(virtualIdx)}
                   title={q ? q.question.substring(0, 60) : ''}
-                  className={`aspect-square rounded-md text-[11px] font-bold transition-all ${getButtonClass(virtualIdx)}`}
+                  className={`aspect-square rounded-md text-[11px] font-bold transition-all relative ${getButtonClass(virtualIdx)}`}
                 >
                   {virtualIdx + 1}
+                  {isBookmarked && !isCurrent && (
+                    <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 rounded-full bg-amber-400 ring-1 ring-white/60" />
+                  )}
                 </button>
               );
             })}

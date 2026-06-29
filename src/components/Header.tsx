@@ -1,4 +1,4 @@
-import { Award, Keyboard, Layers, Moon, Sun, Timer, X } from 'lucide-react';
+import { Award, ClipboardList, Keyboard, Layers, Moon, Sun, Timer, X } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -40,7 +40,7 @@ export default function Header() {
                   : 'text-muted-foreground hover:text-foreground hover:bg-accent/60'
               }`}
             >
-              Exams
+              <ClipboardList className="h-3.5 w-3.5" /> Exams
             </button>
             <button
               onClick={() => guardedNavigation(showFlashcards)}
@@ -94,14 +94,26 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between text-xs text-muted-foreground">
               <div className="flex flex-wrap items-center gap-4">
                 <span className="font-semibold text-foreground">Shortcuts</span>
-                <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">←</kbd> Prev</span>
-                <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">→</kbd> Next</span>
-                <span>
-                  <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">1</kbd>
-                  {' – '}
-                  <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">5</kbd>
-                  {' '}Select answer
-                </span>
+                {screen === 'flashcard-study' ? (
+                  <>
+                    <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">Space</kbd> / <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">Enter</kbd> Flip card</span>
+                    <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">←</kbd> Still Learning</span>
+                    <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">→</kbd> Got It</span>
+                  </>
+                ) : screen === 'workspace' ? (
+                  <>
+                    <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">←</kbd> Prev</span>
+                    <span><kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">→</kbd> Next</span>
+                    <span>
+                      <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">1</kbd>
+                      {' – '}
+                      <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">5</kbd>
+                      {' '}Select answer
+                    </span>
+                  </>
+                ) : (
+                  <span className="italic">No shortcuts on this screen</span>
+                )}
               </div>
               <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setShowShortcuts(false)}>
                 <X className="h-3 w-3" />
