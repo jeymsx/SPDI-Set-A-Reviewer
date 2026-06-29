@@ -233,14 +233,20 @@ export default function FlashcardStudyScreen() {
   // Built-in set data (loaded from JS file)
   const [builtInName, setBuiltInName] = useState<string>('');
   const [builtInCards, setBuiltInCards] = useState<Flashcard[]>([]);
+  const [builtInError, setBuiltInError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isBuiltIn || currentFlashcardSetId === null) return;
     const def = BUILT_IN_FLASHCARD_SETS.find(s => s.id === currentFlashcardSetId);
     if (def) setBuiltInName(def.name);
-    loadBuiltInSetCards(currentFlashcardSetId).then(cards => {
-      setBuiltInCards(cards.map((c, i) => ({ id: i + 1, setId: currentFlashcardSetId, front: c.front, back: c.back, order: i })));
-    });
+    loadBuiltInSetCards(currentFlashcardSetId)
+      .then(cards => {
+        setBuiltInCards(cards.map((c, i) => ({ id: i + 1, setId: currentFlashcardSetId, front: c.front, back: c.back, order: i })));
+      })
+      .catch(err => {
+        setBuiltInError(String(err));
+        setBuiltInCards([]);
+      });
   }, [currentFlashcardSetId, isBuiltIn]);
 
   // DB set data (only used when not built-in)
@@ -371,6 +377,16 @@ export default function FlashcardStudyScreen() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [flipped, done, current, markGotIt, markStillLearning]);
+
+  if (builtInError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-24 gap-4">
+        <p className="font-semibold text-destructive">Failed to load flashcard set</p>
+        <p className="text-sm text-muted-foreground">{builtInError}</p>
+        <Button variant="outline" onClick={showFlashcards}>Go Back</Button>
+      </div>
+    );
+  }
 
   if (!setData || !rawCards) {
     return (

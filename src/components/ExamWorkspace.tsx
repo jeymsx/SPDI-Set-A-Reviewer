@@ -3,10 +3,9 @@ import { Button } from '@/components/ui/button';
 import { useExam } from '../context/ExamContext';
 import QuestionView from './QuestionView';
 import Sidebar from './Sidebar';
-import WelcomeCard from './WelcomeCard';
 
 export default function ExamWorkspace() {
-  const { loading, error, isGraded, practiceMode, submitExam } = useExam();
+  const { loading, error, retryLoad, isGraded, practiceMode, submitExam } = useExam();
 
   if (loading) {
     return (
@@ -21,18 +20,16 @@ export default function ExamWorkspace() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center py-24 text-center space-y-2">
-        <div>
-          <p className="font-semibold text-destructive">Failed to load questions</p>
-          <p className="text-sm text-muted-foreground">{error}</p>
-        </div>
+      <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
+        <p className="font-semibold text-destructive">Failed to load questions</p>
+        <p className="text-sm text-muted-foreground">{error}</p>
+        <Button variant="outline" onClick={retryLoad}>Try Again</Button>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      <WelcomeCard />
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start">
         <div className="space-y-4">
           <QuestionView />

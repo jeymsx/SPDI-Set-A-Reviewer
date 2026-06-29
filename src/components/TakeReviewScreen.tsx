@@ -21,6 +21,7 @@ export default function TakeReviewScreen() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryKey, setRetryKey] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [filter, setFilter] = useState<Filter>('all');
   const [search, setSearch] = useState('');
@@ -44,7 +45,7 @@ export default function TakeReviewScreen() {
       }
       setLoading(false);
     });
-  }, [currentTakeId]);
+  }, [currentTakeId, retryKey]);
 
   // Keyboard navigation (clamp happens via safeIdx in render)
   useEffect(() => {
@@ -74,7 +75,10 @@ export default function TakeReviewScreen() {
       <div className="flex flex-col items-center justify-center py-24 gap-4">
         <AlertCircle className="h-8 w-8 text-destructive" />
         <p className="text-sm text-muted-foreground">{error ?? 'Something went wrong.'}</p>
-        <Button variant="outline" onClick={() => setScreen('start')}>Go Back</Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => setRetryKey(k => k + 1)}>Try Again</Button>
+          <Button variant="ghost" onClick={() => setScreen('start')}>Go Back</Button>
+        </div>
       </div>
     );
   }
@@ -92,9 +96,10 @@ export default function TakeReviewScreen() {
       if (filter === 'unanswered') return chosen === undefined;
       return true;
     })
-    .filter(({ q }) =>
-      !search.trim() || q.question.toLowerCase().includes(search.toLowerCase()),
-    )
+    .filter(({ q }) => {
+      const sq = search.trim().toLowerCase();
+      return !sq || q.question.toLowerCase().includes(sq);
+    })
     .map(({ i }) => i);
 
   const safeIdx = Math.min(currentIdx, Math.max(0, filteredIndices.length - 1));

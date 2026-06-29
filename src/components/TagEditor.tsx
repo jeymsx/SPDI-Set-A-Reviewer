@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { tagColorClass } from '@/lib/tags';
 import { db } from '../db';
@@ -27,8 +28,6 @@ export default function TagEditor({ open, onClose, entityKey, title, currentTags
     }
   }, [open, currentTags]);
 
-  if (!open) return null;
-
   function addTag(tag: string) {
     const t = tag.trim();
     if (!t || draft.includes(t)) return;
@@ -40,12 +39,10 @@ export default function TagEditor({ open, onClose, entityKey, title, currentTags
     setDraft(prev => prev.filter(x => x !== tag));
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
       addTag(input);
-    } else if (e.key === 'Escape') {
-      onClose();
     } else if (e.key === 'Backspace' && !input && draft.length > 0) {
       setDraft(prev => prev.slice(0, -1));
     }
@@ -59,20 +56,17 @@ export default function TagEditor({ open, onClose, entityKey, title, currentTags
   const unusedSuggestions = suggestions.filter(s => !draft.includes(s));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
-      <div
-        className="w-full max-w-sm bg-background rounded-xl border shadow-xl p-5 space-y-4"
-        onClick={e => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-sm truncate pr-2">{title}</h3>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
-            <X className="h-4 w-4" />
-          </button>
-        </div>
+    <Dialog open={open} onOpenChange={isOpen => !isOpen && onClose()}>
+      <DialogContent className="max-w-sm">
+        <DialogHeader>
+          <DialogTitle className="text-sm truncate pr-2">{title}</DialogTitle>
+        </DialogHeader>
 
         {/* Tag input */}
-        <div className="rounded-lg border border-input bg-background px-3 py-2 min-h-[44px] flex flex-wrap gap-1.5 cursor-text" onClick={() => inputRef.current?.focus()}>
+        <div
+          className="rounded-lg border border-input bg-background px-3 py-2 min-h-[44px] flex flex-wrap gap-1.5 cursor-text"
+          onClick={() => inputRef.current?.focus()}
+        >
           {draft.map(tag => (
             <span key={tag} className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium', tagColorClass(tag))}>
               {tag}
@@ -114,7 +108,7 @@ export default function TagEditor({ open, onClose, entityKey, title, currentTags
           <Button variant="outline" size="sm" className="flex-1" onClick={onClose}>Cancel</Button>
           <Button size="sm" className="flex-1" onClick={handleSave}>Save tags</Button>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

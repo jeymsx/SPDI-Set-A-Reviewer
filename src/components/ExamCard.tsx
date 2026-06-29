@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { tagColorClass } from '@/lib/tags';
 import { db } from '../db';
+import { makeKeys } from '../context/ExamContext';
 import type { Exam } from '../types';
 
 interface Props {
@@ -54,8 +55,9 @@ export default function ExamCard({ exam, onClick, onEditTags }: Props) {
     'bg-destructive';
 
   const isInProgress = useMemo(() => {
-    const started = localStorage.getItem(`${exam.id}_exam_started`) === 'true';
-    const graded = localStorage.getItem(`${exam.id}_is_graded`) === 'true';
+    const k = makeKeys(exam.id);
+    const started = localStorage.getItem(k.started) === 'true';
+    const graded = localStorage.getItem(k.graded) === 'true';
     return started && !graded;
   }, [exam.id]);
 

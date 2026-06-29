@@ -4,7 +4,7 @@ import { loadExamData } from '../exams';
 import { useApp } from './AppContext';
 
 // ---- localStorage helpers ----
-function makeKeys(prefix: string) {
+export function makeKeys(prefix: string) {
   return {
     answers:         `${prefix}_user_answers`,
     idx:             `${prefix}_current_idx`,
@@ -13,6 +13,7 @@ function makeKeys(prefix: string) {
     shuffleQ:        `${prefix}_shuffle_questions`,
     shuffleC:        `${prefix}_shuffle_choices`,
     started:         `${prefix}_exam_started`,
+    timerStart:      `${prefix}_timer_start`,
     timerDuration:   `${prefix}_timer_duration`,
     timerEnd:        `${prefix}_timer_end_time`,
     timerPausedMs:   `${prefix}_timer_paused_ms`,
@@ -50,6 +51,9 @@ export interface ExamContextValue {
   questions: Question[];
   loading: boolean;
   error: string | null;
+
+  // retry a failed load
+  retryLoad: () => void;
 
   // navigation
   currentIdx: number;
@@ -150,6 +154,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   const [reviewIncorrectOnly, setReviewIncorrectOnly] = useState(false);
   const [reviewBookmarkedOnly, setReviewBookmarkedOnly] = useState(false);
   const shuffledChoicesPoolRef = useRef<Record<number, string[]>>({});
+  const pendingIdxRef = useRef<number | null>(null);
 
   // ---- welcome ----
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
@@ -238,10 +243,14 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   }, [screen]);
 
   // ---- load exam data when currentExam changes ----
+  const [loadRetryKey, setLoadRetryKey] = useState(0);
   const loadedExamId = useRef<string | null>(null);
+  const loadedRetryKey = useRef(-1);
   useEffect(() => {
-    if (!currentExam || loadedExamId.current === currentExam.id) return;
+    if (!currentExam) return;
+    if (loadedExamId.current === currentExam.id && loadedRetryKey.current === loadRetryKey) return;
     loadedExamId.current = currentExam.id;
+    loadedRetryKey.current = loadRetryKey;
     setExam(currentExam);
     setLoading(true);
     setError(null);
@@ -257,7 +266,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
         setLoading(false);
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentExam]);
+  }, [currentExam, loadRetryKey]);
 
   function hydrate(ex: Exam, qs: Question[]) {
     const k = makeKeys(ex.id);
@@ -304,13 +313,8 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       setSessionActive(true);
     }
 
-    // defer setting idx until after indicesMap is built (next render)
-    setTimeout(() => {
-      setCurrentIdx(prev => {
-        const validIdx = isNaN(savedIdx) ? 0 : savedIdx;
-        return validIdx;
-      });
-    }, 0);
+    // apply saved idx after questions + indicesMap are ready
+    pendingIdxRef.current = isNaN(savedIdx) ? 0 : savedIdx;
 
     // restore practice completion state
     if (practice && qs.length > 0) {
@@ -318,6 +322,14 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       if (answered >= qs.length) setPracticeCompleted(true);
     }
   }
+
+  // ---- apply hydrated idx once questions + indicesMap are ready ----
+  useEffect(() => {
+    if (questions.length > 0 && pendingIdxRef.current !== null) {
+      setCurrentIdx(pendingIdxRef.current);
+      pendingIdxRef.current = null;
+    }
+  }, [questions]);
 
   // ---- persist current idx ----
   useEffect(() => {
@@ -418,6 +430,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     setPracticeMode(false);
     setExamStarted(true);
     localStorage.setItem(keys.started, 'true');
+    localStorage.setItem(keys.timerStart, String(Date.now()));
     setCurrentIdx(0);
     setSessionActive(true);
     setScreen('workspace');
@@ -443,6 +456,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(keys.practiceAnswers, '{}');
     setExamStarted(true);
     localStorage.setItem(keys.started, 'true');
+    localStorage.setItem(keys.timerStart, String(Date.now()));
     setCurrentIdx(0);
     setSessionActive(true);
     setScreen('workspace');
@@ -532,6 +546,10 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     setScreen('start');
   }, [setScreen, setSessionActive]);
 
+  const retryLoad = useCallback(() => {
+    setLoadRetryKey(k => k + 1);
+  }, []);
+
   const setTimerEndTime = useCallback((t: number) => {
     setTimerEndTimeState(t);
     localStorage.setItem(keys.timerEnd, String(t));
@@ -540,6 +558,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   return (
     <ExamContext.Provider value={{
       exam, questions, loading, error,
+      retryLoad,
       currentIdx, indicesMap, currentQuestion,
       navigateTo, navigateNext, navigatePrev,
       userAnswers, setAnswer, isGraded,

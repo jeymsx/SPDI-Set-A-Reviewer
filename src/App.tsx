@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AppProvider, useApp } from './context/AppContext';
 import { ExamProvider } from './context/ExamContext';
+import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import ExamSelectScreen from './components/ExamSelectScreen';
 import StartScreen from './components/StartScreen';
@@ -39,12 +40,14 @@ function AppShell() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <ExamProvider>
-        <TooltipProvider>
-          <AppShell />
-        </TooltipProvider>
-      </ExamProvider>
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <ExamProvider>
+          <TooltipProvider>
+            <AppShell />
+          </TooltipProvider>
+        </ExamProvider>
+      </AppProvider>
+    </ErrorBoundary>
   );
 }
