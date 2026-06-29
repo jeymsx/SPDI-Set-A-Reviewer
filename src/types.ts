@@ -15,6 +15,7 @@ export interface Exam {
   scriptSrc: string;
   questionCount: number;
   description: string;
+  defaultTags: string[];
 }
 
 export type Screen = 'select' | 'start' | 'workspace' | 'flashcards' | 'flashcard-study';
@@ -34,6 +35,11 @@ export interface Flashcard {
   back: string;
   order: number;
 }
+export interface TagRecord {
+  key: string;    // 'exam:{examId}' | 'fc:{setId}'
+  tags: string[];
+}
+
 export type ExamMode = 'practice' | 'exam';
 
 export interface Take {

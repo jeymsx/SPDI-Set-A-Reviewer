@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AppProvider, useApp } from './context/AppContext';
 import { ExamProvider } from './context/ExamContext';
@@ -9,9 +10,13 @@ import FlashcardsScreen from './components/FlashcardsScreen';
 import FlashcardStudyScreen from './components/FlashcardStudyScreen';
 import ResultsModal from './components/ResultsModal';
 import NavGuardModal from './components/NavGuardModal';
+import { seedDefaultTags } from './tag-seeds';
 
 function AppShell() {
   const { screen } = useApp();
+
+  useEffect(() => { seedDefaultTags(); }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       <Header />

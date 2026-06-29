@@ -2,7 +2,8 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import {
   ArrowLeft, Check, ChevronLeft, RotateCcw, Settings, Shuffle, X,
 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { BUILT_IN_FLASHCARD_SETS, loadBuiltInSetCards } from '../flashcard-sets';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -45,7 +46,6 @@ function FlipCard({ front, back, flipped, dragX, isDragging, onFlip, onPointerDo
   const swipePct = Math.min(Math.abs(dragX) / SWIPE_THRESHOLD, 1);
 
   return (
-    /* Outer: handles drag translation. Must be relative so overlays stay inside. */
     <div
       className="relative select-none touch-none cursor-pointer"
       style={{
@@ -85,9 +85,9 @@ function FlipCard({ front, back, flipped, dragX, isDragging, onFlip, onPointerDo
         </div>
       )}
 
-      {/* Perspective wrapper — must be sized to fill the outer div */}
+      {/* Perspective wrapper */}
       <div className="absolute inset-0" style={{ perspective: '1200px' }}>
-        {/* 3-D flip container — must be relative so absolute children are contained */}
+        {/* 3-D flip container */}
         <div
           className="absolute inset-0"
           style={{
@@ -116,7 +116,7 @@ function FlipCard({ front, back, flipped, dragX, isDragging, onFlip, onPointerDo
             } as React.CSSProperties}
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mb-4">Definition</p>
-            <p className="text-lg sm:text-xl leading-relaxed">{back}</p>
+            <p className="text-lg sm:text-xl leading-relaxed whitespace-pre-wrap">{back}</p>
           </div>
         </div>
       </div>
@@ -180,11 +180,12 @@ function SettingsPanel({ flipDirection, shuffle, onFlipChange, onShuffleChange, 
 interface CompletionProps {
   total: number;
   knownCount: number;
+  stillLearningCount: number;
   onRestartAll: () => void;
   onRestartMissed: () => void;
 }
 
-function CompletionScreen({ total, knownCount, onRestartAll, onRestartMissed }: CompletionProps) {
+function CompletionScreen({ total, knownCount, stillLearningCount, onRestartAll, onRestartMissed }: CompletionProps) {
   const pct = Math.round((knownCount / total) * 100);
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-6 text-center max-w-sm mx-auto">
@@ -199,18 +200,23 @@ function CompletionScreen({ total, knownCount, onRestartAll, onRestartMissed }: 
         <p className="text-muted-foreground">
           You knew <span className="font-semibold text-foreground">{knownCount}</span> of <span className="font-semibold text-foreground">{total}</span> cards
         </p>
+        {stillLearningCount > 0 && (
+          <p className="text-sm text-muted-foreground">
+            <span className="font-semibold text-destructive">{stillLearningCount}</span> still learning
+          </p>
+        )}
       </div>
       <div className="w-full space-y-1">
         <Progress value={pct} className="h-3" />
         <p className="text-xs text-muted-foreground">{pct}% known</p>
       </div>
       <div className="flex flex-col gap-3 w-full">
-        {knownCount < total && (
+        {stillLearningCount > 0 && (
           <Button className="w-full gap-2" onClick={onRestartMissed}>
-            <RotateCcw className="h-4 w-4" /> Review {total - knownCount} missed cards
+            <RotateCcw className="h-4 w-4" /> Review {stillLearningCount} still learning
           </Button>
         )}
-        <Button variant={knownCount < total ? 'outline' : 'default'} className="w-full gap-2" onClick={onRestartAll}>
+        <Button variant={stillLearningCount > 0 ? 'outline' : 'default'} className="w-full gap-2" onClick={onRestartAll}>
           <Shuffle className="h-4 w-4" /> Restart all cards
         </Button>
       </div>
@@ -222,17 +228,36 @@ function CompletionScreen({ total, knownCount, onRestartAll, onRestartMissed }: 
 export default function FlashcardStudyScreen() {
   const { currentFlashcardSetId, showFlashcards } = useApp();
 
-  const setData = useLiveQuery(
-    () => currentFlashcardSetId ? db.flashcardSets.get(currentFlashcardSetId) : undefined,
-    [currentFlashcardSetId],
+  const isBuiltIn = currentFlashcardSetId !== null && currentFlashcardSetId < 0;
+
+  // Built-in set data (loaded from JS file)
+  const [builtInName, setBuiltInName] = useState<string>('');
+  const [builtInCards, setBuiltInCards] = useState<Flashcard[]>([]);
+
+  useEffect(() => {
+    if (!isBuiltIn || currentFlashcardSetId === null) return;
+    const def = BUILT_IN_FLASHCARD_SETS.find(s => s.id === currentFlashcardSetId);
+    if (def) setBuiltInName(def.name);
+    loadBuiltInSetCards(currentFlashcardSetId).then(cards => {
+      setBuiltInCards(cards.map((c, i) => ({ id: i + 1, setId: currentFlashcardSetId, front: c.front, back: c.back, order: i })));
+    });
+  }, [currentFlashcardSetId, isBuiltIn]);
+
+  // DB set data (only used when not built-in)
+  const dbSetData = useLiveQuery(
+    () => (!isBuiltIn && currentFlashcardSetId) ? db.flashcardSets.get(currentFlashcardSetId) : undefined,
+    [currentFlashcardSetId, isBuiltIn],
   );
-  const rawCards = useLiveQuery(
-    () => currentFlashcardSetId
+  const dbCards = useLiveQuery(
+    () => (!isBuiltIn && currentFlashcardSetId)
       ? db.flashcards.where('setId').equals(currentFlashcardSetId).sortBy('order')
       : Promise.resolve([]),
-    [currentFlashcardSetId],
+    [currentFlashcardSetId, isBuiltIn],
     [],
   ) as Flashcard[];
+
+  const setData = isBuiltIn ? { name: builtInName } : dbSetData;
+  const rawCards: Flashcard[] = isBuiltIn ? builtInCards : dbCards;
 
   // Settings (persisted)
   const [flipDirection, setFlipDirectionState] = useState<'front-first' | 'back-first'>(
@@ -252,9 +277,17 @@ export default function FlashcardStudyScreen() {
 
   // Study state
   const [deck, setDeck] = useState<Flashcard[]>([]);
+  // roundCards = the cards for THIS round (may be a subset when reviewing still-learning)
+  const [roundCards, setRoundCards] = useState<Flashcard[]>([]);
   const [knownIds, setKnownIds] = useState<Set<number>>(new Set());
+  const [stillLearningIds, setStillLearningIds] = useState<Set<number>>(new Set());
   const [flipped, setFlipped] = useState(false);
-  const [done, setDone] = useState(false);
+
+  // Derived
+  const done = roundCards.length > 0 && deck.length === 0;
+  const current = deck[0];
+  const front = flipDirection === 'front-first' ? (current?.front ?? '') : (current?.back ?? '');
+  const back  = flipDirection === 'front-first' ? (current?.back ?? '')  : (current?.front ?? '');
 
   // Swipe/drag state
   const [dragX, setDragX] = useState(0);
@@ -262,44 +295,40 @@ export default function FlashcardStudyScreen() {
   const startXRef = useRef(0);
   const didDragRef = useRef(false);
 
-  // Build deck from raw cards
+  // Build deck — also sets roundCards so progress/stats are scoped to this round
   const buildDeck = useCallback((cards: Flashcard[], doShuffle: boolean) => {
     const ordered = doShuffle ? shuffleArray(cards) : [...cards];
+    setRoundCards(cards);
     setDeck(ordered);
     setKnownIds(new Set());
+    setStillLearningIds(new Set());
     setFlipped(false);
-    setDone(false);
   }, []);
 
   useEffect(() => {
     if (rawCards.length) buildDeck(rawCards, shuffle);
   }, [rawCards, buildDeck]); // don't include shuffle here — only rebuild on data change
 
-  const current = deck[0];
-  const front = flipDirection === 'front-first' ? (current?.front ?? '') : (current?.back ?? '');
-  const back  = flipDirection === 'front-first' ? (current?.back ?? '')  : (current?.front ?? '');
-
-  function markGotIt() {
+  // Mark got it: advance to next card, record as known
+  const markGotIt = useCallback(() => {
     if (!current?.id) return;
-    const newKnown = new Set([...knownIds, current.id]);
-    setKnownIds(newKnown);
-    const next = deck.slice(1);
-    if (!next.length) { setDone(true); return; }
-    setDeck(next);
+    const id = current.id;
+    setKnownIds(prev => new Set([...prev, id]));
+    setDeck(prev => prev.slice(1));
     setFlipped(false);
-  }
+  }, [current]);
 
-  function markStillLearning() {
-    if (!current) return;
-    const rest = deck.slice(1);
-    // insert current card at a random position in the remaining deck (at least 1 ahead)
-    const insertAt = rest.length > 1 ? 1 + Math.floor(Math.random() * (rest.length - 1)) : rest.length;
-    const next = [...rest.slice(0, insertAt), current, ...rest.slice(insertAt)];
-    setDeck(next);
+  // Mark still learning: advance to next card, record as still-learning
+  // At completion, user can review all still-learning cards
+  const markStillLearning = useCallback(() => {
+    if (!current?.id) return;
+    const id = current.id;
+    setStillLearningIds(prev => new Set([...prev, id]));
+    setDeck(prev => prev.slice(1));
     setFlipped(false);
-  }
+  }, [current]);
 
-  // Pointer handlers (works for mouse + touch)
+  // Pointer handlers
   function handlePointerDown(e: React.PointerEvent) {
     isDraggingRef.current = true;
     didDragRef.current = false;
@@ -341,8 +370,7 @@ export default function FlashcardStudyScreen() {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flipped, done, current]);
+  }, [flipped, done, current, markGotIt, markStillLearning]);
 
   if (!setData || !rawCards) {
     return (
@@ -352,11 +380,12 @@ export default function FlashcardStudyScreen() {
     );
   }
 
-  const total = rawCards.length;
+  const total = roundCards.length;
   const knownCount = knownIds.size;
-  const remaining = deck.length;
-  const progressPct = total > 0 ? Math.round((knownCount / total) * 100) : 0;
-  const position = total - remaining + 1;
+  const stillLearningCount = stillLearningIds.size;
+  const seenCount = knownCount + stillLearningCount;
+  const progressPct = total > 0 ? Math.round((seenCount / total) * 100) : 0;
+  const position = seenCount + 1; // 1-based position
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 pb-16">
@@ -376,8 +405,8 @@ export default function FlashcardStudyScreen() {
             <SettingsPanel
               flipDirection={flipDirection}
               shuffle={shuffle}
-              onFlipChange={v => { setFlipDirection(v); buildDeck(rawCards, shuffle); }}
-              onShuffleChange={v => { setShuffle(v); buildDeck(rawCards, v); }}
+              onFlipChange={v => { setFlipDirection(v); buildDeck(roundCards.length ? roundCards : rawCards, shuffle); }}
+              onShuffleChange={v => { setShuffle(v); buildDeck(roundCards.length ? roundCards : rawCards, v); }}
               onClose={() => setShowSettings(false)}
             />
           )}
@@ -388,20 +417,30 @@ export default function FlashcardStudyScreen() {
       {!done && (
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>{knownCount} known · {remaining} remaining</span>
-            <span>{progressPct}%</span>
+            <span>
+              {knownCount > 0 && <span className="text-emerald-600 dark:text-emerald-400 font-medium">{knownCount} known</span>}
+              {knownCount > 0 && stillLearningCount > 0 && ' · '}
+              {stillLearningCount > 0 && <span className="text-destructive font-medium">{stillLearningCount} still learning</span>}
+              {seenCount === 0 && `${total} cards`}
+            </span>
+            <span>{deck.length} remaining</span>
           </div>
+          {/* Per-card strip — keyed to this round's cards, colored by ID */}
           <div className="flex gap-1">
-            {Array.from({ length: total }).map((_, i) => {
-              const cardId = rawCards[i]?.id;
-              const isKnown = cardId !== undefined && knownIds.has(cardId);
-              const isCurrent = !done && i === total - remaining;
+            {roundCards.map((card) => {
+              const id = card.id;
+              const isKnown = id !== undefined && knownIds.has(id);
+              const isStillLearning = id !== undefined && stillLearningIds.has(id);
+              const isCurrent = id !== undefined && id === current?.id;
               return (
                 <div
-                  key={i}
+                  key={card.id ?? card.order}
                   className={cn(
                     'h-1.5 flex-1 rounded-full transition-colors duration-300',
-                    isKnown ? 'bg-emerald-500' : isCurrent ? 'bg-primary' : 'bg-border',
+                    isKnown ? 'bg-emerald-500' :
+                    isStillLearning ? 'bg-destructive/60' :
+                    isCurrent ? 'bg-primary' :
+                    'bg-border',
                   )}
                 />
               );
@@ -415,16 +454,11 @@ export default function FlashcardStudyScreen() {
         <CompletionScreen
           total={total}
           knownCount={knownCount}
+          stillLearningCount={stillLearningCount}
           onRestartAll={() => buildDeck(rawCards, shuffle)}
           onRestartMissed={() => {
-            const missed = rawCards.filter(c => c.id && !knownIds.has(c.id));
-            if (missed.length) {
-              const ordered = shuffle ? shuffleArray(missed) : missed;
-              setDeck(ordered);
-              setKnownIds(new Set());
-              setFlipped(false);
-              setDone(false);
-            }
+            const missed = rawCards.filter(c => c.id !== undefined && stillLearningIds.has(c.id!));
+            if (missed.length) buildDeck(missed, shuffle);
           }}
         />
       ) : current ? (

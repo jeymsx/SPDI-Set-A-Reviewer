@@ -1,21 +1,28 @@
 import { useMemo } from 'react';
+import { Tag } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { tagColorClass } from '@/lib/tags';
 import { db } from '../db';
 import type { Exam } from '../types';
 
 interface Props {
   exam: Exam;
   onClick: () => void;
+  onEditTags: () => void;
 }
 
-export default function ExamCard({ exam, onClick }: Props) {
+export default function ExamCard({ exam, onClick, onEditTags }: Props) {
   const takes = useLiveQuery(
     () => db.takes.where('examId').equals(exam.id).toArray(),
     [exam.id],
     [],
   );
+
+  const tagRecord = useLiveQuery(() => db.tags.get('exam:' + exam.id), [exam.id]);
+  const tags = tagRecord?.tags ?? [];
 
   const bestPct = takes && takes.length > 0
     ? Math.max(...takes.map(t => Math.round((t.score / t.total) * 100)))
@@ -46,7 +53,6 @@ export default function ExamCard({ exam, onClick }: Props) {
     lastPct >= 50 ? 'bg-amber-400' :
     'bg-destructive';
 
-  // Check if this exam has an in-progress session (started but not graded)
   const isInProgress = useMemo(() => {
     const started = localStorage.getItem(`${exam.id}_exam_started`) === 'true';
     const graded = localStorage.getItem(`${exam.id}_is_graded`) === 'true';
@@ -81,6 +87,25 @@ export default function ExamCard({ exam, onClick }: Props) {
         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
           {exam.description}
         </p>
+
+        {/* Tags row */}
+        <div
+          className="flex flex-wrap items-center gap-1.5 min-h-[22px]"
+          onClick={e => e.stopPropagation()}
+        >
+          {tags.map(tag => (
+            <span key={tag} className={cn('rounded-full px-2 py-0.5 text-[10px] font-medium', tagColorClass(tag))}>
+              {tag}
+            </span>
+          ))}
+          <button
+            onClick={onEditTags}
+            className="rounded-full p-0.5 text-muted-foreground/50 opacity-0 group-hover:opacity-100 hover:text-foreground hover:bg-muted transition-all"
+            title="Edit tags"
+          >
+            <Tag className="h-3 w-3" />
+          </button>
+        </div>
 
         <div className="flex items-center justify-between pt-0.5 mt-auto">
           <span className="text-xs text-muted-foreground tabular-nums">

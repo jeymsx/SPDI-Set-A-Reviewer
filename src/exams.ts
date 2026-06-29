@@ -9,6 +9,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/questions.js',
     questionCount: 100,
     description: 'Comprehensive practice exam on sanitary systems, water supply piping, fire protection sprinklers, and plumbing regulations.',
+    defaultTags: ['SPDI', "Master's"],
   },
   {
     id: 'sip',
@@ -18,6 +19,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/sip-questions.js',
     questionCount: 100,
     description: 'Practice exam covering sanitary systems, irrigation, plumbing codes, water supply, and drainage.',
+    defaultTags: ['SPDI', 'Preboards'],
   },
   {
     id: 'pc-r',
@@ -27,6 +29,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/pc-questions.js',
     questionCount: 100,
     description: 'Practice exam on plumbing code provisions, gas piping, fixture units, venting, and sanitation regulations.',
+    defaultTags: ['Plumbing Code', 'Refresher'],
   },
   {
     id: 's-r',
@@ -36,6 +39,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/s-questions.js',
     questionCount: 100,
     description: 'Comprehensive reviewer on water supply, sanitation, fire protection, water treatment, drainage, and sanitary engineering principles.',
+    defaultTags: ['SPDI', 'Refresher'],
   },
   {
     id: 'mt4',
@@ -45,6 +49,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/mt4-questions.js',
     questionCount: 60,
     description: 'Memorization test on Water Supply Fixture Units (WSFU) and Drainage Fixture Units (DFU) values for all standard plumbing fixtures.',
+    defaultTags: ['Memorization', 'WSFU & DFU'],
   },
   {
     id: 'ep-r',
@@ -54,6 +59,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/ep-questions.js',
     questionCount: 100,
     description: 'Practical problems covering tools, pipe installations, valve identification, fixture details, drainage calculations, and field scenarios.',
+    defaultTags: ['Practical', 'Refresher'],
   },
   {
     id: 'mt3',
@@ -63,6 +69,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/mt3-questions.js',
     questionCount: 90,
     description: 'Definitions quiz on plumbing terminology from Chapter 2 of the Revised National Plumbing Code of the Philippines.',
+    defaultTags: ['Memorization', 'Definitions'],
   },
   {
     id: 'npc-principles',
@@ -72,6 +79,7 @@ export const EXAMS: Exam[] = [
     scriptSrc: '/npc-principles-questions.js',
     questionCount: 55,
     description: 'Quiz on the 22 Basic Principles of the 1999 National Plumbing Code — covering water supply, drainage, venting, fixtures, sewage disposal, and professional responsibility.',
+    defaultTags: ['NPC', 'Principles'],
   },
 ];
 
