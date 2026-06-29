@@ -9,6 +9,7 @@ import ExamWorkspace from './components/ExamWorkspace';
 import FlashcardsScreen from './components/FlashcardsScreen';
 import FlashcardStudyScreen from './components/FlashcardStudyScreen';
 import TakeReviewScreen from './components/TakeReviewScreen';
+import BottomNav from './components/BottomNav';
 import ResultsModal from './components/ResultsModal';
 import NavGuardModal from './components/NavGuardModal';
 import { seedDefaultTags } from './tag-seeds';
@@ -21,7 +22,7 @@ function AppShell() {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       <Header />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 sm:pb-6">
         {screen === 'select'          && <ExamSelectScreen />}
         {screen === 'start'           && <StartScreen />}
         {screen === 'workspace'       && <ExamWorkspace />}
@@ -29,6 +30,7 @@ function AppShell() {
         {screen === 'flashcard-study' && <FlashcardStudyScreen />}
         {screen === 'take-review'     && <TakeReviewScreen />}
       </main>
+      <BottomNav />
       <ResultsModal />
       <NavGuardModal />
     </div>
