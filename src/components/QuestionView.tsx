@@ -4,11 +4,14 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
 import ChoiceButton from './ChoiceButton';
 
 export default function QuestionView() {
+  const { guardedNavigation } = useApp();
   const {
+    exam, returnToStart,
     currentQuestion, currentIdx, indicesMap,
     userAnswers, setAnswer, isGraded,
     practiceMode, practiceAnswers, practiceRevealedIds, setPracticeAnswer, finishPractice,
@@ -61,7 +64,53 @@ export default function QuestionView() {
   const wasCorrect = selectedAnswer === q.correctAnswer;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
+      {/* Exam header */}
+      <div className="flex items-start gap-2 pb-5 border-b border-border">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 shrink-0 -ml-2 mt-0.5"
+          onClick={() => guardedNavigation(returnToStart)}
+          title="Back to start screen"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+
+        <div className="flex-1 min-w-0 space-y-2">
+          {/* Title + mode badge */}
+          <div className="flex items-start justify-between gap-3">
+            <h1 className="font-bold text-base leading-snug">{exam?.title}</h1>
+            {practiceMode ? (
+              <Badge variant="outline" className="shrink-0 gap-1.5 border-violet-400 text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-violet-500 animate-pulse" />
+                Practice
+              </Badge>
+            ) : (
+              <Badge variant="outline" className="shrink-0 gap-1.5 border-primary/40 text-primary bg-primary/5">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Exam
+              </Badge>
+            )}
+          </div>
+
+          {/* Description */}
+          {exam && (
+            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+              {exam.description}
+            </p>
+          )}
+
+          {/* Passing threshold */}
+          <p className="text-xs text-muted-foreground">
+            Pass at{' '}
+            <span className="font-semibold text-foreground">
+              70% — {Math.ceil(totalQ * 0.7)} of {totalQ} correct
+            </span>
+          </p>
+        </div>
+      </div>
+
       {/* Progress */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -70,14 +119,6 @@ export default function QuestionView() {
         </div>
         <Progress value={progressPct} className="h-1.5" />
       </div>
-
-      {/* Practice badge */}
-      {practiceMode && (
-        <Badge variant="outline" className="gap-1.5 border-violet-400 text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-violet-500 animate-pulse" />
-          Practice Mode — instant feedback
-        </Badge>
-      )}
 
       {/* Question card */}
       <Card>
@@ -104,7 +145,7 @@ export default function QuestionView() {
             </div>
           )}
 
-          <p className="text-sm font-semibold leading-relaxed whitespace-pre-wrap">{q.question}</p>
+          <p className="text-xl font-semibold leading-relaxed whitespace-pre-wrap">{q.question}</p>
         </CardContent>
 
         {/* Choices */}
