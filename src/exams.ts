@@ -23,6 +23,17 @@ export const EXAMS: Exam[] = [
     defaultTags: ['SPDI', "Master's"],
   },
 
+  {
+    id: 'cdpb',
+    title: 'Plumbing Code - Preboards',
+    subtitle: 'Comprehensive Drainage & Plumbing Board Exam',
+    dataVar: 'cdpbQuestionsData',
+    scriptSrc: '/cdpb-questions.js',
+    questionCount: 100,
+    description: 'Comprehensive pre-board exam covering drainage fixture units, pipe sizing, code provisions, water supply, sewage disposal, and plumbing law.',
+    defaultTags: ['Plumbing Code', 'Preboards'],
+  },
+
   // ── Refreshers ───────────────────────────────────────────────────────────
   {
     id: 'pc-r',
