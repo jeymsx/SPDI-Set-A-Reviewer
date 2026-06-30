@@ -3,7 +3,7 @@ import { EXAMS } from './exams';
 import { BUILT_IN_FLASHCARD_SETS } from './flashcard-sets';
 
 export async function seedDefaultTags(): Promise<void> {
-  const SEED_KEY = 'tags_seeded_v1';
+  const SEED_KEY = 'tags_seeded_v11';
   if (localStorage.getItem(SEED_KEY)) return;
   localStorage.setItem(SEED_KEY, '1');
   try {

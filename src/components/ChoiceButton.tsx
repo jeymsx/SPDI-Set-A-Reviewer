@@ -13,7 +13,7 @@ interface Props {
   onSelect: (choice: string) => void;
 }
 
-const LABELS = ['A', 'B', 'C', 'D', 'E'];
+const LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
 export default function ChoiceButton({ choice, index, question, selectedAnswer, isGraded, practiceMode, isRevealed, onSelect }: Props) {
   const isSelected = selectedAnswer === choice;
@@ -53,7 +53,10 @@ export default function ChoiceButton({ choice, index, question, selectedAnswer, 
          showResult && isSelected ? <X className="h-3.5 w-3.5" /> :
          LABELS[index]}
       </span>
-      <span className="flex-1 leading-relaxed">{choice}</span>
+      {choice.startsWith('/assets/')
+        ? <img src={choice} alt={`Choice ${LABELS[index]}`} className="max-h-40 rounded object-contain" />
+        : <span className="flex-1 leading-relaxed">{choice}</span>
+      }
     </button>
   );
 }

@@ -37,7 +37,7 @@ export default function ExamSelectScreen() {
 
   const visibleExams = selectedTags.length === 0
     ? EXAMS
-    : EXAMS.filter(e => (examTagsMap[e.id] ?? []).some(t => selectedTags.includes(t)));
+    : EXAMS.filter(e => selectedTags.every(t => (examTagsMap[e.id] ?? []).includes(t)));
 
   const editingExam = editingExamId ? EXAMS.find(e => e.id === editingExamId) : null;
 

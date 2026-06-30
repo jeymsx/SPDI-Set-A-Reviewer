@@ -50,7 +50,7 @@ export default function QuestionView() {
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       if (e.key === 'ArrowLeft') navigatePrev();
       if (e.key === 'ArrowRight') { if (!practiceMode || isRevealed || !q) navigateNext(); }
-      if (['1','2','3','4','5'].includes(e.key)) {
+      if (['1','2','3','4','5','6','7','8'].includes(e.key)) {
         const idx = parseInt(e.key) - 1;
         if (choices[idx]) handleSelect(choices[idx]);
       }

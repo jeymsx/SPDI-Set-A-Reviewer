@@ -418,11 +418,11 @@ export default function FlashcardsScreen() {
 
   const visibleBuiltIn = selectedTags.length === 0
     ? BUILT_IN_FLASHCARD_SETS
-    : BUILT_IN_FLASHCARD_SETS.filter(s => tagsFor(s.id).some(t => selectedTags.includes(t)));
+    : BUILT_IN_FLASHCARD_SETS.filter(s => selectedTags.every(t => tagsFor(s.id).includes(t)));
 
   const visibleUserSets = selectedTags.length === 0
     ? userSets
-    : userSets.filter(s => tagsFor(s.id!).some(t => selectedTags.includes(t)));
+    : userSets.filter(s => selectedTags.every(t => tagsFor(s.id!).includes(t)));
 
   const totalVisible = visibleBuiltIn.length + visibleUserSets.length;
   const totalSets = BUILT_IN_FLASHCARD_SETS.length + userSets.length;
