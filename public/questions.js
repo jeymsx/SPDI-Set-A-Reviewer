@@ -8,7 +8,8 @@ window.questionsData = [
       "Sodium Potassium Bicarbonate",
       "Bromochlorodifluoromethane"
     ],
-    "correctAnswer": "Monoammonium Phosphate"
+    "correctAnswer": "Monoammonium Phosphate",
+    "feedback": "Reference: www.ipni.net"
   },
   {
     "id": 2,
@@ -19,29 +20,32 @@ window.questionsData = [
       "Check valve → Gate valve → Pump",
       "Pump → Gate valve → Check valve"
     ],
-    "correctAnswer": "Pump → Check valve → Gate valve"
+    "correctAnswer": "Pump → Check valve → Gate valve",
+    "feedback": "Reference:\n(1) RNPCP Sec. 709.2\n(2) Master's Mastery 2nd Edition, page 258"
   },
   {
     "id": 3,
-    "question": "A fitting with a hub at one end and a straight cut or 45-degree cut at the other, used to connect the building sewer pipeline to the public sewer.",
+    "question": "A fitting with a hub at one end\nand a straight cut or 45-degree cut at the other, used to connect the building\nsewer pipeline to the public sewer.",
     "choices": [
       "Street Ell",
       "Thimble",
       "Saddle",
       "Coupling"
     ],
-    "correctAnswer": "Thimble"
+    "correctAnswer": "Thimble",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 187"
   },
   {
     "id": 4,
-    "question": "A pipe or shaft which conveys foul air from a plumbing fixture or a room to the outer air.",
+    "question": "A pipe or shaft which conveys foul air from a\nplumbing fixture or a room to the outer air.",
     "choices": [
       "Pipe Chase",
       "Flue",
       "Local Vent",
       "Exhaust"
     ],
-    "correctAnswer": "Local Vent"
+    "correctAnswer": "Local Vent",
+    "feedback": "Reference: RNPCP Sec. 213.11"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@ window.questionsData = [
       "103.42 kPa",
       "344.5 kPa"
     ],
-    "correctAnswer": "344.5 kPa"
+    "correctAnswer": "344.5 kPa",
+    "feedback": "Reference: RNPCP Sec. 501.2.6"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@ window.questionsData = [
       "2.8 GPH",
       "4 PH"
     ],
-    "correctAnswer": "2 GPH"
+    "correctAnswer": "2 GPH",
+    "feedback": "Hot Water Demands Table - https://bit.ly/hotwaterdemands"
   },
   {
     "id": 7,
@@ -74,7 +80,8 @@ window.questionsData = [
       "longer than",
       "the same as"
     ],
-    "correctAnswer": "thicker than"
+    "correctAnswer": "thicker than",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 158"
   },
   {
     "id": 8,
@@ -85,18 +92,20 @@ window.questionsData = [
       "2.4 meters",
       "3 meters"
     ],
-    "correctAnswer": "1.5 meters"
+    "correctAnswer": "1.5 meters",
+    "feedback": "Reference: RNPCP Appendix B, Table B-2"
   },
   {
     "id": 9,
-    "question": "A nipple longer than a close nipple and includes a very short unthreaded space between the threads.",
+    "question": "A nipple longer than a close nipple and includes a very short unthreaded space\nbetween the threads.",
     "choices": [
       "Shoulder Nipple",
       "Long Nipple",
       "Cut Pipe",
       "Reducing Nipple"
     ],
-    "correctAnswer": "Shoulder Nipple"
+    "correctAnswer": "Shoulder Nipple",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 118"
   },
   {
     "id": 10,
@@ -107,7 +116,8 @@ window.questionsData = [
       "15% Carbon; 85% Copper",
       "15% Tin; 85% Copper"
     ],
-    "correctAnswer": "15% Zinc; 85% Copper"
+    "correctAnswer": "15% Zinc; 85% Copper",
+    "feedback": "Reference:\n(1) Master's Mastery 2nd Edition, page 28\n(2) PDE by Max Fajardo, page 39"
   },
   {
     "id": 11,
@@ -118,7 +128,8 @@ window.questionsData = [
       "French Drain",
       "Running Trap"
     ],
-    "correctAnswer": "Area Drain"
+    "correctAnswer": "Area Drain",
+    "feedback": "Reference:\n(1) Master's Mastery 2nd Edition, page 11\n(2) PDE by Max Fajardo, page 143"
   },
   {
     "id": 12,
@@ -129,7 +140,8 @@ window.questionsData = [
       "Carbonation",
       "Pitting"
     ],
-    "correctAnswer": "Tuberculation"
+    "correctAnswer": "Tuberculation",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 195"
   },
   {
     "id": 13,
@@ -140,51 +152,56 @@ window.questionsData = [
       "4 meters",
       "6 meters"
     ],
-    "correctAnswer": "3 meters"
+    "correctAnswer": "3 meters",
+    "feedback": "Reference: www.theprojectestimate.com"
   },
   {
     "id": 14,
-    "question": "An external thread.",
+    "question": "An external\nthread.",
     "choices": [
       "Female Thread",
       "Tapered Thread",
       "Male Thread",
       "Durham Thread"
     ],
-    "correctAnswer": "Male Thread"
+    "correctAnswer": "Male Thread",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 113"
   },
   {
     "id": 15,
-    "question": "A valve used to reduce the incoming pressure of a fluid and maintain safe, consistent pressure levels throughout the system.",
+    "question": "A valve used to reduce the incoming pressure of a\nfluid and maintain safe, consistent pressure levels throughout the system.",
     "choices": [
       "Pressure-Reducing Valve",
       "Pressure-Relief Valve",
       "Pressure-Regulating Valve",
       "Pressure Balancing Valve"
     ],
-    "correctAnswer": "Pressure-Reducing Valve"
+    "correctAnswer": "Pressure-Reducing Valve",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 136"
   },
   {
     "id": 16,
-    "question": "A non-combustible packing material, usually an asbestos rope, generally used as guide and holds molten lead in a bell during the pouring.",
+    "question": "A non-combustible packing material, usually an asbestos\nrope, generally used as guide and holds molten lead in a bell during the\npouring.",
     "choices": [
       "Joint Runner",
       "Caulk Joint",
       "Oakum",
       "Lead Guide"
     ],
-    "correctAnswer": "Joint Runner"
+    "correctAnswer": "Joint Runner",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 106"
   },
   {
     "id": 17,
-    "question": "A type of water meter appropriate in low flow conditions with high volume in large diameter pipe, such as industrial or commercial settings. The meter has blades on an internal rotor angled to rotate with the water flowing through it.",
+    "question": "A type of water meter appropriate in low flow\nconditions with high volume in large diameter pipe, such as industrial or\ncommercial settings. The meter has blades on an internal rotor angled to rotate\nwith the water flowing through it.",
     "choices": [
       "Positive Displacement Meter",
       "Multi-jet Meter",
       "Turbine Flow Meter",
       "Compound Water Meter"
     ],
-    "correctAnswer": "Turbine Flow Meter"
+    "correctAnswer": "Turbine Flow Meter",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 207"
   },
   {
     "id": 18,
@@ -195,7 +212,8 @@ window.questionsData = [
       "diameter",
       "composition"
     ],
-    "correctAnswer": "weight"
+    "correctAnswer": "weight",
+    "feedback": "Reference: AUDEL Questions and Answers for Plumbers Examination 4th Edition, page 13"
   },
   {
     "id": 19,
@@ -206,7 +224,8 @@ window.questionsData = [
       "Check Valve",
       "Ball Valve"
     ],
-    "correctAnswer": "Globe Valve"
+    "correctAnswer": "Globe Valve",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 85"
   },
   {
     "id": 20,
@@ -217,29 +236,32 @@ window.questionsData = [
       "2 times",
       "3 times"
     ],
-    "correctAnswer": "equivalent to"
+    "correctAnswer": "equivalent to",
+    "feedback": "Reference:\n(1) RNPCP Chapter 4, Sec. 404.1\n(2) Master's Mastery 2nd Edition, page 238"
   },
   {
     "id": 21,
-    "question": "What do you call the small gelatinous masses formed in a liquid by the addition of coagulants through biochemical processes or by agglomeration?",
+    "question": "What do you call the small gelatinous masses formed in a liquid by\nthe addition of coagulants through biochemical processes or by agglomeration?",
     "choices": [
       "Floc",
       "Alum",
       "Coagulant",
       "Scum"
     ],
-    "correctAnswer": "Floc"
+    "correctAnswer": "Floc",
+    "feedback": "Reference: Master's Master 2nd Edition, page 73"
   },
   {
     "id": 22,
-    "question": "Ozone is commonly used as a disinfectant as it instantly neutralizes biological matter, such as bacteria, viruses, and parasites. What is the chemical formula for ozone?",
+    "question": "Ozone is commonly used as a disinfectant as it instantly neutralizes biological matter, such as bacteria,\nviruses, and parasites. What is the chemical formula for ozone?",
     "choices": [
       "O₃",
       "SO₂",
       "CH₄",
       "O(OH)₂"
     ],
-    "correctAnswer": "O₃"
+    "correctAnswer": "O₃",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 121"
   },
   {
     "id": 23,
@@ -250,7 +272,8 @@ window.questionsData = [
       "76 mm",
       "102 mm"
     ],
-    "correctAnswer": "51 mm"
+    "correctAnswer": "51 mm",
+    "feedback": "Reference: RNPCP Table 7-5, See Notes."
   },
   {
     "id": 24,
@@ -261,29 +284,32 @@ window.questionsData = [
       "Vent Stack",
       "Stack Vent"
     ],
-    "correctAnswer": "Stack Vent"
+    "correctAnswer": "Stack Vent",
+    "feedback": "Reference:\n(1) RNPCP Sec. 213.12\n(2) Master's Mastery 2nd Edition, page 112"
   },
   {
     "id": 25,
-    "question": "A fitting with continuous ridges or bumps, used to connect hoses to pipes and maintain a watertight seal.",
+    "question": "A fitting with continuous ridges or bumps, used to connect hoses to\npipes and maintain a watertight seal.",
     "choices": [
       "Hose Bibb",
       "Sill Cock",
       "Barb",
       "Push-fit Fitting"
     ],
-    "correctAnswer": "Barb"
+    "correctAnswer": "Barb",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 20"
   },
   {
     "id": 26,
-    "question": "The minimum temperature at which any material releases vapor in sufficient concentration to form an ignitable mixture with air.",
+    "question": "The\nminimum temperature at which any material releases vapor in sufficient\nconcentration to form an ignitable mixture with air.",
     "choices": [
       "Ignition Point",
       "Melting Point",
       "Flash Point",
       "Boiling Point"
     ],
-    "correctAnswer": "Flash Point"
+    "correctAnswer": "Flash Point",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 72"
   },
   {
     "id": 27,
@@ -294,18 +320,20 @@ window.questionsData = [
       "Pipe Chase",
       "Inside Columns"
     ],
-    "correctAnswer": "Pipe Chase"
+    "correctAnswer": "Pipe Chase",
+    "feedback": "✔️ Pipe Chase"
   },
   {
     "id": 28,
-    "question": "It is instrument used to measure humidity, or the amount of water vapor in air, in soil, or other confined space.",
+    "question": "It is instrument used to measure humidity,\nor the amount of water vapor in air, in soil, or other confined space.",
     "choices": [
       "Hygrometer",
       "Manometer",
       "Venturi Meter",
       "Pitot Tube"
     ],
-    "correctAnswer": "Hygrometer"
+    "correctAnswer": "Hygrometer",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 100"
   },
   {
     "id": 29,
@@ -316,7 +344,8 @@ window.questionsData = [
       "5/8\"",
       "3/4\""
     ],
-    "correctAnswer": "3/8\""
+    "correctAnswer": "3/8\"",
+    "feedback": "Reference: 2018 Uniform Plumbing Code, Chapter 3, Table 313.6"
   },
   {
     "id": 30,
@@ -327,40 +356,44 @@ window.questionsData = [
       "Ton of Refrigeration",
       "Tesla"
     ],
-    "correctAnswer": "Therm"
+    "correctAnswer": "Therm",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 186"
   },
   {
     "id": 31,
-    "question": "A standpipe system that provides 2-1/2” hose connections to supply water for use by fire department.",
+    "question": "A standpipe system that provides 2-1/2” hose\nconnections to supply water for use by fire department.",
     "choices": [
       "Class I System",
       "Class II System",
       "Class III System",
       "Class IIIA System"
     ],
-    "correctAnswer": "Class I System"
+    "correctAnswer": "Class I System",
+    "feedback": "Reference:\n(1) NFPA\n(2) RA 9514\n(3) Master's Mastery 2nd Edition, page 178"
   },
   {
     "id": 32,
-    "question": "It is a fitting that connects a number of branches to the main. It serves as a distribution point.",
+    "question": "It is a fitting that connects a number of branches to the main. It serves as a\ndistribution point.",
     "choices": [
       "Manifold",
       "Access Junction",
       "Home Run",
       "Header"
     ],
-    "correctAnswer": "Manifold"
+    "correctAnswer": "Manifold",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 114"
   },
   {
     "id": 33,
-    "question": "It exists when the source of supply is located below the center line of the pump. This is the vertical distance that the pump can be above the liquid source.",
+    "question": "It exists when the source of supply\nis located below the center line of the pump. This is the vertical distance\nthat the pump can be above the liquid source.",
     "choices": [
       "Suction Lift",
       "Suction Head",
       "Discharge Head",
       "Static Head"
     ],
-    "correctAnswer": "Suction Lift"
+    "correctAnswer": "Suction Lift",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 94"
   },
   {
     "id": 34,
@@ -371,32 +404,34 @@ window.questionsData = [
       "Shear Stress",
       "Surface Tension"
     ],
-    "correctAnswer": "Viscosity"
+    "correctAnswer": "Viscosity",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 200"
   },
   {
     "id": 35,
-    "question": "An unobstructed top open edge of a fixture.",
+    "question": "An\nunobstructed top open edge of a fixture.",
     "choices": [
       "Flood Level",
       "Flood Level Rim",
       "Overflow Rim",
       "Rim"
     ],
-    "correctAnswer": "Rim"
+    "correctAnswer": "Rim",
+    "feedback": "Reference: RNPCP Sec. 219.7"
   },
   {
     "id": 36,
-    "question": "A process in which heat is transferred from one region to another by the motion of a fluid.",
+    "question": "A process in which heat is transferred from one region to another by the\nmotion of a fluid.",
     "choices": [
       "Convection",
       "Induction",
       "Radiation",
       "Conduction"
     ],
-    "correctAnswer": "Convection"
+    "correctAnswer": "Convection",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 43"
   },
   {
-    "id": 37,
     "question": "Identify the fire sprinkler: Upright Sprinkler",
     "choices": [
       "A",
@@ -406,10 +441,11 @@ window.questionsData = [
       "E"
     ],
     "correctAnswer": "C",
-    "image": "assets/identify-the-fire-sprinkler.jpg"
+    "feedback": "Upright Sprinkler is designated as C. Upright sprinklers are installed with the deflector facing upward, spraying water upward and outward.",
+    "id": 37,
+    "image": "/assets/identify-the-fire-sprinkler.jpg"
   },
   {
-    "id": 38,
     "question": "Identify the fire sprinkler: Pendent Sprinkler",
     "choices": [
       "A",
@@ -419,10 +455,11 @@ window.questionsData = [
       "E"
     ],
     "correctAnswer": "D",
-    "image": "assets/identify-the-fire-sprinkler.jpg"
+    "feedback": "Pendent Sprinkler is designated as D. Pendent sprinklers hang downward from the piping with the deflector facing down, distributing water in a downward umbrella pattern.",
+    "id": 38,
+    "image": "/assets/identify-the-fire-sprinkler.jpg"
   },
   {
-    "id": 39,
     "question": "Identify the fire sprinkler: Conventional Sprinkler",
     "choices": [
       "A",
@@ -432,7 +469,9 @@ window.questionsData = [
       "E"
     ],
     "correctAnswer": "E",
-    "image": "assets/identify-the-fire-sprinkler.jpg"
+    "feedback": "Conventional Sprinkler is designated as E. Conventional sprinklers distribute water both upward and downward and can be installed in either upright or pendent position.",
+    "id": 39,
+    "image": "/assets/identify-the-fire-sprinkler.jpg"
   },
   {
     "id": 40,
@@ -443,7 +482,8 @@ window.questionsData = [
       "Cohesion",
       "Adhesion"
     ],
-    "correctAnswer": "Surface Tension"
+    "correctAnswer": "Surface Tension",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 183"
   },
   {
     "id": 41,
@@ -454,29 +494,32 @@ window.questionsData = [
       "top of the rough floor",
       "bottom of the closet ring"
     ],
-    "correctAnswer": "top of the closet ring"
+    "correctAnswer": "top of the closet ring",
+    "feedback": "Reference: RNPCP Sec. 1305.2"
   },
   {
     "id": 42,
-    "question": "Barometric loop is installed in water supply systems to protect against back siphonage. It is fabricated piping arrangement rising at least __________ at its topmost point above the highest fixture it supplies.",
+    "question": "Barometric loop is \n\ninstalled in water supply systems to protect against back siphonage.  It is fabricated piping arrangement rising at least __________ at its topmost\npoint above the highest fixture it supplies.",
     "choices": [
       "30 feet",
       "32 feet",
       "35 feet",
       "40 feet"
     ],
-    "correctAnswer": "35 feet"
+    "correctAnswer": "35 feet",
+    "feedback": "Reference:\n(1) ASPE Volume 4, page 180\n(2) Master's Mastery 2nd Edition, page 20"
   },
   {
     "id": 43,
-    "question": "The phase transition in which gas transforms into solid without passing through the liquid phase.",
+    "question": "The phase transition in which gas transforms into solid without\npassing through the liquid phase.",
     "choices": [
       "Deposition",
       "Sublimation",
       "Freezing",
       "Crystallization"
     ],
-    "correctAnswer": "Deposition"
+    "correctAnswer": "Deposition",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 52"
   },
   {
     "id": 44,
@@ -487,7 +530,8 @@ window.questionsData = [
       "Alkaline",
       "Non-corrosive"
     ],
-    "correctAnswer": "Acidic"
+    "correctAnswer": "Acidic",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 124"
   },
   {
     "id": 45,
@@ -498,7 +542,8 @@ window.questionsData = [
       "Booster Pump",
       "Centrifugal Pump"
     ],
-    "correctAnswer": "Jet Pump"
+    "correctAnswer": "Jet Pump",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 142"
   },
   {
     "id": 46,
@@ -509,7 +554,8 @@ window.questionsData = [
       "National Standards for Drinking Water",
       "Water Code of the Philippines"
     ],
-    "correctAnswer": "National Standards for Drinking Water"
+    "correctAnswer": "National Standards for Drinking Water",
+    "feedback": "Reference: PD1096, Sec 902, b."
   },
   {
     "id": 47,
@@ -520,7 +566,8 @@ window.questionsData = [
       "Polypropylene Render Copolymer",
       "Polypropylene Reinforced Copolymer"
     ],
-    "correctAnswer": "Polypropylene Random Copolymer"
+    "correctAnswer": "Polypropylene Random Copolymer",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 135"
   },
   {
     "id": 48,
@@ -531,7 +578,8 @@ window.questionsData = [
       "Type M",
       "Type DWV"
     ],
-    "correctAnswer": "Type M"
+    "correctAnswer": "Type M",
+    "feedback": "Reference:\n(1) Master's Mastery 2nd Edition, page 44\n(2) PDE by Max Fajardo, page 39"
   },
   {
     "id": 49,
@@ -542,7 +590,8 @@ window.questionsData = [
       "Vitrified Clay Pipe",
       "Brass Pipe"
     ],
-    "correctAnswer": "Bituminous Fiber Pipe"
+    "correctAnswer": "Bituminous Fiber Pipe",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 24"
   },
   {
     "id": 50,
@@ -553,7 +602,8 @@ window.questionsData = [
       "Wet",
       "Dry"
     ],
-    "correctAnswer": "Deluge"
+    "correctAnswer": "Deluge",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 173"
   },
   {
     "id": 51,
@@ -565,18 +615,20 @@ window.questionsData = [
       "O-ring"
     ],
     "correctAnswer": "Packing",
-    "image": "assets/identify-the-part-of-the-bulb.jpg"
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 123",
+    "image": "/assets/spdi-q51-valve.jpg"
   },
   {
     "id": 52,
-    "question": "It is a long metal rod, made of magnesium or aluminum that hangs down from the top of a storage water heater.",
+    "question": "It is a long metal rod, made of magnesium or aluminum that\nhangs down from the top of a storage water heater.",
     "choices": [
       "Sacrificial Rod",
       "Cathode Rod",
       "Dip Tube",
       "Refill Tube"
     ],
-    "correctAnswer": "Sacrificial Rod"
+    "correctAnswer": "Sacrificial Rod",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 153"
   },
   {
     "id": 53,
@@ -587,7 +639,8 @@ window.questionsData = [
       "Up-Feed and Gravity Return System",
       "Overhead Feed and Gravity Return System"
     ],
-    "correctAnswer": "Up-Feed and Gravity Return System"
+    "correctAnswer": "Up-Feed and Gravity Return System",
+    "feedback": "Reference: PDE by Max Fajardo, page 252, 257"
   },
   {
     "id": 54,
@@ -598,7 +651,8 @@ window.questionsData = [
       "99 cm",
       "140 cm"
     ],
-    "correctAnswer": "99 cm"
+    "correctAnswer": "99 cm",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 120"
   },
   {
     "id": 55,
@@ -609,7 +663,8 @@ window.questionsData = [
       "500 mL",
       "1 liter"
     ],
-    "correctAnswer": "500 mL"
+    "correctAnswer": "500 mL",
+    "feedback": "Reference: DOH A.O. No. 2017-0010 PNSDW, Table D-3, Item no. 8"
   },
   {
     "id": 56,
@@ -620,7 +675,8 @@ window.questionsData = [
       "Kelvin",
       "Rankine"
     ],
-    "correctAnswer": "Kelvin"
+    "correctAnswer": "Kelvin",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 165"
   },
   {
     "id": 57,
@@ -631,7 +687,8 @@ window.questionsData = [
       "Bathtub",
       "Deep Tub"
     ],
-    "correctAnswer": "Bidet"
+    "correctAnswer": "Bidet",
+    "feedback": "Reference: RNPCP Sec. 203.15"
   },
   {
     "id": 58,
@@ -642,7 +699,8 @@ window.questionsData = [
       "Methane Gas",
       "Sulfur Dioxide"
     ],
-    "correctAnswer": "Hydrogen Sulfide"
+    "correctAnswer": "Hydrogen Sulfide",
+    "feedback": "Reference: PDE by Max Fajardo, page 88"
   },
   {
     "id": 59,
@@ -653,46 +711,44 @@ window.questionsData = [
       "8",
       "10"
     ],
-    "correctAnswer": "10"
+    "correctAnswer": "10",
+    "feedback": "Reference: RNPCP Appendix A, Table A-1"
   },
   {
     "id": 60,
     "question": "Which of the following is a bushing?",
     "choices": [
-      "A",
-      "B",
-      "C",
-      "D"
+      "/assets/bushinga.jpg",
+      "/assets/bushingb.jpg",
+      "/assets/bushingc.jpg",
+      "/assets/bushingd.jpg"
     ],
-    "correctAnswer": "C",
-    "images": [
-      "assets/bushinga.jpg",
-      "assets/bushingb.jpg",
-      "assets/bushingc.jpg",
-      "assets/bushingd.jpg"
-    ]
+    "correctAnswer": "/assets/bushingc.jpg",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 31"
   },
   {
     "id": 61,
-    "question": "A depression in the water table with the shape of an inverted cone and develops around a well from which water is being withdrawn.",
+    "question": "A depression in the water table with the shape of an inverted cone and\ndevelops around a well from which water is being withdrawn.",
     "choices": [
       "Cone of Depression",
       "Drawdown",
       "Hydraulic Gradient",
       "Well Yield"
     ],
-    "correctAnswer": "Cone of Depression"
+    "correctAnswer": "Cone of Depression",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 42"
   },
   {
     "id": 62,
-    "question": "A well excavated in the confined aquifer wherein the water rises in the well casing above the land surface naturally without using a pump.",
+    "question": "A well excavated in the confined aquifer\nwherein the water rises in the well casing above the land surface naturally\nwithout using a pump.",
     "choices": [
       "Flowing Artesian Well",
       "Jetted Well",
       "Shallow Well",
       "Dug Well"
     ],
-    "correctAnswer": "Flowing Artesian Well"
+    "correctAnswer": "Flowing Artesian Well",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 209"
   },
   {
     "id": 63,
@@ -703,7 +759,8 @@ window.questionsData = [
       "61 cm to 122 cm",
       "91 cm to 180 cm"
     ],
-    "correctAnswer": "61 cm to 122 cm"
+    "correctAnswer": "61 cm to 122 cm",
+    "feedback": "Reference: RA 9514 Amended IRR, Rule 10, Sec. 10.2.6.6.C.4.f"
   },
   {
     "id": 64,
@@ -714,18 +771,20 @@ window.questionsData = [
       "PD No. 856",
       "PD No. 223"
     ],
-    "correctAnswer": "PD No. 198"
+    "correctAnswer": "PD No. 198",
+    "feedback": "Reference: PD No. 198"
   },
   {
     "id": 65,
-    "question": "Refers to any of two or more similar adjacent fixtures which discharge into a common horizontal soil or waste branch.",
+    "question": "Refers to any of two or more similar adjacent fixtures which discharge into a\ncommon horizontal soil or waste branch.",
     "choices": [
       "Fixture Group",
       "Battery of Fixtures",
       "Common Waste Branch",
       "Combination Fixtures"
     ],
-    "correctAnswer": "Battery of Fixtures"
+    "correctAnswer": "Battery of Fixtures",
+    "feedback": "Reference: RNPCP Sec. 203.11"
   },
   {
     "id": 66,
@@ -736,7 +795,8 @@ window.questionsData = [
       "ppm",
       "TSS"
     ],
-    "correctAnswer": "NTU"
+    "correctAnswer": "NTU",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 119"
   },
   {
     "id": 67,
@@ -747,18 +807,20 @@ window.questionsData = [
       "48 hours",
       "72 hours"
     ],
-    "correctAnswer": "24 hours"
+    "correctAnswer": "24 hours",
+    "feedback": "Reference: DOH A.O. No. 2019-0047"
   },
   {
     "id": 68,
-    "question": "These pipes are derived from solid cylindrical steel known as billets which are heated and cast over a form such as a piercing mandrel to create a hollow tube or shell.",
+    "question": "These pipes are derived from solid cylindrical steel known\nas billets which are heated and cast over a form such as a piercing mandrel to\ncreate a hollow tube or shell.",
     "choices": [
       "Galvanized Steel Pipes",
       "Wrought Iron Pipes",
       "Pig Iron Pipes",
       "Seamless Pipes"
     ],
-    "correctAnswer": "Seamless Pipes"
+    "correctAnswer": "Seamless Pipes",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 158"
   },
   {
     "id": 69,
@@ -769,51 +831,56 @@ window.questionsData = [
       "1.5 m x 1.7 m",
       "1.7 m x 1.8 m"
     ],
-    "correctAnswer": "1.7 m x 1.8 m"
+    "correctAnswer": "1.7 m x 1.8 m",
+    "feedback": "Reference: BP 344 IRR, Minimum Requirements C.8.1"
   },
   {
     "id": 70,
-    "question": "The discharge from any fixture, appliance, area, or appurtenance which does not contain fecal matter.",
+    "question": "The discharge from any fixture, appliance, area,\nor appurtenance which does not contain fecal matter.",
     "choices": [
       "Black Water",
       "Domestic Waste",
       "Soil Waste",
       "Liquid Waste"
     ],
-    "correctAnswer": "Liquid Waste"
+    "correctAnswer": "Liquid Waste",
+    "feedback": "Reference: RNPCP Sec. 213.8"
   },
   {
     "id": 71,
-    "question": "A pipe elbow with a female thread on one end and a male thread on the other.",
+    "question": "A pipe elbow with a female thread on one end and\na male thread on the other.",
     "choices": [
       "Compression Elbow",
       "Sweep Elbow",
       "Street Elbow",
       "Reducing Elbow"
     ],
-    "correctAnswer": "Street Elbow"
+    "correctAnswer": "Street Elbow",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 182"
   },
   {
     "id": 72,
-    "question": "A small, usually high pressure, pump used to maintain the designed system pressure in a fire protection system.",
+    "question": "A small, usually high pressure, pump used to maintain the\ndesigned system pressure in a fire protection system.",
     "choices": [
       "Jockey Pump",
       "Fire Pump",
       "Piston Pump",
       "Plunger Pump"
     ],
-    "correctAnswer": "Jockey Pump"
+    "correctAnswer": "Jockey Pump",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 142"
   },
   {
     "id": 73,
-    "question": "A physical property of a material that describes its ability to deform under pressure or hammering without cracking or breaking.",
+    "question": "A physical property of a\nmaterial that describes its ability to deform under pressure or hammering\nwithout cracking or breaking.",
     "choices": [
       "Elasticity",
       "Ductility",
       "Tension",
       "Malleability"
     ],
-    "correctAnswer": "Malleability"
+    "correctAnswer": "Malleability",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 113"
   },
   {
     "id": 74,
@@ -824,7 +891,8 @@ window.questionsData = [
       "same GPM",
       "different GPM"
     ],
-    "correctAnswer": "same GPM"
+    "correctAnswer": "same GPM",
+    "feedback": "Reference: www.engineeringtoolbox.com"
   },
   {
     "id": 75,
@@ -835,7 +903,8 @@ window.questionsData = [
       "fusion welding",
       "threaded connection"
     ],
-    "correctAnswer": "fusion welding"
+    "correctAnswer": "fusion welding",
+    "feedback": "Reference: 2018 International Plumbing Code, Chapter 6, Sec. 605.19.1\n(Same as PP)"
   },
   {
     "id": 76,
@@ -846,7 +915,8 @@ window.questionsData = [
       "1 – 90 degree and 1 – 45 degree",
       "1 – 45 degree and 1 – 60 degree"
     ],
-    "correctAnswer": "1 – 45 degree and 1 – 45 degree"
+    "correctAnswer": "1 – 45 degree and 1 – 45 degree",
+    "feedback": "Draw to check."
   },
   {
     "id": 77,
@@ -857,7 +927,8 @@ window.questionsData = [
       "72%",
       "28%"
     ],
-    "correctAnswer": "21%"
+    "correctAnswer": "21%",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 5"
   },
   {
     "id": 78,
@@ -868,7 +939,8 @@ window.questionsData = [
       "3,300 ft.lb./min",
       "2455 BTU/hr"
     ],
-    "correctAnswer": "746 watts"
+    "correctAnswer": "746 watts",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 97"
   },
   {
     "id": 79,
@@ -879,7 +951,8 @@ window.questionsData = [
       "center of the vacuum breaker",
       "bottom of the vacuum breaker"
     ],
-    "correctAnswer": "bottom of the vacuum breaker"
+    "correctAnswer": "bottom of the vacuum breaker",
+    "feedback": "Reference: RNPCP Sec. 204.23"
   },
   {
     "id": 80,
@@ -890,29 +963,32 @@ window.questionsData = [
       "8",
       "8 to 10"
     ],
-    "correctAnswer": "8"
+    "correctAnswer": "8",
+    "feedback": "Reference: PDE by Max Fajardo, page 261"
   },
   {
     "id": 81,
-    "question": "A type of stainless steel used for general corrosive service, containing 18% chromium and 8% nickel.",
+    "question": "A type of stainless steel used for general corrosive service, containing 18%\nchromium and 8% nickel.",
     "choices": [
       "Martensitic",
       "Duplex",
       "Ferritic",
       "Austenitic"
     ],
-    "correctAnswer": "Austenitic"
+    "correctAnswer": "Austenitic",
+    "feedback": "Reference:\n(1) ASPE Volume 4, page 59\n(2) Master's Mastery 2nd Edition, page 175"
   },
   {
     "id": 82,
-    "question": "It is an organic compound from the alcohol family, used in antifreeze solutions to prevent water in pipes and traps from freezing in cold temperatures.",
+    "question": "It is an organic\ncompound from the alcohol family, used\nin antifreeze solutions to prevent water in pipes and traps from freezing in\ncold temperatures.",
     "choices": [
       "Ethanol",
       "Glycol",
       "Methanol",
       "Acetone"
     ],
-    "correctAnswer": "Glycol"
+    "correctAnswer": "Glycol",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 85"
   },
   {
     "id": 83,
@@ -923,29 +999,32 @@ window.questionsData = [
       "Brass Pipe",
       "Wrought Iron Pipe"
     ],
-    "correctAnswer": "Asbestos Cement Pipe"
+    "correctAnswer": "Asbestos Cement Pipe",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 12"
   },
   {
     "id": 84,
-    "question": "A valve in which the flow of fluid is cut off by means of a circular disc that fits over and against the horizontal valve seat. The movement of the disc plane is parallel to the normal direction of flow of water through the orifice resulting to a tortuous passage which offers a high-pressure loss.",
+    "question": "A valve in which the flow of fluid is cut off by\nmeans of a circular disc that fits over and against the horizontal valve seat.\nThe movement of the disc plane is parallel to the normal direction of flow of\nwater through the orifice resulting to a tortuous passage which offers a high-pressure\nloss.",
     "choices": [
       "Butterfly Valve",
       "Gate Valve",
       "Globe Valve",
       "Check Valve"
     ],
-    "correctAnswer": "Globe Valve"
+    "correctAnswer": "Globe Valve",
+    "feedback": "Reference: RNPCP Sec. 208.2"
   },
   {
     "id": 85,
-    "question": "A physical process that refers to the gentle mixing of water in order to form larger and heavier particles, which can then be removed by sedimentation or conventional filtration.",
+    "question": "A physical process that refers to the gentle\nmixing of water in order to form larger and heavier particles, which can then\nbe removed by sedimentation or conventional filtration.",
     "choices": [
       "Flocculation",
       "Coagulation",
       "Sedimentation",
       "Reverse Osmosis"
     ],
-    "correctAnswer": "Flocculation"
+    "correctAnswer": "Flocculation",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 73"
   },
   {
     "id": 86,
@@ -956,7 +1035,8 @@ window.questionsData = [
       "25%",
       "35%"
     ],
-    "correctAnswer": "20%"
+    "correctAnswer": "20%",
+    "feedback": "Reference: Philippine Green Building Code, Chapter 2, Sec. 10.6.7"
   },
   {
     "id": 87,
@@ -967,18 +1047,20 @@ window.questionsData = [
       "XH",
       "XW"
     ],
-    "correctAnswer": "SV"
+    "correctAnswer": "SV",
+    "feedback": "Reference: www.cispi.org"
   },
   {
     "id": 88,
-    "question": "The measure of the amount of oxygen required to chemically oxidize the organic material and inorganic nutrients present in water.",
+    "question": "The measure of the amount of oxygen required to chemically oxidize the\norganic material and inorganic nutrients present in water.",
     "choices": [
       "Chemical Oxygen Demand",
       "Biological Oxygen Demand",
       "Biochemical Oxygen Demand",
       "Oxygen Demand"
     ],
-    "correctAnswer": "Chemical Oxygen Demand"
+    "correctAnswer": "Chemical Oxygen Demand",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 35"
   },
   {
     "id": 89,
@@ -989,7 +1071,8 @@ window.questionsData = [
       "11-1/2",
       "14"
     ],
-    "correctAnswer": "14"
+    "correctAnswer": "14",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 257"
   },
   {
     "id": 90,
@@ -1000,7 +1083,8 @@ window.questionsData = [
       "Schedule 80",
       "Schedule 100"
     ],
-    "correctAnswer": "Schedule 40"
+    "correctAnswer": "Schedule 40",
+    "feedback": "Reference:\n(1) Master's Mastery 2nd Edition, page 175\n(2) https://www.theprocesspiping.com/"
   },
   {
     "id": 91,
@@ -1011,7 +1095,8 @@ window.questionsData = [
       "Hospitals",
       "Restaurants"
     ],
-    "correctAnswer": "Hospitals"
+    "correctAnswer": "Hospitals",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 157"
   },
   {
     "id": 92,
@@ -1022,7 +1107,8 @@ window.questionsData = [
       "5% Silver",
       "5% Lead"
     ],
-    "correctAnswer": "5% Antimony"
+    "correctAnswer": "5% Antimony",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 169"
   },
   {
     "id": 93,
@@ -1033,62 +1119,68 @@ window.questionsData = [
       "Wye fitting",
       "Long Sweep"
     ],
-    "correctAnswer": "Wye fitting"
+    "correctAnswer": "Wye fitting",
+    "feedback": "Reference:\n(1) RNPCP Sec. 907.2\n(2) Master's Mastery 2nd Edition, page 220"
   },
   {
     "id": 94,
-    "question": "It refers to the sinkable solids that settle at the bottom of a septic tank where anaerobic decomposition takes place.",
+    "question": "It refers to the sinkable solids that settle at the bottom of a septic\ntank where anaerobic decomposition takes place.",
     "choices": [
       "Residue",
       "Sludge",
       "Sediment",
       "Scum"
     ],
-    "correctAnswer": "Sludge"
+    "correctAnswer": "Sludge",
+    "feedback": "Reference:\n(1) Master's Mastery 2nd Edition, page 167\n(2) Max Fajardo's PDE, page 86"
   },
   {
     "id": 95,
-    "question": "A laboratory procedure that simulates coagulation/flocculation in a water treatment plant. It is done to determine the proper coagulant and dose required to achieve certain water quality goals.",
+    "question": "A laboratory\nprocedure that simulates coagulation/flocculation in a water treatment plant.\nIt is done to determine the proper coagulant and dose required to achieve\ncertain water quality goals.",
     "choices": [
       "Tube Test",
       "Bottle Test",
       "Batch Test",
       "Jar Test"
     ],
-    "correctAnswer": "Jar Test"
+    "correctAnswer": "Jar Test",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 106"
   },
   {
     "id": 96,
-    "question": "Water service level characterized by a system composed of a source, a reservoir, a piped distribution network, and communal faucets. One faucet serves an average of five households within a 25 m-radius.",
+    "question": "Water service level characterized by a system composed of a source, a reservoir, a piped\ndistribution network, and communal faucets. One faucet serves an average of five households within a 25 m-radius.",
     "choices": [
       "Level 1",
       "Level 2",
       "Level 3",
       "Point Source"
     ],
-    "correctAnswer": "Level 2"
+    "correctAnswer": "Level 2",
+    "feedback": "Reference: DPWH D.O. No. 160, S.2023"
   },
   {
     "id": 97,
-    "question": "It is the extension of a soil or waste stack above the highest horizontal drain connected to the stack.",
+    "question": "It is the extension of a soil or waste stack above the\nhighest horizontal drain connected to the stack.",
     "choices": [
       "Stack Vent",
       "Vent Stack",
       "VSTR",
       "Soil Vent"
     ],
-    "correctAnswer": "Stack Vent"
+    "correctAnswer": "Stack Vent",
+    "feedback": "Reference:\n(1) RNPCP Sec. 220.31\n(2) Master's Mastery 2nd Edition, page 174"
   },
   {
     "id": 98,
-    "question": "An approved plumbing fixture or device of such materials, shape and capacity that adequately receives the discharge from indirect waste pipes, constructed & located to be readily cleaned.",
+    "question": "An approved plumbing fixture or device of such\nmaterials, shape and capacity that adequately receives the discharge from\nindirect waste pipes, constructed & located to be readily cleaned.",
     "choices": [
       "Catch Basin",
       "Separator",
       "Receptor",
       "Interceptor"
     ],
-    "correctAnswer": "Receptor"
+    "correctAnswer": "Receptor",
+    "feedback": "Reference: RNPCP Sec. 219.1"
   },
   {
     "id": 99,
@@ -1099,7 +1191,8 @@ window.questionsData = [
       "Permanent Hardness",
       "Total Hardness"
     ],
-    "correctAnswer": "Permanent Hardness"
+    "correctAnswer": "Permanent Hardness",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 92"
   },
   {
     "id": 100,
@@ -1110,6 +1203,7 @@ window.questionsData = [
       "Loop Vent",
       "Looped Vent"
     ],
-    "correctAnswer": "Looped Vent"
+    "correctAnswer": "Looped Vent",
+    "feedback": "Reference: Master's Mastery 2nd Edition, page 36"
   }
 ];
