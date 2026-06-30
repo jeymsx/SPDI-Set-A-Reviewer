@@ -8,8 +8,8 @@ window.pcQuestionsData = [
       "Implosion",
       "Floating"
     ],
-    "correctAnswer": "floating",
-    "feedback": "- after installation of pre-fabricated septic tanks, it shall be filled with sufficient amount of water to prevent floating"
+    "correctAnswer": "Floating",
+    "feedback": "Additional info:\n- after installation of pre-fabricated septic tanks, it shall be filled with sufficient amount of water to prevent floating"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@ window.pcQuestionsData = [
       "3744"
     ],
     "correctAnswer": "2112",
-    "feedback": "Source: RNPCP\n- A 203 mm (8\") Horizontal pipe can serve up to 2,640 FU.\n- For 1% slope, multiply Horizontal FU by a factor of 0.8."
+    "feedback": "Source: RNPCP\n\nAdditional info:\n- A 203 mm (8\") Horizontal pipe can serve up to 2,640 FU.\n- For 1% slope, multiply Horizontal FU by a factor of 0.8."
   },
   {
     "id": 3,
@@ -45,7 +45,7 @@ window.pcQuestionsData = [
       "25.4 mm"
     ],
     "correctAnswer": "25.4 mm",
-    "feedback": "Source: RNPCP, Appendix B\n- This question pertains to the distribution box in a disposal field.\n- For Septic tanks, the invert of the inlet pipe shall be at a level not less than 50.8 mm above the invert of the outlet pipe."
+    "feedback": "Source: RNPCP, Appendix B\n\nAdditional info:\n- This question pertains to the distribution box in a disposal field.\n- For Septic tanks, the invert of the inlet pipe shall be at a level not less than 50.8 mm above the invert of the outlet pipe."
   },
   {
     "id": 5,
@@ -57,7 +57,7 @@ window.pcQuestionsData = [
       "CPVC"
     ],
     "correctAnswer": "PE",
-    "feedback": "Source: hallam-ics.com\n- PE (as PEX) can tolerate hot water because of its flexibility"
+    "feedback": "Source: hallam-ics.com; various sources\n\nAdditional info:\n- PE (as PEX) can tolerate hot water because of its flexibility"
   },
   {
     "id": 6,
@@ -69,7 +69,7 @@ window.pcQuestionsData = [
       "32 mm"
     ],
     "correctAnswer": "51 mm",
-    "feedback": "Source: RNPCP, Chapter 8\n- 32 mm: minimum vent size"
+    "feedback": "Source: RNPCP, Chapter 8\n\nAdditional info:\n- 32 mm: minimum vent size"
   },
   {
     "id": 7,
@@ -81,7 +81,7 @@ window.pcQuestionsData = [
       "Principle No. 5"
     ],
     "correctAnswer": "Principle No. 18",
-    "feedback": "Source: RNPCP:\n- Principle No. 5- Abount the connection of every building to the sewer system\n- Principle No. 15- About the prevention of contamination\n- Principle No. 22- Arbout rendering the sewage innocous before discharge"
+    "feedback": "Source: RNPCP:\n\nAdditional info:\n- Principle No. 5- Abount the connection of every building to the sewer system\n- Principle No. 15- About the prevention of contamination\n- Principle No. 22- Arbout rendering the sewage innocous before discharge"
   },
   {
     "id": 8,
@@ -93,7 +93,7 @@ window.pcQuestionsData = [
       "Stack Vent Through Roof"
     ],
     "correctAnswer": "Vent Stack",
-    "feedback": "Source: RNPCP, Chapter 2\n- Stack Vent: the extension of a soil or waste stack above the highest horizontal drain connected to the stack.\n- Stack Vent through roof: The uppermost end of the stack vent above the roof\n- Main Vent: the principal artery of the venting system to which vent branches are connected ."
+    "feedback": "Source: RNPCP, Chapter 2\n\nAdditional info:\n- Stack Vent: the extension of a soil or waste stack above the highest horizontal drain connected to the stack.\n- Stack Vent through roof: The uppermost end of the stack vent above the roof\n- Main Vent: the principal artery of the venting system to which vent branches are connected ."
   },
   {
     "id": 9,
@@ -129,7 +129,7 @@ window.pcQuestionsData = [
       "3. 0 m"
     ],
     "correctAnswer": "1.5 m",
-    "feedback": "Source: RNPCP, Annex B\n- 1.5 m - distance of leach line/leach bed to water table\n- 3.0 m- distance between seepage pit to water table"
+    "feedback": "Source: RNPCP, Annex B\n\nAdditional info:\n- 1.5 m - distance of leach line/leach bed to water table\n- 3.0 m- distance between seepage pit to water table"
   },
   {
     "id": 12,
@@ -140,7 +140,7 @@ window.pcQuestionsData = [
       "1/4\"",
       "3/8\""
     ],
-    "correctAnswer": "3/8\" or 10 mm",
+    "correctAnswer": "3/8\"",
     "feedback": "Source: RNPCP Annex A"
   },
   {
@@ -189,7 +189,7 @@ window.pcQuestionsData = [
       "noise and vibration mitigation"
     ],
     "correctAnswer": "noise and vibration mitigation",
-    "feedback": "- ppr is more flexible, and less rigid than cpvc, which makes it better in absorbing water hammer"
+    "feedback": "Additional info:\n- ppr is more flexible, and less rigid than cpvc, which makes it better in absorbing water hammer"
   },
   {
     "id": 17,
@@ -200,8 +200,8 @@ window.pcQuestionsData = [
       "provide individual gas cylinder or tank per tenant with individual meters and individual shut-off valves",
       "use centralized gas system with individual meters and individual shut-off valves"
     ],
-    "correctAnswer": "use centralized gas system with individual meters and individual shut-off valves.",
-    "feedback": "- It is recommended by BFP to use one centralized LPG system"
+    "correctAnswer": "use centralized gas system with individual meters and individual shut-off valves",
+    "feedback": "Additional info: \n- It is recommended by BFP to use one centralized LPG system"
   },
   {
     "id": 18,
@@ -213,7 +213,7 @@ window.pcQuestionsData = [
       "It needs sufficient air volume for heat extraction."
     ],
     "correctAnswer": "Its connection with a high-pressure boiler loop makes it more efficient than electric water heaters.",
-    "feedback": "- Heat Pump Water Heaters do not connect to boilers. They use electricity to move heat from one place to another instead of generating heat directly"
+    "feedback": "Additional info:\n- Heat Pump Water Heaters do not connect to boilers. They use electricity to move heat from one place to another instead of generating heat directly"
   },
   {
     "id": 19,
@@ -225,7 +225,7 @@ window.pcQuestionsData = [
       "install the gas piping within a conduit"
     ],
     "correctAnswer": "install the gas piping within a conduit",
-    "feedback": "- Minimum burial depth/ ground cover should be 12\" / 300 mm."
+    "feedback": "Additional info:\n- Minimum burial depth/ ground cover should be 12\" / 300 mm."
   },
   {
     "id": 20,
@@ -237,7 +237,7 @@ window.pcQuestionsData = [
       "1.524 m"
     ],
     "correctAnswer": "1.067 m",
-    "feedback": "Source: Chapter 10\n- 32 mm: 0.762 m to vent\n- 38 mm: 1.067 m to vent\n- 51 mm: 1.524 m to vent\n- 76 mm: 1.829 m to vent\n102 mm & larger: 3.048 m to vent"
+    "feedback": "Source: Chapter 10\n\nAdditional info:\n- 32 mm: 0.762 m to vent\n- 38 mm: 1.067 m to vent\n- 51 mm: 1.524 m to vent\n- 76 mm: 1.829 m to vent\n102 mm & larger: 3.048 m to vent"
   },
   {
     "id": 21,
@@ -249,7 +249,7 @@ window.pcQuestionsData = [
       "to reduce excess gas pressure to required level"
     ],
     "correctAnswer": "to reduce excess gas pressure to required level",
-    "feedback": "- gas pressure regulator is actuated when the gas supply pressure is higher than at which the main burner is designed to operate"
+    "feedback": "Additional info:\n- gas pressure regulator is actuated when the gas supply pressure is higher than at which the main burner is designed to operate"
   },
   {
     "id": 22,
@@ -261,7 +261,7 @@ window.pcQuestionsData = [
       "ground"
     ],
     "correctAnswer": "storm drain",
-    "feedback": "- the overflow shall safely discharge without flood risk"
+    "feedback": "Additional info:\n- the overflow shall safely discharge without flood risk"
   },
   {
     "id": 23,
@@ -273,7 +273,7 @@ window.pcQuestionsData = [
       "Local Vent"
     ],
     "correctAnswer": "Relief Vent",
-    "feedback": "Source: RNPCP, Chapter 2; UPC Chapter 2\n- Local Vent- a pipe or shaft to convey foul air from a plumbing fixture or a room to the outer air\n- Yoke Vent- a pipe connecting upward from soil or waste stack to a vent stack to prevent pressure changes in the stacks"
+    "feedback": "Source: RNPCP, Chapter 2; UPC Chapter 2\n\nAdditional info:\n- Local Vent- a pipe or shaft to convey foul air from a plumbing fixture or a room to the outer air\n- Yoke Vent- a pipe connecting upward from soil or waste stack to a vent stack to prevent pressure changes in the stacks"
   },
   {
     "id": 24,
@@ -284,8 +284,8 @@ window.pcQuestionsData = [
       "In dance halls, theaters, and convention halls with an occupant load of 300 or more.",
       "In all dressing rooms, rehearsal rooms, workshops or factories, and other rooms with an occupant load of more than 10."
     ],
-    "correctAnswer": "In stages, recreational, and assembly halls with occupant load of 300 or more",
-    "feedback": "Source: PD 1096\n- Assembly halls with occupant load of more than 500 are required to be installed with fire-extinguishing systems"
+    "correctAnswer": "In dance halls, theaters, and convention halls with an occupant load of 300 or more.",
+    "feedback": "Source: PD 1096\n\nAdditional info:\n- Assembly halls with occupant load of more than 500 are required to be installed with fire-extinguishing systems"
   },
   {
     "id": 25,
@@ -297,7 +297,7 @@ window.pcQuestionsData = [
       "air"
     ],
     "correctAnswer": "oxygen",
-    "feedback": "- Oxygen is an oxidizer, which is a fire hazard"
+    "feedback": "Additional info: \n- Oxygen is an oxidizer, which is a fire hazard"
   },
   {
     "id": 26,
@@ -321,7 +321,7 @@ window.pcQuestionsData = [
       "air test"
     ],
     "correctAnswer": "water test",
-    "feedback": "Source: RNPCP, Chapter 5\nThe water test shall be applied to the drainage and vent systems either in its entirety or in sections."
+    "feedback": "Source: RNPCP, Chapter 5\n\nAdditional info:\nThe water test shall be applied to the drainage and vent systems either in its entirety or in sections."
   },
   {
     "id": 28,
@@ -333,7 +333,7 @@ window.pcQuestionsData = [
       "5"
     ],
     "correctAnswer": "3",
-    "feedback": "Source: RNPCP, Chapter 7\n- Trap size for grease interceptor: 51 mm"
+    "feedback": "Source: RNPCP, Chapter 7\n\nAdditional info:\n- Trap size for grease interceptor: 51 mm"
   },
   {
     "id": 29,
@@ -355,8 +355,8 @@ window.pcQuestionsData = [
       "Type C vent",
       "Class A Pipe"
     ],
-    "correctAnswer": "Type B",
-    "feedback": "- Type B: Type of gas vent for venting only listed gas appliances with draft hoods and other gas appliances listed for use with Type B gas vents.\n- Type C: only used as connectors; single-walled galvanized pipes\n- Type BW: for venting listed gas-fired vented wall furnaces or gas-fired vented recessed heaters\n- Class A Pipe: Class A chimney pipe- used to vent high-temperature exhaust released from wood, coal, and oil-burning appliances"
+    "correctAnswer": "Type B vent",
+    "feedback": "Additional info:\n- Type B: Type of gas vent for venting only listed gas appliances with draft hoods and other gas appliances listed for use with Type B gas vents.\n- Type C: only used as connectors; single-walled galvanized pipes\n- Type BW: for venting listed gas-fired vented wall furnaces or gas-fired vented recessed heaters\n- Class A Pipe: Class A chimney pipe- used to vent high-temperature exhaust released from wood, coal, and oil-burning appliances"
   },
   {
     "id": 31,
@@ -368,7 +368,7 @@ window.pcQuestionsData = [
       "using high-pressure carbon dioxide for testing"
     ],
     "correctAnswer": "welding pipe to fix leaks",
-    "feedback": "- hot works on a piping system that contains gas is prohibited"
+    "feedback": "Additional info:\n- hot works on a piping system that contains gas is prohibited"
   },
   {
     "id": 32,
@@ -392,7 +392,7 @@ window.pcQuestionsData = [
       "Section 16"
     ],
     "correctAnswer": "Section 14",
-    "feedback": "Source: IRR of RA 1378 (2024 ver.)\n- Section 5 (RA 1378): This is the Section of the Basic Principles according to the 1955 version of RA 1378\n- Section 5 (IRR of RA 1378): About the Qualifications of the Members of the Board\n- Section 12 (IRR of RA 1378): About the Duties and Functions of the Chairperson\n- Section 16 (IRR of RA 1378): About the Subjects for the MPLE"
+    "feedback": "Source: IRR of RA 1378 (2024 ver.)\n\nAdditional info:\n- Section 5 (RA 1378): This is the Section of the Basic Principles according to the 1955 version of RA 1378\n- Section 5 (IRR of RA 1378): About the Qualifications of the Members of the Board\n- Section 12 (IRR of RA 1378): About the Duties and Functions of the Chairperson\n- Section 16 (IRR of RA 1378): About the Subjects for the MPLE"
   },
   {
     "id": 34,
@@ -404,7 +404,7 @@ window.pcQuestionsData = [
       "Flared Joint"
     ],
     "correctAnswer": "Heat-Fusion Joint",
-    "feedback": "Source: Uniform Plumbing Code\n- Soldered Joint: A joint obtained by joining of metal parts with alloys with metallic mixtures or alloys that melt at a temperature up to and including 840 deg. F.\n- Brazed Joint: A joint obtained by joining of metal parts with alloys that melt at temperatures exceeding 840 deg. F but less than the melting temperature of the parts to be joined.\n- Welded Joint: A gastight joint obtained by the joining of metal parts in the plastic molten state\n- Flared Joint: A metal-to-metal compression joint in which a conical spread is made on the end of a tube that is compressed by a flare nut against a mating flare."
+    "feedback": "Source: Uniform Plumbing Code\n\nAdditional info:\n- Soldered Joint: A joint obtained by joining of metal parts with alloys with metallic mixtures or alloys that melt at a temperature up to and including 840 deg. F.\n- Brazed Joint: A joint obtained by joining of metal parts with alloys that melt at temperatures exceeding 840 deg. F but less than the melting temperature of the parts to be joined.\n- Welded Joint: A gastight joint obtained by the joining of metal parts in the plastic molten state\n- Flared Joint: A metal-to-metal compression joint in which a conical spread is made on the end of a tube that is compressed by a flare nut against a mating flare."
   },
   {
     "id": 35,
@@ -416,7 +416,7 @@ window.pcQuestionsData = [
       "applying sludge to land used for pasture purpose"
     ],
     "correctAnswer": "applying sludge to land used for pasture purpose",
-    "feedback": "- Only stabilized sludge shall be surface-applied to land used for agricultural\npurposes or (animal) pasture"
+    "feedback": "Additional info:\n- Only stabilized sludge shall be surface-applied to land used for agricultural\npurposes or (animal) pasture"
   },
   {
     "id": 36,
@@ -427,7 +427,7 @@ window.pcQuestionsData = [
       "At upper end of every soil branch",
       "Any horizontal pipe exceeding 15 meters"
     ],
-    "correctAnswer": "at every branch interval of a soil stack",
+    "correctAnswer": "At every branch interval of a soil stack",
     "feedback": "Source: RNPCP, Chapter 10"
   },
   {
@@ -440,7 +440,7 @@ window.pcQuestionsData = [
       "127 mm"
     ],
     "correctAnswer": "89 mm",
-    "feedback": "Source: RNPCP, Chapter 7\n- for pipes 102 mm & larger, size of cleanout is 89 mm"
+    "feedback": "Source: RNPCP, Chapter 7\n\nAdditional Info:\n- for pipes 102 mm & larger, size of cleanout is 89 mm"
   },
   {
     "id": 38,
@@ -452,7 +452,7 @@ window.pcQuestionsData = [
       "Separate pressure relief and temperature relief valves within 18 inches from the boiler"
     ],
     "correctAnswer": "An emergency shut-off valve between the relief valve and boiler",
-    "feedback": "- shut-off valve must not block the relief valve"
+    "feedback": "Additional info:\n- shut-off valve must not block the relief valve"
   },
   {
     "id": 39,
@@ -476,7 +476,7 @@ window.pcQuestionsData = [
       "To divert water from overflowing"
     ],
     "correctAnswer": "To avoid scalding",
-    "feedback": "- mixing valves are commonly installed in sinks and showers"
+    "feedback": "Additional info:\n- mixing valves are commonly installed in sinks and showers"
   },
   {
     "id": 41,
@@ -488,7 +488,7 @@ window.pcQuestionsData = [
       "Roof surface in the vicinity of the drain shall not be recessed."
     ],
     "correctAnswer": "Each roof drain should have a precalibrated and proportional mechanical device.",
-    "feedback": "Source: UPC\n- in roof drains, no mechanical devices or valves shall be permitted"
+    "feedback": "Source: UPC\n\nAdditional info:\n- in roof drains, no mechanical devices or valves shall be permitted"
   },
   {
     "id": 42,
@@ -500,7 +500,7 @@ window.pcQuestionsData = [
       "Hydropneumatic Tank"
     ],
     "correctAnswer": "Break Tank",
-    "feedback": "Source: grundfos.com\n- Break Tank: refers to a pressureless and closed water tank, with an air gap that ensures zero backflow into the system"
+    "feedback": "Source: grundfos.com; various sources\n\nAdditional info:\n- Break Tank: refers to a pressureless and closed water tank, with an air gap that ensures zero backflow into the system"
   },
   {
     "id": 43,
@@ -512,7 +512,7 @@ window.pcQuestionsData = [
       "2; 4"
     ],
     "correctAnswer": "2; 3",
-    "feedback": "Source: PD 1096, New Schedule of Fees\n- According to RNPCP's Plumbing Unit, there are 3 floor drains and 4 faucets/ hose bibb."
+    "feedback": "Source: PD 1096, New Schedule of Fees\n\nAdditional info:\n- According to RNPCP's Plumbing Unit, there are 3 floor drains and 4 faucets/ hose bibb."
   },
   {
     "id": 44,
@@ -534,8 +534,8 @@ window.pcQuestionsData = [
       "catch basin",
       "roof leaders"
     ],
-    "correctAnswer": "Catch Basin",
-    "feedback": "- Catch basin collects water from the downspout and other excess water, and filters debris."
+    "correctAnswer": "catch basin",
+    "feedback": "Additional info:\n- Catch basin collects water from the downspout and other excess water, and filters debris."
   },
   {
     "id": 46,
@@ -546,8 +546,8 @@ window.pcQuestionsData = [
       "Highest flood level rim of fixture",
       "Air gap fixture"
     ],
-    "correctAnswer": "Highest flood level rim",
-    "feedback": "Source: RNPCP, Chapter 9\n- Unless prohibited by structural conditions, each vent shall rise vertically to a point not less than 152.mm above the highest flood level rim of the fixtures served"
+    "correctAnswer": "Highest flood level rim of fixture",
+    "feedback": "Source: RNPCP, Chapter 9\n\nAdditional info:\n- Unless prohibited by structural conditions, each vent shall rise vertically to a point not less than 152.mm above the highest flood level rim of the fixtures served"
   },
   {
     "id": 47,
@@ -559,7 +559,7 @@ window.pcQuestionsData = [
       "change the piping material to zinc-coated piping"
     ],
     "correctAnswer": "provide sufficient clearance or insulation",
-    "feedback": "- polyethylene and polyamide are the recommended plastic piping for gas line"
+    "feedback": "Additional info:\n- polyethylene and polyamide are the recommended plastic piping for gas line"
   },
   {
     "id": 48,
@@ -571,7 +571,7 @@ window.pcQuestionsData = [
       "Oscillation"
     ],
     "correctAnswer": "Plenum",
-    "feedback": "- Siphonage = negative pressure"
+    "feedback": "Additional info:\n- Siphonage = negative pressure"
   },
   {
     "id": 49,
@@ -583,7 +583,7 @@ window.pcQuestionsData = [
       "Drainfield will not be able to cater the effluent volume."
     ],
     "correctAnswer": "Sludge can carry-over to the drainfield.",
-    "feedback": "- incoming water from building sewer will discharge too quickly to the drainfield"
+    "feedback": "Additional info:\n- incoming water from building sewer will discharge too quickly to the drainfield"
   },
   {
     "id": 50,
@@ -594,7 +594,7 @@ window.pcQuestionsData = [
       "4 inches",
       "6 inches"
     ],
-    "correctAnswer": "4\"",
+    "correctAnswer": "4 inches",
     "feedback": "Source: NBC; UPC"
   },
   {
@@ -607,7 +607,7 @@ window.pcQuestionsData = [
       "pressure-relief valve"
     ],
     "correctAnswer": "shut-off valve",
-    "feedback": "- shut-off valve allows immediate isolation of the gas supply"
+    "feedback": "Additional info: \n- shut-off valve allows immediate isolation of the gas supply"
   },
   {
     "id": 52,
@@ -619,7 +619,7 @@ window.pcQuestionsData = [
       "1.20 m"
     ],
     "correctAnswer": "2.50 m",
-    "feedback": "Source: free.bcpublications.ca\n- the offset does not exceed 1.2 m for pipes 2 inches or less in size\n- the offset does not exceed 2.5 m for pipes larger than 2 inches in size"
+    "feedback": "Source: free.bcpublications.ca\n\nAdditional info:\n- the offset does not exceed 1.2 m for pipes 2 inches or less in size\n- the offset does not exceed 2.5 m for pipes larger than 2 inches in size"
   },
   {
     "id": 53,
@@ -631,7 +631,7 @@ window.pcQuestionsData = [
       "pump head is insufficient"
     ],
     "correctAnswer": "the mixing valve limits temperature fluctuation",
-    "feedback": "- A water temperature mixing valve is a temperature control device specifically designed to transport the supply of hot and cold water into a mixing chamber to blend."
+    "feedback": "Additional info:\n- A water temperature mixing valve is a temperature control device specifically designed to transport the supply of hot and cold water into a mixing chamber to blend."
   },
   {
     "id": 54,
@@ -643,7 +643,7 @@ window.pcQuestionsData = [
       "PVC"
     ],
     "correctAnswer": "Copper tube",
-    "feedback": "Source: RNPCP, Chapter 14\n- ABS: ABS pipe offers excellent chemical resistance in many applications. It is resistant to any solution of ammonium chloride, calcium chloride or sodium hydroxide\n- Borosilicate Glass: resistant to acid erosion; less prone to chemical attack\n- PVC: It resists a wide range of acids and bases but may be damaged by some solvents and chlorinated hydrocarbons."
+    "feedback": "Source: RNPCP, Chapter 14\n\nAdditional info:\n- ABS: ABS pipe offers excellent chemical resistance in many applications. It is resistant to any solution of ammonium chloride, calcium chloride or sodium hydroxide\n- Borosilicate Glass: resistant to acid erosion; less prone to chemical attack\n- PVC: It resists a wide range of acids and bases but may be damaged by some solvents and chlorinated hydrocarbons."
   },
   {
     "id": 55,
@@ -655,7 +655,7 @@ window.pcQuestionsData = [
       "Sump"
     ],
     "correctAnswer": "Building Subdrain",
-    "feedback": "Source: RNPCP, Chapter 2\n- Subsoil Drain: an underground drainpipe that receives only subsurface or seepage water and convey it to a sump for disposal by gravity flow or by lift pump\n- Sump: an approved tank or pit which receives sewage or wastewater and is located below the normal grade of the gravity system\n- Sewer: a pipe or conduit for carrying sewage and wastewater"
+    "feedback": "Source: RNPCP, Chapter 2\n\nAdditional info:\n- Subsoil Drain: an underground drainpipe that receives only subsurface or seepage water and convey it to a sump for disposal by gravity flow or by lift pump\n- Sump: an approved tank or pit which receives sewage or wastewater and is located below the normal grade of the gravity system\n- Sewer: a pipe or conduit for carrying sewage and wastewater"
   },
   {
     "id": 56,
@@ -667,7 +667,7 @@ window.pcQuestionsData = [
       "tap water directly from building drainage system"
     ],
     "correctAnswer": "provide connection from the building's water supply with backflow protection device",
-    "feedback": "- building water supply is more reliable and practical"
+    "feedback": "Additional info:\n- building water supply is more reliable and practical"
   },
   {
     "id": 57,
@@ -678,8 +678,8 @@ window.pcQuestionsData = [
       "Suspending irrigation when adequate soil moisture is present",
       "Showerheads having a maximum flow rate of 2 gpm"
     ],
-    "correctAnswer": "Water closet having an effective flush volume at max 1.6 gpf",
-    "feedback": "- 1.6 gpf is the federal mandate for maximum flushing requirement, but the watersense rating required 1.28 gpf."
+    "correctAnswer": "Water closet having a maximum effective flush rate of 1.6 gpf",
+    "feedback": "Additional info:\n- 1.6 gpf is the federal mandate for maximum flushing requirement, but the watersense rating required 1.28 gpf."
   },
   {
     "id": 58,
@@ -715,7 +715,7 @@ window.pcQuestionsData = [
       "excess flow valve"
     ],
     "correctAnswer": "excess flow valve",
-    "feedback": "Source: NFPA 54\n- Excess Flow Valve (EFV): a valve designed to activate when the fuel gas passing through it exceeds a prescribed flow rate\n- Manual Reset Valve: an automatic shutoff valve installed in the gas supply and set to shut off when unsafe conditions occur\n- Pressure Relief Valve: a valve that automatically opens and closes a relief vent, depending on whether the pressure is above or below a predetermined value\n- Service Shutoff Vale: a valve installed by the serving gas supplier between the source of supply and the customer piping system"
+    "feedback": "Source: NFPA 54\n\nAdditional info:\n- Excess Flow Valve (EFV): a valve designed to activate when the fuel gas passing through it exceeds a prescribed flow rate\n- Manual Reset Valve: an automatic shutoff valve installed in the gas supply and set to shut off when unsafe conditions occur\n- Pressure Relief Valve: a valve that automatically opens and closes a relief vent, depending on whether the pressure is above or below a predetermined value\n- Service Shutoff Vale: a valve installed by the serving gas supplier between the source of supply and the customer piping system"
   },
   {
     "id": 61,
@@ -727,7 +727,7 @@ window.pcQuestionsData = [
       "4000 psi"
     ],
     "correctAnswer": "8000 psi",
-    "feedback": "- PVC tensile strength can vary among other brands (around 2000 - 9000 psi)"
+    "feedback": "Additional info:\n- PVC tensile strength can vary among other brands (around 2000 - 9000 psi)"
   },
   {
     "id": 62,
@@ -739,7 +739,7 @@ window.pcQuestionsData = [
       "1 lpf"
     ],
     "correctAnswer": "1 lpf",
-    "feedback": "Source: PGBC\n- For EPA, 1.0 gpf is the maximum water use for urinals."
+    "feedback": "Source: PGBC\n\nAdditional info:\n- For EPA, 1.0 gpf is the maximum water use for urinals."
   },
   {
     "id": 63,
@@ -750,8 +750,7 @@ window.pcQuestionsData = [
       "construct a fire-rated chase without compromising required clearances",
       "ensure drains are present to avoid flooding"
     ],
-    "correctAnswer": "when water is stagnant",
-    "feedback": "- stagnant water can allow bacteria to multiply\n- Legionnaires' disease is a severe form of a lung infection called pneumonia, caused by legionella."
+    "correctAnswer": "construct a fire-rated chase without compromising required clearances"
   },
   {
     "id": 64,
@@ -763,7 +762,7 @@ window.pcQuestionsData = [
       "when water is stagnant"
     ],
     "correctAnswer": "when water is stagnant",
-    "feedback": "- stagnant water can allow bacteria to multiply\n- Legionnaires' disease is a severe form of a lung infection called pneumonia, caused by legionella."
+    "feedback": "Additional info:\n- stagnant water can allow bacteria to multiply\n- Legionnaires' disease is a severe form of a lung infection called pneumonia, caused by legionella."
   },
   {
     "id": 65,
@@ -775,7 +774,7 @@ window.pcQuestionsData = [
       "1.0 m"
     ],
     "correctAnswer": "1.5 m",
-    "feedback": "Source: union-steels.com"
+    "feedback": "Source: union-steels.com; law.resource.org"
   },
   {
     "id": 66,
@@ -810,7 +809,7 @@ window.pcQuestionsData = [
       "8 threads per inch"
     ],
     "correctAnswer": "14 threads per inch",
-    "feedback": "Source: bestmaterials.com\n- 18 TPI- for pipe sizes of 1/4\" and 3/8\"\n- 11-1/2 TPI- for pipe sizes 1\" to 2\"\n- 8 TPI- for pipe sizes 2-1/2” and up"
+    "feedback": "Source: bestmaterials.com; usplastic.com\n\nAdditional info:\n- 18 TPI- for pipe sizes of 1/4\" and 3/8\"\n- 11-1/2 TPI- for pipe sizes 1\" to 2\"\n- 8 TPI- for pipe sizes 2-1/2” and up"
   },
   {
     "id": 69,
@@ -822,7 +821,7 @@ window.pcQuestionsData = [
       "PVC and IPS with same NPS have same outer diameter."
     ],
     "correctAnswer": "PVC and IPS with same NPS have same outer diameter.",
-    "feedback": "- NPS is not always similar to outer diameter.\n- NPS of 14\" and larger correspond to the same outer diameter."
+    "feedback": "Additional info:\n- NPS is not always similar to outer diameter.\n- NPS of 14\" and larger correspond to the same outer diameter."
   },
   {
     "id": 70,
@@ -833,8 +832,8 @@ window.pcQuestionsData = [
       "10 cm wider than pipe diameter",
       "20 cm wider than pipe diameter"
     ],
-    "correctAnswer": "30cm wider than pipe diameter",
-    "feedback": "- The trench width at pipe grade should be equal to the pipe outer diameter plus 12 inches."
+    "correctAnswer": "30 cm wider than pipe diameter",
+    "feedback": "Additional info:\n- The trench width at pipe grade should be equal to the pipe outer diameter plus 12 inches."
   },
   {
     "id": 71,
@@ -846,7 +845,7 @@ window.pcQuestionsData = [
       "55 m"
     ],
     "correctAnswer": "65 m",
-    "feedback": "Source: RNPCP, Chapter 7\n- Maximum length for 2 1/2\" or 65 mm vertical piping: 45 m\n- Maximum length for 2 1/2\" or 65 mm vent piping: 55 m\n- Maximum length for 4\" or 102 mm vertical piping:91 m"
+    "feedback": "Source: RNPCP, Chapter 7\n\nAdditional info:\n- Maximum length for 2 1/2\" or 65 mm vertical piping: 45 m\n- Maximum length for 2 1/2\" or 65 mm vent piping: 55 m\n- Maximum length for 4\" or 102 mm vertical piping:91 m"
   },
   {
     "id": 72,
@@ -858,7 +857,7 @@ window.pcQuestionsData = [
       "Caulked Joints"
     ],
     "correctAnswer": "Cement Mortar Joint",
-    "feedback": "Source: RNPCP, Chapter 13\n- Asbestos Cement: a sleeve coupling of the same composition as the pipe or of other approved materials, and sealed with neoprene rubber rings or jointed by an approved type compression\n- Wiped Joints: joints for lead pipes or fittings, or between lead pipe and brass or copper pipes\n- Caulked Joints: for bell-and-spigot cast-iron soil pipe"
+    "feedback": "Source: RNPCP, Chapter 13\n\nAdditional info:\n- Asbestos Cement: a sleeve coupling of the same composition as the pipe or of other approved materials, and sealed with neoprene rubber rings or jointed by an approved type compression\n- Wiped Joints: joints for lead pipes or fittings, or between lead pipe and brass or copper pipes\n- Caulked Joints: for bell-and-spigot cast-iron soil pipe"
   },
   {
     "id": 73,
@@ -869,7 +868,7 @@ window.pcQuestionsData = [
       "3/4\"",
       "1/2\""
     ],
-    "correctAnswer": "1/2\" or 13 mm",
+    "correctAnswer": "1/2\"",
     "feedback": "Source: RNPCP Annex A"
   },
   {
@@ -882,7 +881,7 @@ window.pcQuestionsData = [
       "When a building serves multiple sets of battery of fixtures."
     ],
     "correctAnswer": "When a building has 10 or more stories.",
-    "feedback": "Source: RNPCP, Chapter 9\n- Yoke vents are installed at every fifth floor levels"
+    "feedback": "Source: RNPCP, Chapter 9\n\nAdditional info:\n- Yoke vents are installed at every fifth floor levels"
   },
   {
     "id": 75,
@@ -905,7 +904,7 @@ window.pcQuestionsData = [
       "3\""
     ],
     "correctAnswer": "4\"",
-    "feedback": "Source: RNPCP, Chapter 7\n- Flushing Rim Sink has 6 DFU\n- A 76 mm (3\") cannot serve more than 3 water closets or 6-fixture unit traps"
+    "feedback": "Source: RNPCP, Chapter 7\n\nAdditional info:\n- Flushing Rim Sink has 6 DFU\n- A 76 mm (3\") cannot serve more than 3 water closets or 6-fixture unit traps"
   },
   {
     "id": 77,
@@ -917,7 +916,7 @@ window.pcQuestionsData = [
       "put epoxy"
     ],
     "correctAnswer": "put epoxy",
-    "feedback": "- provides a quick and durable fix without the need for welding or replacing the tank"
+    "feedback": "Additional info:\n- provides a quick and durable fix without the need for welding or replacing the tank"
   },
   {
     "id": 78,
@@ -929,7 +928,7 @@ window.pcQuestionsData = [
       "Polypropylene Random Copolymer"
     ],
     "correctAnswer": "Chlorinated Polyvinyl Chloride",
-    "feedback": "- CPVC is a heat-resistant rigid version of PVC\n- Among the choices, CPVC offers the highest pipe-resistance"
+    "feedback": "Additional info:\n- CPVC is a heat-resistant rigid version of PVC\n- Among the choices, CPVC offers the highest pipe-resistance"
   },
   {
     "id": 79,
@@ -941,7 +940,7 @@ window.pcQuestionsData = [
       "Indirect-Fired Water Heater"
     ],
     "correctAnswer": "Indirect-Fired Water Heater",
-    "feedback": "Source: Uniform Plumbing Code\n- Solar-Powered Heater: heating water by sunlight, using a solar thermal collector\n- Heat Pump water heater: use electricity to move heat from one place to another instead of generating heat directly"
+    "feedback": "Source: Uniform Plumbing Code\n\nAdditional info:\n- Solar-Powered Heater: heating water by sunlight, using a solar thermal collector\n- Heat Pump water heater: use electricity to move heat from one place to another instead of generating heat directly"
   },
   {
     "id": 80,
@@ -953,7 +952,7 @@ window.pcQuestionsData = [
       "one central centrifugal pump"
     ],
     "correctAnswer": "plunger pump as back-up to existing centrifugal pumps",
-    "feedback": "- pumps with demonstrated solids handling capability shall be provided for handling raw sludge"
+    "feedback": "Additional info:\n- pumps with demonstrated solids handling capability shall be provided for handling raw sludge"
   },
   {
     "id": 81,
@@ -964,8 +963,8 @@ window.pcQuestionsData = [
       "Copper pipe",
       "Black steel"
     ],
-    "correctAnswer": "black steel",
-    "feedback": "- black steel or black iron is preferred for gas lines due to its strength, durability, and heat resistance"
+    "correctAnswer": "Black steel",
+    "feedback": "Additional info:\n- black steel or black iron is preferred for gas lines due to its strength, durability, and heat resistance"
   },
   {
     "id": 82,
@@ -977,7 +976,7 @@ window.pcQuestionsData = [
       "Storm Drain"
     ],
     "correctAnswer": "Leader",
-    "feedback": "Source: Uniform Plumbing Code\n- Leader (from RNPCP): a pipe connected from building gutter to the downspout or conductor.\n- Conductor (from UPC): a pipe inside the building that conveys storm water from the roof to a storm drain, combined building sewer, or other approved point of disposal\n- Storm Drain: Unit of the plumbing system that conveys rain or storm water to a suitable terminal"
+    "feedback": "Source: Uniform Plumbing Code\n\nAdditional info: \n- Leader (from RNPCP): a pipe connected from building gutter to the downspout or conductor.\n- Conductor (from UPC): a pipe inside the building that conveys storm water from the roof to a storm drain, combined building sewer, or other approved point of disposal\n- Storm Drain: Unit of the plumbing system that conveys rain or storm water to a suitable terminal"
   },
   {
     "id": 83,
@@ -1000,12 +999,11 @@ window.pcQuestionsData = [
       "3 m",
       "30.5 m"
     ],
-    "correctAnswer": "attendant",
-    "feedback": "Source: ccohs.ca\n- The Attendant (also known as the safety watch or standby), is posted outside the confined space and continuously monitors the workers inside the confined space"
+    "correctAnswer": "1.5 m"
   },
   {
     "id": 85,
-    "question": "The person responsible for monitoring a permit-required confined space is called _____.",
+    "question": "The person responsible for monitoring a permit-required confined\nspace is called _____.",
     "choices": [
       "first respondent",
       "entrant",
@@ -1013,7 +1011,7 @@ window.pcQuestionsData = [
       "watcher"
     ],
     "correctAnswer": "attendant",
-    "feedback": "Source: ccohs.ca\n- The Attendant (also known as the safety watch or standby), is posted outside the confined space and continuously monitors the workers inside the confined space"
+    "feedback": "Source: ccohs.ca\n\nAdditional info:\n- The Attendant (also known as the safety watch or standby), is posted outside the confined space and continuously monitors the workers inside the confined space"
   },
   {
     "id": 86,
@@ -1036,7 +1034,8 @@ window.pcQuestionsData = [
       "the pipings are joined by brazing",
       "the pipings are joined by threaded fittings"
     ],
-    "correctAnswer": "the pipings are joined by brazing"
+    "correctAnswer": "the pipings are joined by brazing",
+    "feedback": "Addiional info:\n- piping joints should be welded or brazed\n- pipings must only be exclusively used for one occupancy"
   },
   {
     "id": 88,
@@ -1072,7 +1071,7 @@ window.pcQuestionsData = [
       "28 gph"
     ],
     "correctAnswer": "28 gph",
-    "feedback": "Source: ASHRAE Handbook\n- 400 gph: hot water demand for hydrotherapeutic showers in hospitals\n- 20 gph: hot water demand for bathtubs in hotels, hospitls, offices, apartment, etc.\n- 75 gph: hot water demand for showers in hotels and hospitals"
+    "feedback": "Source: ASHRAE Handbook\n\nAdditional info:\n- 400 gph: hot water demand for hydrotherapeutic showers in hospitals\n- 20 gph: hot water demand for bathtubs in hotels, hospitls, offices, apartment, etc.\n- 75 gph: hot water demand for showers in hotels and hospitals"
   },
   {
     "id": 91,
@@ -1084,7 +1083,7 @@ window.pcQuestionsData = [
       "375 mm"
     ],
     "correctAnswer": "450 mm",
-    "feedback": "Source: Amended IRR of BP 344\n- The 375 mm distance is based on RNPCP."
+    "feedback": "Source: Amended IRR of BP 344\n\nAdditional info:\n- The 375 mm distance is based on RNPCP."
   },
   {
     "id": 92,
@@ -1107,8 +1106,8 @@ window.pcQuestionsData = [
       "Connect all water closets to individual branch drains and individual vents.",
       "Increase the branch drain size and treat it as a combination waste-and-vent system, and utilize 1 relief vent."
     ],
-    "correctAnswer": "Connecting all water closets to a common horizontal branch with 2 separate circuit vents",
-    "feedback": "- No more than 8 water closets or other fixtures shall be allowed on any circuit or loop vent."
+    "correctAnswer": "Connect all water closets to a common horizontal branch with 2 separate circuit vents",
+    "feedback": "Additional info:\n- No more than 8 water closets or other fixtures shall be allowed on any circuit or loop vent."
   },
   {
     "id": 94,
@@ -1132,7 +1131,7 @@ window.pcQuestionsData = [
       "Rule IX Section 903"
     ],
     "correctAnswer": "Rule IX Section 904",
-    "feedback": "Source: PD 1096 NBCP\n- Rule IX: About Sanitation\n- Section 902: Water Supply System\n- Section 903: Wastewater Disposal System\n- Section 904: Storm Drainage System\n- Section 906: Noise Pollution Control"
+    "feedback": "Source: PD 1096 NBCP\n\nAdditional info:\n- Rule IX: About Sanitation\n- Section 902: Water Supply System\n- Section 903: Wastewater Disposal System\n- Section 904: Storm Drainage System\n- Section 906: Noise Pollution Control"
   },
   {
     "id": 96,
@@ -1143,8 +1142,8 @@ window.pcQuestionsData = [
       "10.60 sq.in",
       "25.13 sq.in"
     ],
-    "correctAnswer": "14.14",
-    "feedback": "Source: RNPCP, Chapter 11\n- Roof deck strainers: net inlet area of the strainer should be min. 2x the outlet pipe\n- Dome-type strainers: net inlet area of the strainer should be min. 1.5x the outlet pipe"
+    "correctAnswer": "14.14 sq.in",
+    "feedback": "Source: RNPCP, Chapter 11\n\nAdditional info:\n- Roof deck strainers: net inlet area of the strainer should be min. 2x the outlet pipe\n- Dome-type strainers: net inlet area of the strainer should be min. 1.5x the outlet pipe"
   },
   {
     "id": 97,
@@ -1156,7 +1155,7 @@ window.pcQuestionsData = [
       "10 ft head of water for at least 15 minutes"
     ],
     "correctAnswer": "10 ft head of water for at least 15 minutes",
-    "feedback": "Source: RNPCP, Chapter 5\n- Air test: minimum 34.5 kpa for at least 15 minutes"
+    "feedback": "Source: RNPCP, Chapter 5\n\nAdditional info:\n- Air test: minimum 34.5 kpa for at least 15 minutes"
   },
   {
     "id": 98,
@@ -1168,7 +1167,7 @@ window.pcQuestionsData = [
       "Stiffness"
     ],
     "correctAnswer": "Toughness",
-    "feedback": "Source: edurev.in\n- Breaking strength: the ability of a material to withstand a pulling or tensile force.\n- Hardness: Resistance to surface alteration. It usually indicates resistance to abrasion, scratching, cutting or shaping. It usually indicates resistance to abrasion, scratching, cutting or shaping.\n- Stiffness: or rigidity is defined as the ability of the material to resist deformation under the action of external load. Modulus of elasticity is the measure of stiffness."
+    "feedback": "Source: edurev.in\n\nAdditional info:\n- Breaking strength: the ability of a material to withstand a pulling or tensile force.\n- Hardness: Resistance to surface alteration. It usually indicates resistance to abrasion, scratching, cutting or shaping. It usually indicates resistance to abrasion, scratching, cutting or shaping.\n- Stiffness: or rigidity is defined as the ability of the material to resist deformation under the action of external load. Modulus of elasticity is the measure of stiffness."
   },
   {
     "id": 99,
@@ -1179,7 +1178,7 @@ window.pcQuestionsData = [
       "Environmental Code",
       "Sanitation Code"
     ],
-    "correctAnswer": "Sanitation Code (PD 856)"
+    "correctAnswer": "Sanitation Code"
   },
   {
     "id": 100,
@@ -1191,6 +1190,6 @@ window.pcQuestionsData = [
       "6.81 cu.m"
     ],
     "correctAnswer": "5.05 cu.m",
-    "feedback": "Source: RNPCP, Annex B\n- Occupancy serving up to 45 DFU should have a minimum capacity of 7,570 liters.\n- Digestive chamber is minimum 2/3 of the whole septic tank capacity"
+    "feedback": "Source: RNPCP, Annex B\n\nAdditional info:\n- Occupancy serving up to 45 DFU should have a minimum capacity of 7,570 liters.\n- Digestive chamber is minimum 2/3 of the whole septic tank capacity"
   }
 ];

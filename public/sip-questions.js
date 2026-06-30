@@ -9,7 +9,7 @@ window.sipQuestionsData = [
       "Sedimentation"
     ],
     "correctAnswer": "Ion Exchange",
-    "feedback": "Source: www.fluidynecorp.com\n- Ion exchange: a chemical process to remove unwanted dissolved ions in water and wastewater by exchanging specific ions for ions that have the same charge"
+    "feedback": "Source: www.fluidynecorp.com\n\nAdditional info: \n- Ion exchange: a chemical process to remove unwanted dissolved ions in water and wastewater by exchanging specific ions for ions that have the same charge"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@ window.sipQuestionsData = [
       "curb inlet"
     ],
     "correctAnswer": "curb inlet",
-    "feedback": "- curb inlet is an inlet for stormwater"
+    "feedback": "Additional info:\n- curb inlet is an inlet for stormwater"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@ window.sipQuestionsData = [
       "The ship rises a little."
     ],
     "correctAnswer": "The ship rises a little.",
-    "feedback": "- Seawater is denser than the fresh water in river."
+    "feedback": "Additional info:\n- Seawater is denser than the fresh water in river."
   },
   {
     "id": 4,
@@ -42,7 +42,7 @@ window.sipQuestionsData = [
       "contractor",
       "owner",
       "building official",
-      "registered master plumber"
+      "Registered Master Plumber"
     ],
     "correctAnswer": "Registered Master Plumber",
     "feedback": "Source: RNPCP, Chapter 1"
@@ -69,7 +69,7 @@ window.sipQuestionsData = [
       "Manning's Equation"
     ],
     "correctAnswer": "Manning's Equation",
-    "feedback": "Source: www.fsl.orst.edu/\nDarcy–Weisbach Equation:  relates the loss of pressure or head loss due to friction along the given length of pipe to the average velocity of the fluid flow for an incompressible fluid.\n- Bernoulli's Equation: states that the sum of the potential, kinetic, and flow energies of a fluid is constant in a streamline in steady flow.\n- Pascal's Principle: When a force is applied to a contained, incompressible fluid, the pressure increases equally in all directions throughout the fluid"
+    "feedback": "Source: www.fsl.orst.edu/\n\nAdditional info:\nDarcy–Weisbach Equation:  relates the loss of pressure or head loss due to friction along the given length of pipe to the average velocity of the fluid flow for an incompressible fluid.\n- Bernoulli's Equation: states that the sum of the potential, kinetic, and flow energies of a fluid is constant in a streamline in steady flow.\n- Pascal's Principle: When a force is applied to a contained, incompressible fluid, the pressure increases equally in all directions throughout the fluid"
   },
   {
     "id": 7,
@@ -81,7 +81,7 @@ window.sipQuestionsData = [
       "vortex base"
     ],
     "correctAnswer": "vortex inhibitor",
-    "feedback": "Source: NFPA; various sources\n- Vortex inhibitor (a.k.a. anti-vortex plate)  help to decrease the speed of a fast moving fluid and smooth it into a laminar flow instead of a turbulent flow, thus reducing wear and tear. These plates also help prevent cavitation (small liquid-free zones such as bubbles or voids) in the fluid."
+    "feedback": "Source: NFPA; various sources\n\nAdditional info:\n- Vortex inhibitor (a.k.a. anti-vortex plate)  help to decrease the speed of a fast moving fluid and smooth it into a laminar flow instead of a turbulent flow, thus reducing wear and tear. These plates also help prevent cavitation (small liquid-free zones such as bubbles or voids) in the fluid."
   },
   {
     "id": 8,
@@ -92,8 +92,8 @@ window.sipQuestionsData = [
       "50 m",
       "60 m"
     ],
-    "correctAnswer": "40 m (or 130 ft)",
-    "feedback": "- In sprinklered buildings, the limit extends to (61 m) 200 ft"
+    "correctAnswer": "40 m",
+    "feedback": "Additional info:\n- In sprinklered buildings, the limit extends to (61 m) 200 ft"
   },
   {
     "id": 9,
@@ -104,7 +104,7 @@ window.sipQuestionsData = [
       "geotechnical",
       "biohydrological"
     ],
-    "correctAnswer": "to limit peak discharge for controlled runoff"
+    "correctAnswer": "hydrogeological"
   },
   {
     "id": 10,
@@ -127,7 +127,7 @@ window.sipQuestionsData = [
       "sprinkler"
     ],
     "correctAnswer": "shower",
-    "feedback": "- water for shower should be potable"
+    "feedback": "Additional info:\n- water for shower should be potable"
   },
   {
     "id": 12,
@@ -138,8 +138,8 @@ window.sipQuestionsData = [
       "Falls",
       "Rain"
     ],
-    "correctAnswer": "rain",
-    "feedback": "- streams, rivers, and falls are replenished by rain"
+    "correctAnswer": "Rain",
+    "feedback": "Additional info:\n- streams, rivers, and falls are replenished by rain"
   },
   {
     "id": 13,
@@ -151,7 +151,7 @@ window.sipQuestionsData = [
       "7.2 bar"
     ],
     "correctAnswer": "6.9 bar",
-    "feedback": "Source: RA 9514\n- 1 kg/cm^2- 0.98 bar\n- 1 psi- 0.069 bar"
+    "feedback": "Source: RA 9514\n\nAdditional info:\n- 1 kg/cm^2- 0.98 bar\n- 1 psi- 0.069 bar"
   },
   {
     "id": 14,
@@ -163,7 +163,7 @@ window.sipQuestionsData = [
       "Pressure loss"
     ],
     "correctAnswer": "Pressure loss",
-    "feedback": "Source: PDE by Max Fajardo\n- Head Loss by Friction or Friction Head: the loss in rate of flow, due to friction between the water and the walls of the pipe\n- Critical Pressure: the maximum and minimum pressure at which proper function of the water supply system can be maintained"
+    "feedback": "Source: PDE by Max Fajardo\n\nAdditional info:\n- Head Loss by Friction or Friction Head: the loss in rate of flow, due to friction between the water and the walls of the pipe\n- Critical Pressure: the maximum and minimum pressure at which proper function of the water supply system can be maintained"
   },
   {
     "id": 15,
@@ -175,7 +175,7 @@ window.sipQuestionsData = [
       "Riprap"
     ],
     "correctAnswer": "Splash Block",
-    "feedback": "Source: advantageseamlessgutters.com\n- Catch basin: An underground concrete water receiving inlet, rectangular in shape with a slotted iron grate on top to inlet water or a solid rectangular cover\n- Culvert: Pipe or concrete box structure which drains open channels, swales, or ditches under a roadway or embankment typically with no catch basins or manholes along its length. \n- Riprap: A facing layer or protective mound of stones placed to prevent erosion or sloughing of a structure of embankment due to the flow of surface and stormwater runoff."
+    "feedback": "Source: advantageseamlessgutters.com\n\nAdditional info:\n- Catch basin: An underground concrete water receiving inlet, rectangular in shape with a slotted iron grate on top to inlet water or a solid rectangular cover\n- Culvert: Pipe or concrete box structure which drains open channels, swales, or ditches under a roadway or embankment typically with no catch basins or manholes along its length. \n- Riprap: A facing layer or protective mound of stones placed to prevent erosion or sloughing of a structure of embankment due to the flow of surface and stormwater runoff."
   },
   {
     "id": 16,
@@ -199,7 +199,7 @@ window.sipQuestionsData = [
       "Correctly-sized sewer pipe diameter to allow ventilation"
     ],
     "correctAnswer": "Tightened and leak-free joints in the sewer pipe",
-    "feedback": "Source: forneytx.gov\n- Infiltration is caused by cracks, leaks, damage, or root infiltration\n- Inflow is caused by stormwater entering the sanitary sewer due to connections from foundation drains, sump pumps, downspouts, etc."
+    "feedback": "Source: forneytx.gov\n\nAdditional info:\n- Infiltration is caused by cracks, leaks, damage, or root infiltration\n- Inflow is caused by stormwater entering the sanitary sewer due to connections from foundation drains, sump pumps, downspouts, etc."
   },
   {
     "id": 18,
@@ -211,7 +211,7 @@ window.sipQuestionsData = [
       "Temperature does not affect the net positive suction head."
     ],
     "correctAnswer": "The minimum NPSH required is the value needed to prevent cavitation.",
-    "feedback": "- Available NPSH must be higher than the required NPSH.\n- The available NPSH is calculated from the suction side of the pump.\n- Higher temperature increases vapor pressure, which decreases the available NPSH."
+    "feedback": "Additional info:\n- Available NPSH must be higher than the required NPSH.\n- The available NPSH is calculated from the suction side of the pump.\n- Higher temperature increases vapor pressure, which decreases the available NPSH."
   },
   {
     "id": 19,
@@ -223,7 +223,7 @@ window.sipQuestionsData = [
       "Saturation point"
     ],
     "correctAnswer": "Relative humidity",
-    "feedback": "Source: sciende-direct.com\n- Absolute humidity: represents the actual amount of water vapor regardless of temperature\n- Dew Point: the temperature at which the atmosphere is saturated with water vapour, when it is cooled without changing its pressure or vapour content\n- Saturation Point: the maximum amount of water vapor in the air at an existing temperature and pressure"
+    "feedback": "Source: sciende-direct.com; various sources\n\nAdditional info:\n- Absolute humidity: represents the actual amount of water vapor regardless of temperature\n- Dew Point: the temperature at which the atmosphere is saturated with water vapour, when it is cooled without changing its pressure or vapour content\n- Saturation Point: the maximum amount of water vapor in the air at an existing temperature and pressure"
   },
   {
     "id": 20,
@@ -234,8 +234,7 @@ window.sipQuestionsData = [
       "Laundry area",
       "Boilers"
     ],
-    "correctAnswer": "71%",
-    "feedback": "- About 96.5% of all earth's water are in the form of ocean."
+    "correctAnswer": "Laundry area"
   },
   {
     "id": 21,
@@ -247,11 +246,11 @@ window.sipQuestionsData = [
       "76%"
     ],
     "correctAnswer": "71%",
-    "feedback": "- About 96.5% of all earth's water are in the form of ocean."
+    "feedback": "Additional info:\n- About 96.5% of all earth's water are in the form of ocean."
   },
   {
     "id": 22,
-    "question": "Considers the building density in the locality and the flammability of the structures and its contents.",
+    "question": "Considers the building density in the locality and the flammability of\nthe structures and its contents.",
     "choices": [
       "National Fire Protection Association",
       "National Building Code",
@@ -259,7 +258,7 @@ window.sipQuestionsData = [
       "Fire Code"
     ],
     "correctAnswer": "Fire Code",
-    "feedback": "Source: PDE by Max Fajardo\n- NFPA or National Fire Protection Association: maintained a comprehensive set of standard rules in planning to minimize fire hazard."
+    "feedback": "Source: PDE by Max Fajardo\n\nAdditional info:\n- NFPA or National Fire Protection Association: maintained a comprehensive set of standard rules in planning to minimize fire hazard."
   },
   {
     "id": 23,
@@ -271,7 +270,7 @@ window.sipQuestionsData = [
       "It is the horizontal wet venting of one or more sinks or floor drains by means of a common horizontal waste and vent pipe"
     ],
     "correctAnswer": "It is best suited for small facilities.",
-    "feedback": "Source: IPC\n- it is best suited for large facilities, such as grocery store"
+    "feedback": "Source: IPC\n\nAdditional info:\n- it is best suited for large facilities, such as grocery store"
   },
   {
     "id": 24,
@@ -283,7 +282,7 @@ window.sipQuestionsData = [
       "To reduce pollutants entering the treatment plant"
     ],
     "correctAnswer": "To reduce the risk of overloading wastewater treatment works",
-    "feedback": "- Combined Sewer Overflows (CSOs) are designed into wastewater networks to release excess discharge into rivers or coastal waters without treatment"
+    "feedback": "Additional info:\n- Combined Sewer Overflows (CSOs) are designed into wastewater networks to release excess discharge into rivers or coastal waters without treatment"
   },
   {
     "id": 25,
@@ -331,7 +330,7 @@ window.sipQuestionsData = [
       "Hydrostatic test"
     ],
     "correctAnswer": "Hydrostatic test",
-    "feedback": "- Water pressure test: synonymous to hydrostatic test, however, it ismostly associated with tests for water supply\n- Smoke test: used for sewer lines\n- Air test: shall be used in testing the tightness condition of the drainage or plumbing system of any building premises when there is · reason to believe that it has become defective"
+    "feedback": "Additional info:\n- Water pressure test: synonymous to hydrostatic test, however, it ismostly associated with tests for water supply\n- Smoke test: used for sewer lines\n- Air test: shall be used in testing the tightness condition of the drainage or plumbing system of any building premises when there is · reason to believe that it has become defective"
   },
   {
     "id": 29,
@@ -343,7 +342,7 @@ window.sipQuestionsData = [
       "9.57"
     ],
     "correctAnswer": "8.62",
-    "feedback": "- Fully opened globe valve usually has around resistance coefficient (K) of 10."
+    "feedback": "Additional info:\n- Fully opened globe valve usually has around resistance coefficient (K) of 10."
   },
   {
     "id": 30,
@@ -355,7 +354,7 @@ window.sipQuestionsData = [
       "ammonium"
     ],
     "correctAnswer": "hydrogen sulfide",
-    "feedback": "- Hydrogen sulfide can immediately cause organ failure and death"
+    "feedback": "Additional info:\n- Hydrogen sulfide can immediately cause organ failure and death"
   },
   {
     "id": 31,
@@ -367,7 +366,7 @@ window.sipQuestionsData = [
       "Chamberland Filter"
     ],
     "correctAnswer": "Berkefeld filter",
-    "feedback": "Source: Krishnan and Narayanan\n- Chamberland Filter: A porcelain filter in the shape of hollow tube, that has tiny pores that allowed fluids to pass through while holding back bacteria\n- Doulton Filter: are ceramic filters to remove bacteria\n- Seitz Filter: are filters in the form of asbestos pads that can trap bacteria and particles"
+    "feedback": "Source: Krishnan and Narayanan\n\nAdditional info:\n- Chamberland Filter: A porcelain filter in the shape of hollow tube, that has tiny pores that allowed fluids to pass through while holding back bacteria\n- Doulton Filter: are ceramic filters to remove bacteria\n- Seitz Filter: are filters in the form of asbestos pads that can trap bacteria and particles"
   },
   {
     "id": 32,
@@ -379,7 +378,7 @@ window.sipQuestionsData = [
       "Color"
     ],
     "correctAnswer": "Biochemical Oxygen Demand",
-    "feedback": "- Strong wastewater refers to wastewater whose initial BOD value before treatment is equal to or greater than 3,000 mg/L.\n- other choices (turbidity, color, total suspended solids) do not include the other dissolved pollutants"
+    "feedback": "Additional info:\n- Strong wastewater refers to wastewater whose initial BOD value before treatment is equal to or greater than 3,000 mg/L.\n- other choices (turbidity, color, total suspended solids) do not include the other dissolved pollutants"
   },
   {
     "id": 33,
@@ -403,7 +402,7 @@ window.sipQuestionsData = [
       "Putrefaction"
     ],
     "correctAnswer": "Sedimentation",
-    "feedback": "Source: PDE by Max Fajardo\n- Decomposition: regarded as stabilization\n- Putrefaction: decomposition caused by anaerobic bacteria\n- Digestion: Scum and sludge are processed by anaerobic bacteria and transforming them into liquid and gases"
+    "feedback": "Source: PDE by Max Fajardo\n\nAdditional info:\n- Decomposition: regarded as stabilization\n- Putrefaction: decomposition caused by anaerobic bacteria\n- Digestion: Scum and sludge are processed by anaerobic bacteria and transforming them into liquid and gases"
   },
   {
     "id": 35,
@@ -415,7 +414,7 @@ window.sipQuestionsData = [
       "Salicylic Acid"
     ],
     "correctAnswer": "Sulfuric Acid",
-    "feedback": "- Acetic Acid: partly vinegar; irritant to skin and eyes\n- Salicylic Acid: used for skin care to remove dead cells\n- Hydrochloric Acid: a.k.a. muriatic acid, also dangerous but not as much as sulfuric acid"
+    "feedback": "Additional info:\n- Acetic Acid: partly vinegar; irritant to skin and eyes\n- Salicylic Acid: used for skin care to remove dead cells\n- Hydrochloric Acid: a.k.a. muriatic acid, also dangerous but not as much as sulfuric acid"
   },
   {
     "id": 36,
@@ -427,7 +426,7 @@ window.sipQuestionsData = [
       "HDPE"
     ],
     "correctAnswer": "HDPE",
-    "feedback": "- HDPE resists mold, mildew, and rotting, making it the ideal material for underground piping used to deliver water."
+    "feedback": "Additional info:\n- HDPE resists mold, mildew, and rotting, making it the ideal material for underground piping used to deliver water."
   },
   {
     "id": 37,
@@ -439,7 +438,7 @@ window.sipQuestionsData = [
       "SSO can occur when there is a backflow from treatment plant."
     ],
     "correctAnswer": "SSO can occur when there is a backflow from treatment plant.",
-    "feedback": "- SSO (Sanitary Sewer Overflow): is a condition in which untreated sewage is discharged into the environment prior to reaching sewage treatment facilities"
+    "feedback": "Additional info:\n- SSO (Sanitary Sewer Overflow): is a condition in which untreated sewage is discharged into the environment prior to reaching sewage treatment facilities"
   },
   {
     "id": 38,
@@ -474,7 +473,7 @@ window.sipQuestionsData = [
       "Pyrophoric"
     ],
     "correctAnswer": "Flammable Liquids",
-    "feedback": "Source: RA 9514\n- Combustible Liquids: Any liquid having a flash point at or above thirty seven and eight tenths degrees Celsius (37.8°C).\n- Corrosive Liquids: Any liquid which causes fire when in contact with organic matter or with certain chemicals.\n- Pyrophoric: Descriptive of any substance that ignites spontaneously when exposed to air."
+    "feedback": "Source: RA 9514\n\nAdditional info:\n- Combustible Liquids: Any liquid having a flash point at or above thirty seven and eight tenths degrees Celsius (37.8°C).\n- Corrosive Liquids: Any liquid which causes fire when in contact with organic matter or with certain chemicals.\n- Pyrophoric: Descriptive of any substance that ignites spontaneously when exposed to air."
   },
   {
     "id": 41,
@@ -486,7 +485,7 @@ window.sipQuestionsData = [
       "0.011"
     ],
     "correctAnswer": "0.019",
-    "feedback": "Source: engineeringtoolbox.com\n- Examiners may use various references. Also, the choices given by the\nexaminers do not have units. However, it can be inferred from the given values that the choices are in cubic meters."
+    "feedback": "Source: engineeringtoolbox.com\n\nAdditional info:\n- Examiners may use various references. Also, the choices given by the\nexaminers do not have units. However, it can be inferred from the given values that the choices are in cubic meters."
   },
   {
     "id": 42,
@@ -497,7 +496,8 @@ window.sipQuestionsData = [
       "Mycobacterium avium complex (MAC)",
       "Pseudomonas aeruginosa"
     ],
-    "correctAnswer": "Helicobacter pylori"
+    "correctAnswer": "Helicobacter pylori",
+    "feedback": "Addiional info:\n- Helicobacter pylori is found in human stomach lining, which can cause ulcer, gastritis, among others."
   },
   {
     "id": 43,
@@ -509,7 +509,7 @@ window.sipQuestionsData = [
       "2%"
     ],
     "correctAnswer": "9%",
-    "feedback": "Source: e-education.psu.edu\n- Water expands when it freezes making it less dense than the water from which it freezes."
+    "feedback": "Source: e-education.psu.edu\n\nAdditional info:\n- Water expands when it freezes making it less dense than the water from which it freezes."
   },
   {
     "id": 44,
@@ -521,7 +521,7 @@ window.sipQuestionsData = [
       "AAV reduces the need for roof penetrations for venting."
     ],
     "correctAnswer": "Installation of AAV can reduce clearances of mechanical air intakes.",
-    "feedback": "- Air intake requirements (clearances, distances, separation from contaminants) shall still be followed."
+    "feedback": "Additional info: \n- Air intake requirements (clearances, distances, separation from contaminants) shall still be followed."
   },
   {
     "id": 45,
@@ -532,8 +532,8 @@ window.sipQuestionsData = [
       "Friction loss",
       "Fixture units"
     ],
-    "correctAnswer": "height of the highest fixture/s",
-    "feedback": "Source: RNPCP, Annex A\n- the height of the highest fixture can be used to derive the loss in static pressure."
+    "correctAnswer": "Height of the highest fixture/s",
+    "feedback": "Source: RNPCP, Annex A\n\nAdditional info:\n- the height of the highest fixture can be used to derive the loss in static pressure."
   },
   {
     "id": 46,
@@ -545,7 +545,7 @@ window.sipQuestionsData = [
       "distillation"
     ],
     "correctAnswer": "reverse osmosis",
-    "feedback": "Source: h2oglobalnews.com\n- distillation: the process of separating the component or substances from a liquid mixture by selective evaporation and condensation\n- ion exchange: Water passes through a medium that replaces harmful ions like lead and copper with more inert ions like sodium or potassium. In water softening, calcium and magnesium ions are replaced by salt ions.\n- ozonation: Ozone gas (O3) is bubbled through the water to kill bacteria, viruses, fungi, protozoa, and other microorganisms."
+    "feedback": "Source: h2oglobalnews.com\n\nAdditional info:\n- distillation: the process of separating the component or substances from a liquid mixture by selective evaporation and condensation\n- ion exchange: Water passes through a medium that replaces harmful ions like lead and copper with more inert ions like sodium or potassium. In water softening, calcium and magnesium ions are replaced by salt ions.\n- ozonation: Ozone gas (O3) is bubbled through the water to kill bacteria, viruses, fungi, protozoa, and other microorganisms."
   },
   {
     "id": 47,
@@ -568,7 +568,7 @@ window.sipQuestionsData = [
       "it is higher than ultimate bearing capacity that dictates safety factor"
     ],
     "correctAnswer": "the amount of load the soil can take without experiencing shear failure or exceeding the allowable amount of settlement",
-    "feedback": "Source: help.envirocon.co.nz\n- Ultimate Bearing Capacity: the maximum vertical pressure that can be applied to the ground surface before a shear failure mechanism develops in the supporting soil\n- Net ultimate bearing capacity: the net pressure increase at the foundation base that will result in shear failure of the soil"
+    "feedback": "Source: help.envirocon.co.nz\n\nAdditional info:\n- Ultimate Bearing Capacity: the maximum vertical pressure that can be applied to the ground surface before a shear failure mechanism develops in the supporting soil\n- Net ultimate bearing capacity: the net pressure increase at the foundation base that will result in shear failure of the soil"
   },
   {
     "id": 49,
@@ -580,7 +580,7 @@ window.sipQuestionsData = [
       "Battery-powered Sump Pump"
     ],
     "correctAnswer": "Pedestal Sump Pump",
-    "feedback": "Source: www.grampuspump.com\n- Submersible Sump Pump: operates from within the sump pit, fully submerged; it works underwater, with a motor encased in a watertight housing, praised for its quiet operation\n- Battery-powered Sump Pump: battery-operated units continue running during power outages, making them a dependable backup sump pump for basement flooding prevention and storm-related water intrusion.\n- Combination Sump Pump: Combine features of submersible and pedestal pumps for enhanced efficiency;  preferred because they combine primary pumping, backup protection, and automatic failover in one package."
+    "feedback": "Source: www.grampuspump.com; www.iqsdirectory.com \n\nAdditional info:\n- Submersible Sump Pump: operates from within the sump pit, fully submerged; it works underwater, with a motor encased in a watertight housing, praised for its quiet operation\n- Battery-powered Sump Pump: battery-operated units continue running during power outages, making them a dependable backup sump pump for basement flooding prevention and storm-related water intrusion.\n- Combination Sump Pump: Combine features of submersible and pedestal pumps for enhanced efficiency;  preferred because they combine primary pumping, backup protection, and automatic failover in one package."
   },
   {
     "id": 50,
@@ -592,7 +592,7 @@ window.sipQuestionsData = [
       "Pipe excavation and pipe repair line"
     ],
     "correctAnswer": "Pipe Lining and Pipe Bursting",
-    "feedback": "Source: restorepipe.com\n- Pipe Lining (Cured-In-Place Pipe or CIPP): involves inserting a flexible, resin-coated liner into the damaged pipe. The liner is inflated and cured in place, forming a durable new pipe within the old one.\n- Pipe Bursting:  involves breaking apart the existing pipe while simultaneously pulling a new pipe into its place. This method is ideal for completely replacing a damaged sewer line."
+    "feedback": "Source: restorepipe.com; ontariopipelining.com\n\nAdditional info:\n- Pipe Lining (Cured-In-Place Pipe or CIPP): involves inserting a flexible, resin-coated liner into the damaged pipe. The liner is inflated and cured in place, forming a durable new pipe within the old one.\n- Pipe Bursting:  involves breaking apart the existing pipe while simultaneously pulling a new pipe into its place. This method is ideal for completely replacing a damaged sewer line."
   },
   {
     "id": 51,
@@ -604,7 +604,7 @@ window.sipQuestionsData = [
       "monitor extreme rainfall"
     ],
     "correctAnswer": "evaluate risks of extreme rainfall",
-    "feedback": "Source: Martel et al., 2021\n- Intensity–Duration–Frequency (IDF) curves are a standard tool in hydrology that describe the statistical relationship between rainfall intensity, storm duration, and frequency of occurrence (return period) to determine the likelihood of extreme rainfall events"
+    "feedback": "Source: Martel et al., 2021\n\nAdditional info: \n- Intensity–Duration–Frequency (IDF) curves are a standard tool in hydrology that describe the statistical relationship between rainfall intensity, storm duration, and frequency of occurrence (return period) to determine the likelihood of extreme rainfall events"
   },
   {
     "id": 52,
@@ -616,7 +616,7 @@ window.sipQuestionsData = [
       "alkalinity and temporary hardness"
     ],
     "correctAnswer": "acidity and permanent hardness",
-    "feedback": "Source: UPPSC Polytechnic\n- The carbon dioxide is formed which further reacts with and leads to formation of carbonic acid and hence, reduces the pH of water. The bicarbonate hardness or temporary hardness is removed by alum, however, non-carbonate hardness is introduced by alum."
+    "feedback": "Source: UPPSC Polytechnic\n\nAdditional info:\n- The carbon dioxide is formed which further reacts with and leads to formation of carbonic acid and hence, reduces the pH of water. The bicarbonate hardness or temporary hardness is removed by alum, however, non-carbonate hardness is introduced by alum."
   },
   {
     "id": 53,
@@ -627,8 +627,8 @@ window.sipQuestionsData = [
       "Vertical line shaft turbine pump",
       "Centrifugal pump"
     ],
-    "correctAnswer": "centrifugal pump",
-    "feedback": "Source: DPWH D.O. 160 S.2023\n- Pumping level of 6 m - 20 m: use jet or submersible pumps\n- Pumping level of greater than 20 m: use a submersible or a vertical line shaft turbine pump"
+    "correctAnswer": "Centrifugal pump",
+    "feedback": "Source: DPWH D.O. 160 S.2023\n\nAdditional info:\n- Pumping level of 6 m - 20 m: use jet or submersible pumps\n- Pumping level of greater than 20 m: use a submersible or a vertical line shaft turbine pump"
   },
   {
     "id": 54,
@@ -640,7 +640,7 @@ window.sipQuestionsData = [
       "Location and Accessibility"
     ],
     "correctAnswer": "Temperature and Flow Rate",
-    "feedback": "- color, clarity, taste, and odor can indicate contaminants in the water\n- proximity to pollution sources can contaminate the spring"
+    "feedback": "Additional info:\n- color, clarity, taste, and odor can indicate contaminants in the water\n- proximity to pollution sources can contaminate the spring"
   },
   {
     "id": 55,
@@ -652,7 +652,7 @@ window.sipQuestionsData = [
       "Temporarily store untreated wastewater"
     ],
     "correctAnswer": "Filter wastewater",
-    "feedback": "Source: www.drainfieldsolutions.com\n- drainfield provides the final stage of wastewater treatment"
+    "feedback": "Source: www.drainfieldsolutions.com\n\nAdditional info: \n- drainfield provides the final stage of wastewater treatment"
   },
   {
     "id": 56,
@@ -664,7 +664,7 @@ window.sipQuestionsData = [
       "Fall-off pressure"
     ],
     "correctAnswer": "Fall-off pressure",
-    "feedback": "Source: caleffi.com"
+    "feedback": "Source: caleffi.com; various sources"
   },
   {
     "id": 57,
@@ -676,7 +676,7 @@ window.sipQuestionsData = [
       "wall hung"
     ],
     "correctAnswer": "close-coupled",
-    "feedback": "- close-coupled is a type of water closet"
+    "feedback": "Additional info:\n- close-coupled is a type of water closet"
   },
   {
     "id": 58,
@@ -688,7 +688,7 @@ window.sipQuestionsData = [
       "Septic"
     ],
     "correctAnswer": "Fresh",
-    "feedback": "Source: environmentalpollution.in\n-  Raw sewage: refers to untreated wastewater\n- Septic: a sewage that turns dark and smell unpleasantly due to anaerobic decomposition\n- Stale: refers to sewage that has been stagnant or stationary. DO has been reduced."
+    "feedback": "Source: environmentalpollution.in\n\nAdditional info:\n-  Raw sewage: refers to untreated wastewater\n- Septic: a sewage that turns dark and smell unpleasantly due to anaerobic decomposition\n- Stale: refers to sewage that has been stagnant or stationary. DO has been reduced."
   },
   {
     "id": 59,
@@ -700,7 +700,7 @@ window.sipQuestionsData = [
       "Opening the pressure relief valve"
     ],
     "correctAnswer": "Using the air vent in the highest opening",
-    "feedback": "- Bleeder valves or air separator is connected to the steam header/ vent"
+    "feedback": "Additional info: \n- Bleeder valves or air separator is connected to the steam header/ vent"
   },
   {
     "id": 60,
@@ -711,8 +711,8 @@ window.sipQuestionsData = [
       "Level II",
       "Level I"
     ],
-    "correctAnswer": "Level 1",
-    "feedback": "Source: Philippine National Standards for Drinking Water\n- Level 1: aka point source\n- Level 2: aka communal faucet system or standposts: a system composed of source, a reservoir, piped distribution network and communal faucets, located no more than 25 meters from the farthest house.\n- Level 3: aka waterworks system or individual house connections; a system with a source, a reservoir, a piped distribution network and household taps."
+    "correctAnswer": "Level I",
+    "feedback": "Source: Philippine National Standards for Drinking Water\n\nAdditional info:\n- Level 1: aka point source\n- Level 2: aka communal faucet system or standposts: a system composed of source, a reservoir, piped distribution network and communal faucets, located no more than 25 meters from the farthest house.\n- Level 3: aka waterworks system or individual house connections; a system with a source, a reservoir, a piped distribution network and household taps."
   },
   {
     "id": 61,
@@ -723,8 +723,8 @@ window.sipQuestionsData = [
       "elevating water temperature in a water body vicinity",
       "increasing impervious developments"
     ],
-    "correctAnswer": "reduction of parking spaces",
-    "feedback": "- There are many pollutants that can be found in a parking lot such as cadmium, copper, lead, zinc, nickel, cobalt, and iron, which are found in gasoline, grease and oils, antifreeze, brake linings, and rubber."
+    "correctAnswer": "reducing parking spaces",
+    "feedback": "Additional info:\n- There are many pollutants that can be found in a parking lot such as cadmium, copper, lead, zinc, nickel, cobalt, and iron, which are found in gasoline, grease and oils, antifreeze, brake linings, and rubber."
   },
   {
     "id": 62,
@@ -736,7 +736,7 @@ window.sipQuestionsData = [
       "Crude Oil"
     ],
     "correctAnswer": "Ember",
-    "feedback": "Source: RA 9514\n- Explosive: Includes any chemical compound or mechanical mixture that is commonly used or intended for the purpose of producing an explosion.\n- Crude Oil: Any naturally-occurring, unrefined petroleum liquid.\n- Cyrogenic: Is descriptive of any material which, by its nature or as a result of its reaction with other elements, produces a rapid drop in temperature of the immediate surroundings."
+    "feedback": "Source: RA 9514\n\nAdditional info:\n- Explosive: Includes any chemical compound or mechanical mixture that is commonly used or intended for the purpose of producing an explosion.\n- Crude Oil: Any naturally-occurring, unrefined petroleum liquid.\n- Cyrogenic: Is descriptive of any material which, by its nature or as a result of its reaction with other elements, produces a rapid drop in temperature of the immediate surroundings."
   },
   {
     "id": 63,
@@ -748,7 +748,7 @@ window.sipQuestionsData = [
       "Staphylococcus aureus"
     ],
     "correctAnswer": "Legionella bacteria",
-    "feedback": "Source: who.int\n- Mycobacterium avium subspecies paratuberculosis: a bacterial parasite and the causative agent of paratuberculosis, a disease predominately found in cattle and sheep\n- Staphylococcus aureus: found in the environment and is also found in normal human flora, located on the skin and mucous membranes"
+    "feedback": "Source: who.int\n\nAdditional info:\n- Mycobacterium avium subspecies paratuberculosis: a bacterial parasite and the causative agent of paratuberculosis, a disease predominately found in cattle and sheep\n- Staphylococcus aureus: found in the environment and is also found in normal human flora, located on the skin and mucous membranes"
   },
   {
     "id": 64,
@@ -760,7 +760,7 @@ window.sipQuestionsData = [
       "An Act Providing for the Establishment of Protected Areas"
     ],
     "correctAnswer": "An Act Creating the Laguna Lake Development Authority",
-    "feedback": "- DENR 2013-24: Chemical Control Order (CCO) for Lead and Lead Compounds\n- RA 10654: An Act to Prevent, Deter, and Eliminate Illegal, Unreported and Unregulated Fishing\n- RA 7586: An Act Providing for the Establishment and Management of National Integrated Protected Areas System"
+    "feedback": "Additional info:\n- DENR 2013-24: Chemical Control Order (CCO) for Lead and Lead Compounds\n- RA 10654: An Act to Prevent, Deter, and Eliminate Illegal, Unreported and Unregulated Fishing\n- RA 7586: An Act Providing for the Establishment and Management of National Integrated Protected Areas System"
   },
   {
     "id": 65,
@@ -771,8 +771,8 @@ window.sipQuestionsData = [
       "Cohesion",
       "Air resistance"
     ],
-    "correctAnswer": "surface tension",
-    "feedback": "- Surface Tension: the tendency of liquid surfaces at rest to shrink into the minimum surface area possible."
+    "correctAnswer": "Surface tension",
+    "feedback": "Additional info:\n- Surface Tension: the tendency of liquid surfaces at rest to shrink into the minimum surface area possible."
   },
   {
     "id": 66,
@@ -784,7 +784,7 @@ window.sipQuestionsData = [
       "maintain the excess pressure build up"
     ],
     "correctAnswer": "prevent the excess pressure build up",
-    "feedback": "Source: norgren.com"
+    "feedback": "Source: norgren.com; various sources"
   },
   {
     "id": 67,
@@ -796,7 +796,7 @@ window.sipQuestionsData = [
       "to remove suspended solids and flocs"
     ],
     "correctAnswer": "to remove suspended solids and flocs",
-    "feedback": "- Decanter centrifuges are high-speed rotating machines that use centrifugal force to rapidly separate solids from liquids."
+    "feedback": "Additional info: \n- Decanter centrifuges are high-speed rotating machines that use centrifugal force to rapidly separate solids from liquids."
   },
   {
     "id": 68,
@@ -808,7 +808,7 @@ window.sipQuestionsData = [
       "Pail flush"
     ],
     "correctAnswer": "Pail flush",
-    "feedback": "- Pail flush requires the least amount of water for flushing; flushed with the use of basin or pail containing an adequate amount of water\n- Washdown: discharges waste intro a trapway located at the front of the bowl\n- Siphon Jet: flushing action of the siphon-jet bowl is accomplished by a jet of water being directed through the upleg of the trapway\n- Washout: toilet where there is a kind of step inside that catches the excrement, and the contents only get into the water when the flush is activated."
+    "feedback": "Additional info:\n- Pail flush requires the least amount of water for flushing; flushed with the use of basin or pail containing an adequate amount of water\n- Washdown: discharges waste intro a trapway located at the front of the bowl\n- Siphon Jet: flushing action of the siphon-jet bowl is accomplished by a jet of water being directed through the upleg of the trapway\n- Washout: toilet where there is a kind of step inside that catches the excrement, and the contents only get into the water when the flush is activated."
   },
   {
     "id": 69,
@@ -831,7 +831,7 @@ window.sipQuestionsData = [
       "DPWH"
     ],
     "correctAnswer": "DENR",
-    "feedback": "Source: RNPCP, Appendix B"
+    "feedback": "Source: RNPCP, Appendix B\n\nWhere permitted by the rules and regulations of the Department of Environment and Natural Resources (DENR), the building sewer may be connected to a private sewage disposal system."
   },
   {
     "id": 71,
@@ -842,8 +842,8 @@ window.sipQuestionsData = [
       "Sanitary plans, layouts and details",
       "Cost estimate"
     ],
-    "correctAnswer": "Details drawing of a septic tank in the absence of disposal field",
-    "feedback": "- The \"Details drawing of a septic tank in the absence of disposal field\" are not part of the scope of work of a registered Master Plumber"
+    "correctAnswer": "Detail drawing of a septic tank in the absence of disposal field",
+    "feedback": "Additional info:\n- The \"Details drawing of a septic tank in the absence of disposal field\" are not part of the scope of work of a registered Master Plumber"
   },
   {
     "id": 72,
@@ -855,7 +855,7 @@ window.sipQuestionsData = [
       "cable tool and rotary drilling"
     ],
     "correctAnswer": "cable tool and rotary drilling",
-    "feedback": "Source: DPWH D.O. No. 160 s. 2023\n- cable-tool drilling/ percussion operates by repeatedly lifting and dropping a heavy drill string into the borehole\n- rotary drilling: a borehole is drilled by rotating a bit attached to the lower end of a string of drillpipe"
+    "feedback": "Source: DPWH D.O. No. 160 s. 2023\n\nAdditional info:\n- cable-tool drilling/ percussion operates by repeatedly lifting and dropping a heavy drill string into the borehole\n- rotary drilling: a borehole is drilled by rotating a bit attached to the lower end of a string of drillpipe"
   },
   {
     "id": 73,
@@ -867,7 +867,7 @@ window.sipQuestionsData = [
       "stainless steel"
     ],
     "correctAnswer": "stainless steel",
-    "feedback": "- Copper and stainless steel are best for medical gas and vacuum systems"
+    "feedback": "Additional info:\n- Copper and stainless steel are best for medical gas and vacuum systems"
   },
   {
     "id": 74,
@@ -878,8 +878,8 @@ window.sipQuestionsData = [
       "75 gpm",
       "100 gpm"
     ],
-    "correctAnswer": "50 gpm (or 190 li per minute)",
-    "feedback": "Source: PD 1096\n- 132 lpm or 35 gpm according to RA 9514"
+    "correctAnswer": "50 gpm",
+    "feedback": "Source: PD 1096 \n\nAdditional info:\n- 132 lpm or 35 gpm according to RA 9514"
   },
   {
     "id": 75,
@@ -890,8 +890,8 @@ window.sipQuestionsData = [
       "increase the opening area to reduce the flow velocity",
       "decrease the opening area to increase the flow velocity"
     ],
-    "correctAnswer": "increase the opening to reduce the flow velocity",
-    "feedback": "Source: epa.gov"
+    "correctAnswer": "increase the opening area to reduce the flow velocity",
+    "feedback": "Source: epa.gov; millops.community.uaf.edu"
   },
   {
     "id": 76,
@@ -902,8 +902,8 @@ window.sipQuestionsData = [
       "pH level",
       "Ammonia"
     ],
-    "correctAnswer": "pH Level",
-    "feedback": "Source: DENR DAO 2016-08\n- accommodation and food services wastewater pH level are usually within the acceptable limits"
+    "correctAnswer": "pH level",
+    "feedback": "Source: DENR DAO 2016-08\n\nAdditional info: \n- accommodation and food services wastewater pH level are usually within the acceptable limits"
   },
   {
     "id": 77,
@@ -914,8 +914,7 @@ window.sipQuestionsData = [
       "2000 psi",
       "2500 psi"
     ],
-    "correctAnswer": "Hydraulic grade line rises",
-    "feedback": "- hydraulic grade line is the locus of elevations to which the water would rise if open to atmospheric pressure (e.g., piezometer tubes) along a pipe run"
+    "correctAnswer": "2000 psi"
   },
   {
     "id": 78,
@@ -927,7 +926,7 @@ window.sipQuestionsData = [
       "Hydraulic grade line rises"
     ],
     "correctAnswer": "Hydraulic grade line rises",
-    "feedback": "- hydraulic grade line is the locus of elevations to which the water would rise if open to atmospheric pressure (e.g., piezometer tubes) along a pipe run"
+    "feedback": "Additional info:\n- hydraulic grade line is the locus of elevations to which the water would rise if open to atmospheric pressure (e.g., piezometer tubes) along a pipe run"
   },
   {
     "id": 79,
@@ -939,7 +938,7 @@ window.sipQuestionsData = [
       "The incorporation of recreational features around a basin"
     ],
     "correctAnswer": "The use of stilling basin and level spreaders as spillway",
-    "feedback": "- energy dissipators are used to reduce velocity and avoid erosion"
+    "feedback": "Additional info:\n- energy dissipators are used to reduce velocity and avoid erosion"
   },
   {
     "id": 80,
@@ -963,7 +962,7 @@ window.sipQuestionsData = [
       "pipe grade"
     ],
     "correctAnswer": "pipe schedule",
-    "feedback": "- C factor: indicates pipe's hydraulic smoothness, from Hazen-Williams coefficient\n- Runoff coefficient: relates the amount of runoff to the amount of precipitation received\n- Pipe grade C is a specification for steel pipes"
+    "feedback": "Additional info:\n- C factor: indicates pipe's hydraulic smoothness, from Hazen-Williams coefficient\n- Runoff coefficient: relates the amount of runoff to the amount of precipitation received\n- Pipe grade C is a specification for steel pipes"
   },
   {
     "id": 82,
@@ -974,8 +973,7 @@ window.sipQuestionsData = [
       "the pump is in the dry well, receiving sewage from the wet well",
       "the dry well is the inlet channel before the sewage enters the wet well"
     ],
-    "correctAnswer": "10% of total inorganic solid",
-    "feedback": "Source: Ministry of Higher Education and Scientific Research\nPreliminary Treatment includes Screen, Shredder or communitors, Grit chamber, Detritus tank"
+    "correctAnswer": "the pump is in the dry well, receiving sewage from the wet well"
   },
   {
     "id": 83,
@@ -987,7 +985,7 @@ window.sipQuestionsData = [
       "10% of total organic solid"
     ],
     "correctAnswer": "10% of total inorganic solid",
-    "feedback": "Source: Ministry of Higher Education and Scientific Research\nPreliminary Treatment includes Screen, Shredder or communitors, Grit chamber, Detritus tank"
+    "feedback": "Source: Ministry of Higher Education and Scientific Research\n\nAdditional info: Preliminary Treatment includes Screen, Shredder or communitors, Grit chamber, Detritus tank"
   },
   {
     "id": 84,
@@ -999,7 +997,7 @@ window.sipQuestionsData = [
       "remove the cleanout and relocate"
     ],
     "correctAnswer": "provide access panel",
-    "feedback": "Source: up.codes\n- Cleanouts for concealed piping in finished walls or ceilings shall be accessible through access doors or cover plates  which provide clearance for removal of the cleanout plug and insertion of the drain cleaning equipment."
+    "feedback": "Source: up.codes\n\nAdditional info:\n- Cleanouts for concealed piping in finished walls or ceilings shall be accessible through access doors or cover plates  which provide clearance for removal of the cleanout plug and insertion of the drain cleaning equipment."
   },
   {
     "id": 85,
@@ -1022,7 +1020,7 @@ window.sipQuestionsData = [
       "5 -10 years"
     ],
     "correctAnswer": "5 -10 years",
-    "feedback": "Source: DPWH D.O. 160 s. 2023\n- Lower design period accounts for lower initial capital cost and outlays"
+    "feedback": "Source: DPWH D.O. 160 s. 2023\n\nAdditional info:\n- Lower design period accounts for lower initial capital cost and outlays"
   },
   {
     "id": 87,
@@ -1034,7 +1032,7 @@ window.sipQuestionsData = [
       "worn pump impeller can increase power consumption"
     ],
     "correctAnswer": "warm fluid temperature requires more pumping power",
-    "feedback": "Source: jh-fluid.com"
+    "feedback": "Source: jh-fluid.com; sciencedirect.com; various sources"
   },
   {
     "id": 88,
@@ -1046,7 +1044,7 @@ window.sipQuestionsData = [
       "vortex flow meter"
     ],
     "correctAnswer": "vortex flow meter",
-    "feedback": "- Vortex flow meter: Based on Von Karman Vortex Theory, which uses a bluff body as an obstruction to create swirling vortices.\n- Electromagnetic flow meter: Developed based on Faraday's law; there is an electromagnetic coil that generates a magnetic field, and electrodes that capture voltage\n- Compound flow meter: combination of positive displacement flow meter and turbine meter; Used to accurately capture measurements where rapid and wide fluctuations in water demands are present\n- Ultrasonic flow meter: uses ultrasound to measure the speed of the fluid; bases on time different of flows or doppler effect"
+    "feedback": "Additional info:\n- Vortex flow meter: Based on Von Karman Vortex Theory, which uses a bluff body as an obstruction to create swirling vortices.\n- Electromagnetic flow meter: Developed based on Faraday's law; there is an electromagnetic coil that generates a magnetic field, and electrodes that capture voltage\n- Compound flow meter: combination of positive displacement flow meter and turbine meter; Used to accurately capture measurements where rapid and wide fluctuations in water demands are present\n- Ultrasonic flow meter: uses ultrasound to measure the speed of the fluid; bases on time different of flows or doppler effect"
   },
   {
     "id": 89,
@@ -1058,7 +1056,7 @@ window.sipQuestionsData = [
       "Building drain"
     ],
     "correctAnswer": "Area drain",
-    "feedback": "- minimum size of areway drain is 2\" diameter"
+    "feedback": "Additional info:\n- minimum size of areway drain is 2\" diameter"
   },
   {
     "id": 90,
@@ -1070,7 +1068,7 @@ window.sipQuestionsData = [
       "Leonides P. Perez"
     ],
     "correctAnswer": "Leonides P. Perez",
-    "feedback": "Source: RIRR RA 9514 (2019 version)\n- All choices belong to the Steering Committee of RIRR of RA 9514"
+    "feedback": "Source: RIRR RA 9514 (2019 version)\n\nAdditional info:\n- All choices belong to the Steering Committee of RIRR of RA 9514"
   },
   {
     "id": 91,
@@ -1082,7 +1080,7 @@ window.sipQuestionsData = [
       "Compared to gray cast iron, which has graphite in the form of flakes, ductile iron's graphite is in the form of nodules."
     ],
     "correctAnswer": "Ductile iron has a lower carbon content than steel, ranging from 1.5 to 1.9%.",
-    "feedback": "-  Ductile has a higher carbon content than steel (Ductile has around 3% carbon, while steel has carbon content of around 0.05% to 2%.)"
+    "feedback": "Additional info:\n-  Ductile has a higher carbon content than steel (Ductile has around 3% carbon, while steel has carbon content of around 0.05% to 2%.)"
   },
   {
     "id": 92,
@@ -1093,8 +1091,8 @@ window.sipQuestionsData = [
       "zero hardness may be obtained",
       "increase alkalinity"
     ],
-    "correctAnswer": "increase alkalinity (zeolite does not increase alkalinity)",
-    "feedback": "Source: betc.stu.edu.iq\n- Other disadvantage of zeolite: slight increase in the dissolved mineral\nmatter content; and water must be free from turbidity, oil, etc. prior the process."
+    "correctAnswer": "increase alkalinity",
+    "feedback": "Source: betc.stu.edu.iq\n\nAdditional info:\n- Other disadvantage of zeolite: slight increase in the dissolved mineral\nmatter content; and water must be free from turbidity, oil, etc. prior the process."
   },
   {
     "id": 93,
@@ -1106,7 +1104,7 @@ window.sipQuestionsData = [
       "Bathroom Group"
     ],
     "correctAnswer": "Bathroom",
-    "feedback": "Source: Uniform Plumbing Code\n- Bathroom Group: Any combination or fixtures, not to exceed one water closet, two lavatories, either one bathtub or one combination bath/shower, and one shower, and may include a bidet and an emergency floor drain.\n- Bathroom Accessories: includes essentials like mirrors, toilet paper holder, soap holder, soap dispenser, towel bars, etc.\n- Battery of Fixtures: any of two or more similar adjacent fixtures which discharge into a common horizontal soil or waste branch"
+    "feedback": "Source: Uniform Plumbing Code\n\nAdditional info:\n- Bathroom Group: Any combination or fixtures, not to exceed one water closet, two lavatories, either one bathtub or one combination bath/shower, and one shower, and may include a bidet and an emergency floor drain.\n- Bathroom Accessories: includes essentials like mirrors, toilet paper holder, soap holder, soap dispenser, towel bars, etc.\n- Battery of Fixtures: any of two or more similar adjacent fixtures which discharge into a common horizontal soil or waste branch"
   },
   {
     "id": 94,
@@ -1141,7 +1139,7 @@ window.sipQuestionsData = [
       "51 mm"
     ],
     "correctAnswer": "76 mm",
-    "feedback": "Source: humboldtgov.org"
+    "feedback": "Source: humboldtgov.org; various sources"
   },
   {
     "id": 97,
@@ -1165,7 +1163,7 @@ window.sipQuestionsData = [
       "ASTM B819"
     ],
     "correctAnswer": "ASTM B819",
-    "feedback": "- ASTM B88: Standard Specification for Seamless Copper Water Tube\n- ASTM B280: Standard Specification for Seamless Copper Tube for Air Conditioning and Refrigeration Field Service\n- ASTM A106: Standard Specification for Seamless Carbon Steel Pipe for High-Temperature Service"
+    "feedback": "Additional info:\n- ASTM B88: Standard Specification for Seamless Copper Water Tube\n- ASTM B280: Standard Specification for Seamless Copper Tube for Air Conditioning and Refrigeration Field Service\n- ASTM A106: Standard Specification for Seamless Carbon Steel Pipe for High-Temperature Service"
   },
   {
     "id": 99,
@@ -1177,7 +1175,7 @@ window.sipQuestionsData = [
       "removing the weeds and undesirable vegetation"
     ],
     "correctAnswer": "digging a diversion path on the underground rock formation",
-    "feedback": "-  During the excavation to enlarge the eye of the spring, underground rock formations must not be disturbed, so as to avoid deflecting the spring to another direction."
+    "feedback": "Additional info:\n-  During the excavation to enlarge the eye of the spring, underground rock formations must not be disturbed, so as to avoid deflecting the spring to another direction."
   },
   {
     "id": 100,
@@ -1189,6 +1187,6 @@ window.sipQuestionsData = [
       "7\""
     ],
     "correctAnswer": "9\"",
-    "feedback": "Source: ASPE;\n- common depth spans to 8\" to 10\", or 9\" to 10\"."
+    "feedback": "Source: ASPE; remodelista.com\n\nAdditional info:\n- common depth spans to 8\" to 10\", or 9\" to 10\"."
   }
 ];

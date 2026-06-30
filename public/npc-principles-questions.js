@@ -505,15 +505,15 @@ window.npcPrinciplesData = [
   },
   {
     "id": 43,
-    "question": "How many of the 22 Basic Principles of the 1999 National Plumbing Code specifically mention \"Registered Master Plumbers\"?",
+    "question": "A plumber notices that every time the bathtub drains, the water level in the adjacent toilet bowl drops noticeably. Which principle of the 1999 NPC addresses the root cause of this problem?",
     "choices": [
-      "One",
-      "Two",
-      "Three",
-      "Four"
+      "Principle No. 8",
+      "Principle No. 10",
+      "Principle No. 11",
+      "Principle No. 12"
     ],
-    "correctAnswer": "Three",
-    "feedback": "Three principles mention Registered Master Plumbers: Principle No. 9 (designed and constructed by RMPs), Principle No. 19 (maintained in serviceable condition by RMPs), and Principle No. 21 (installed by RMPs with due regard to structural preservation)."
+    "correctAnswer": "Principle No. 11",
+    "feedback": "Principle No. 11 – The drainage piping system shall be designed to provide adequate circulation of air free from siphonage, aspiration or forcing of trap seals under ordinary use. The drop in toilet bowl water is a classic sign of induced siphonage caused by inadequate venting."
   },
   {
     "id": 44,
@@ -613,15 +613,15 @@ window.npcPrinciplesData = [
   },
   {
     "id": 52,
-    "question": "According to Principle No. 19, who is responsible for maintaining plumbing systems in serviceable condition?",
+    "question": "After building turnover, a condominium association contracts routine plumbing maintenance to a general handyman with no plumbing license. Which principle does this practice violate?",
     "choices": [
-      "The building owner or administrator",
-      "Registered Master Plumbers",
-      "Any licensed engineer or contractor",
-      "The local sanitary inspector"
+      "Principle No. 9",
+      "Principle No. 13",
+      "Principle No. 19",
+      "Principle No. 21"
     ],
-    "correctAnswer": "Registered Master Plumbers",
-    "feedback": "Principle No. 19 – Plumbing systems shall be maintained in serviceable condition by Registered Master Plumbers."
+    "correctAnswer": "Principle No. 19",
+    "feedback": "Principle No. 19 – Plumbing systems shall be maintained in serviceable condition by Registered Master Plumbers. Ongoing maintenance, not just installation, must be performed by RMPs. (Principle No. 9 covers construction; Principle No. 21 covers installation — maintenance is specifically governed by Principle No. 19.)"
   },
   {
     "id": 53,

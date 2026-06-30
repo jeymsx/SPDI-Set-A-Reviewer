@@ -19,7 +19,7 @@ window.mt3QuestionsData = [
       "Flooded",
       "Flood Level"
     ],
-    "correctAnswer": "Overflow"
+    "correctAnswer": "Flood Level"
   },
   {
     "id": 3,
@@ -393,7 +393,7 @@ window.mt3QuestionsData = [
       "Plumbing System",
       "Durham System"
     ],
-    "correctAnswer": "Combination Waste and Vent System"
+    "correctAnswer": "Drainage System"
   },
   {
     "id": 37,
@@ -701,7 +701,7 @@ window.mt3QuestionsData = [
       "2.43",
       "2.40"
     ],
-    "correctAnswer": "1.20"
+    "correctAnswer": "2.43"
   },
   {
     "id": 65,
@@ -756,7 +756,7 @@ window.mt3QuestionsData = [
       "Blank Flange",
       "Socket Weld Flange"
     ],
-    "correctAnswer": "Threaded Flange"
+    "correctAnswer": "Blind Flange"
   },
   {
     "id": 70,
@@ -855,7 +855,7 @@ window.mt3QuestionsData = [
       "Durham System",
       "Combination Waste and Vent System"
     ],
-    "correctAnswer": "Drainage System"
+    "correctAnswer": "Durham System"
   },
   {
     "id": 79,

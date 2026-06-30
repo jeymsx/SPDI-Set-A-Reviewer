@@ -9,7 +9,7 @@ window.epQuestionsData = [
       "escutcheon"
     ],
     "correctAnswer": "silicone gasket",
-    "feedback": "- Washer is more associated in the distribution of mechanical load, under a nut\n- Silicone gasket is more heat-resistant than rubber silicone\n- escutcheon is used to cover a gap or hole, not used for leak-proofing"
+    "feedback": "Additional info:\n- Washer is more associated in the distribution of mechanical load, under a nut\n- Silicone gasket is more heat-resistant than rubber silicone\n- escutcheon is used to cover a gap or hole, not used for leak-proofing"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@ window.epQuestionsData = [
       "9"
     ],
     "correctAnswer": "11",
-    "image": "/assets/ep-q2.png"
+    "image": "./EP (R)_files/unnamed.png"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@ window.epQuestionsData = [
       "CPIA"
     ],
     "correctAnswer": "FCDA",
-    "feedback": "- Foreign Currency Differential Adjustment (FCDA): a tariff mechanism granted to Maynilad to recover or compensate for fluctuations, as the case may be, in the foreign exchange rates arising from Maynilad’s payment of foreign currency-denominated (i) Concession Fees to MWSS, and (ii) loans that Maynilad obtained for its service improvement projects."
+    "feedback": "Additional info:\n- Foreign Currency Differential Adjustment (FCDA): a tariff mechanism granted to Maynilad to recover or compensate for fluctuations, as the case may be, in the foreign exchange rates arising from Maynilad’s payment of foreign currency-denominated (i) Concession Fees to MWSS, and (ii) loans that Maynilad obtained for its service improvement projects."
   },
   {
     "id": 4,
@@ -45,7 +45,7 @@ window.epQuestionsData = [
       "metallic"
     ],
     "correctAnswer": "leather or asbestos composition",
-    "feedback": "Source: Audel\n- Cold-water piping: Sheet rubber or asbestos sheet packing. (Asbestos is not permitted in any form in some local codes.)\n- Hot-water lines: Rubber or asbestos composition.\n- Gas piping: Leather or asbestos composition.\n- Oil lines: Metallic or, where permitted, asbestos composition.\n- Gasoline conduction: Metallic."
+    "feedback": "Source: Audel\n\nAdditional info:\n- Cold-water piping: Sheet rubber or asbestos sheet packing. (Asbestos is not permitted in any form in some local codes.)\n- Hot-water lines: Rubber or asbestos composition.\n- Gas piping: Leather or asbestos composition.\n- Oil lines: Metallic or, where permitted, asbestos composition.\n- Gasoline conduction: Metallic."
   },
   {
     "id": 5,
@@ -57,7 +57,7 @@ window.epQuestionsData = [
       "A water closet connected to a 4\" trap"
     ],
     "correctAnswer": "A water closet connected to a 4\" trap",
-    "feedback": "- Double-trapping is not a recommended practice."
+    "feedback": "Additional info:\n- Double-trapping is not a recommended practice."
   },
   {
     "id": 6,
@@ -69,7 +69,7 @@ window.epQuestionsData = [
       "Cistern is bigger than overhead water tank."
     ],
     "correctAnswer": "Cistern is bigger than overhead water tank.",
-    "feedback": "- Cistern: an artificial reservoir (such as an underground tank) for storing liquids and especially water (such as rainwater)"
+    "feedback": "Additional info:\n- Cistern: an artificial reservoir (such as an underground tank) for storing liquids and especially water (such as rainwater)"
   },
   {
     "id": 7,
@@ -80,8 +80,8 @@ window.epQuestionsData = [
       "0.45 to 0.50 m",
       "0.50 to 0.55 m"
     ],
-    "correctAnswer": "0.45 to 0.5m",
-    "feedback": "Source: un.org"
+    "correctAnswer": "0.45 to 0.50 m",
+    "feedback": "Source: un.org; sanswiss.cz"
   },
   {
     "id": 8,
@@ -103,9 +103,9 @@ window.epQuestionsData = [
       "Quick Acting",
       "Screw Feed Tubing"
     ],
-    "correctAnswer": "Quick-Acting Cutter",
-    "feedback": "- 1: Midget Cutters\n- 2: Plastic Drain Pipe Cutter\n- 3: Plastic Single Stroke Cutter\n- 5: Enclosed Feed Tubing Cutter",
-    "image": "/assets/ep-q9.png"
+    "correctAnswer": "Quick Acting",
+    "feedback": "Additional info:\n- 1: Midget Cutters\n- 2: Plastic Drain Pipe Cutter\n- 3: Plastic Single Stroke Cutter\n- 5: Enclosed Feed Tubing Cutter",
+    "image": "./EP (R)_files/unnamed(1).png"
   },
   {
     "id": 10,
@@ -117,7 +117,7 @@ window.epQuestionsData = [
       "20 mm dia."
     ],
     "correctAnswer": "20 mm dia.",
-    "feedback": "- Internal diameter of 20 mm pipe dimension is 13 mm"
+    "feedback": "Additional info:\n- Internal diameter of 20 mm pipe dimension is 13 mm"
   },
   {
     "id": 11,
@@ -129,7 +129,7 @@ window.epQuestionsData = [
       "0.9 m; 1.2 m"
     ],
     "correctAnswer": "0.3 m; 1.2 m",
-    "feedback": "Source: PD 1096"
+    "feedback": "Source: PD 1096\n\nTake note of the construction of the question, which is verbatim from PD 1096. This can be mistaken as similar to the provision in RA 9514, which states that all fire service connections shall be 0.46 m to 1.22 m in height."
   },
   {
     "id": 12,
@@ -141,7 +141,7 @@ window.epQuestionsData = [
       "Not keeping hold on the switch button while carrying a plugged-in tool"
     ],
     "correctAnswer": "Using wrench with sprung jaws so that the wrench will not slip",
-    "feedback": "Source: OSHA\n- Wrench with sprung jaws shall not be used as slippage may occur"
+    "feedback": "Source: OSHA\n\nAdditional info:\n- Wrench with sprung jaws shall not be used as slippage may occur"
   },
   {
     "id": 13,
@@ -165,7 +165,7 @@ window.epQuestionsData = [
       "Grease Trap"
     ],
     "correctAnswer": "Building Trap",
-    "feedback": "Source: International Plumbing Code\n- Building Trap: A device, fitting or assembly of fittings installed in the building drain to prevent circulation of air between the drainage system of the building and the building sewer."
+    "feedback": "Source: International Plumbing Code\n\nAdditional info:\n- Building Trap: A device, fitting or assembly of fittings installed in the building drain to prevent circulation of air between the drainage system of the building and the building sewer."
   },
   {
     "id": 15,
@@ -176,7 +176,7 @@ window.epQuestionsData = [
       "Inside diameter",
       "Number of threads"
     ],
-    "correctAnswer": "inside diameter",
+    "correctAnswer": "Inside diameter",
     "feedback": "Source: PDE by Max Fajardo"
   },
   {
@@ -189,7 +189,7 @@ window.epQuestionsData = [
       "pipe jointing is incorrect"
     ],
     "correctAnswer": "there is no expansion joint",
-    "feedback": "- plastic pipes have high thermal coefficient\n- expansion loop or joint needs to be installed to accommodate pipe expansion"
+    "feedback": "Additional info:\n- plastic pipes have high thermal coefficient\n- expansion loop or joint needs to be installed to accommodate pipe expansion"
   },
   {
     "id": 17,
@@ -201,7 +201,7 @@ window.epQuestionsData = [
       "back vent"
     ],
     "correctAnswer": "back vent",
-    "feedback": "Source: RNPCP, Chapter 2\n- Unit Vent: an arrangement of venting so installed that one vent pipe will serve two (2) traps.\n- Circuit Vent: a group vent pipe which starts in front of the extreme fixture connection on a horizontal branch and connects to the vent stack.\n- Branch Vent: a horizontal vent connecting one or more individual vertical back vents with the vent stack or stack vent."
+    "feedback": "Source: RNPCP, Chapter 2\n\nAdditional info:\n- Unit Vent: an arrangement of venting so installed that one vent pipe will serve two (2) traps.\n- Circuit Vent: a group vent pipe which starts in front of the extreme fixture connection on a horizontal branch and connects to the vent stack.\n- Branch Vent: a horizontal vent connecting one or more individual vertical back vents with the vent stack or stack vent."
   },
   {
     "id": 18,
@@ -213,7 +213,7 @@ window.epQuestionsData = [
       "Cutting Pliers"
     ],
     "correctAnswer": "Needle Nose Pliers",
-    "image": "/assets/ep-q18.png"
+    "image": "./EP (R)_files/unnamed(2).png"
   },
   {
     "id": 19,
@@ -224,7 +224,8 @@ window.epQuestionsData = [
       "15.5",
       "16"
     ],
-    "correctAnswer": "14.5"
+    "correctAnswer": "14.5",
+    "feedback": "The AWWA operating formula for opening/closing a gate valve is 3 times the nominal valve size plus 2 or 3 turns of the operating nut. For example, a 6-inch gate valve would require 6 x 3 = 18 turns plus 2 or 3 turns, for a total of 20 to 21 turns."
   },
   {
     "id": 20,
@@ -247,7 +248,7 @@ window.epQuestionsData = [
       "to manage the velocity and intercept the water flow"
     ],
     "correctAnswer": "to stabilize the embankment and prevent erosion",
-    "feedback": "- Culvert: A passage under a road, embankment or canal which allow for the flow of water.\n- Headwall, Endwall, and Wingwall: An integrated wall located at either end of drainage pipe or a stream crossing structure. A wall built at a pipe inlet is a headwall"
+    "feedback": "Additional info: \n- Culvert: A passage under a road, embankment or canal which allow for the flow of water.\n- Headwall, Endwall, and Wingwall: An integrated wall located at either end of drainage pipe or a stream crossing structure. A wall built at a pipe inlet is a headwall"
   },
   {
     "id": 22,
@@ -259,7 +260,7 @@ window.epQuestionsData = [
       "butterfly valve"
     ],
     "correctAnswer": "gas cock",
-    "feedback": "- Pressure-reducing valve: designed to reduce a higher unregulated inlet pressure to a constant, reduced downstream\n- Butterfly valve: regulates flow by starting, slowing, or stopping media\n- Ball cock: typical configuration of a gas cock"
+    "feedback": "Additional info:\n- Pressure-reducing valve: designed to reduce a higher unregulated inlet pressure to a constant, reduced downstream\n- Butterfly valve: regulates flow by starting, slowing, or stopping media\n- Ball cock: typical configuration of a gas cock"
   },
   {
     "id": 23,
@@ -271,8 +272,8 @@ window.epQuestionsData = [
       "main vent"
     ],
     "correctAnswer": "waste pipe",
-    "feedback": "- Waste Pipe- a pipe that conveys liquid waste from fixture that is free of fecal matter\n- Acc. to the actual photo from Plumbing Design and Estimate by Max Fajardo, \"A\" is \"No Ventilation\"",
-    "image": "/assets/ep-q23.jpg"
+    "feedback": "Additional info:\n- Waste Pipe- a pipe that conveys liquid waste from fixture that is free of fecal matter\n- Acc. to the actual photo from Plumbing Design and Estimate by Max Fajardo, \"A\" is \"No Ventilation\"",
+    "image": "./EP (R)_files/unnamed.jpg"
   },
   {
     "id": 24,
@@ -284,7 +285,7 @@ window.epQuestionsData = [
       "sediment trap can be a tee fitting with a capped nipple in the bottom outlet"
     ],
     "correctAnswer": "sediment trap can be installed on the discharge side of the appliance",
-    "feedback": "Source: NFPA 54;\n- Sediment traps installed at gas appliances are used to help catch any sediment or debris that may be present in the gas line and prevent it from entering the appliance and possibly damaging it"
+    "feedback": "Source: NFPA 54; homeinspectionms.com; various sources\n\nAdditional info: \n- Sediment traps installed at gas appliances are used to help catch any sediment or debris that may be present in the gas line and prevent it from entering the appliance and possibly damaging it"
   },
   {
     "id": 25,
@@ -319,7 +320,7 @@ window.epQuestionsData = [
       "10"
     ],
     "correctAnswer": "9",
-    "image": "/assets/ep-q27.png"
+    "image": "./EP (R)_files/unnamed(3).png"
   },
   {
     "id": 28,
@@ -330,8 +331,8 @@ window.epQuestionsData = [
       "Solvent weld",
       "Mechanical"
     ],
-    "correctAnswer": "mechanical",
-    "feedback": "- when connecting plastic pipe to other types of piping, use only approved types of fittings and adapters designed for the specified transition intended"
+    "correctAnswer": "Mechanical",
+    "feedback": "Additional info:\n- when connecting plastic pipe to other types of piping, use only approved types of fittings and adapters designed for the specified transition intended"
   },
   {
     "id": 29,
@@ -343,7 +344,7 @@ window.epQuestionsData = [
       "Installation orientation"
     ],
     "correctAnswer": "Installation orientation",
-    "feedback": "- Curing time of solvent cement is not dependent on the position, whether the pipe is vertical or horizontal"
+    "feedback": "Additional info:\n- Curing time of solvent cement is not dependent on the position, whether the pipe is vertical or horizontal"
   },
   {
     "id": 30,
@@ -354,8 +355,8 @@ window.epQuestionsData = [
       "Compression-type faucet",
       "Quarter-turn valve"
     ],
-    "correctAnswer": "single lever faucet",
-    "feedback": "Source: ADAcentral.com\nMechanisms such as faucets, knobs, valves, etc, that require patron use, must be workable with just one hand. Although not ADA required, many people recommend that faucets be lever-operated, push, touch, or electronically controlled. It’s better to avoid having to tightly grasp, pinch, or twist the wrist."
+    "correctAnswer": "Single lever faucet",
+    "feedback": "Source: ADAcentral.com\n\nAdditional info: Mechanisms such as faucets, knobs, valves, etc, that require patron use, must be workable with just one hand. Although not ADA required, many people recommend that faucets be lever-operated, push, touch, or electronically controlled. It’s better to avoid having to tightly grasp, pinch, or twist the wrist."
   },
   {
     "id": 31,
@@ -367,7 +368,7 @@ window.epQuestionsData = [
       "Knife"
     ],
     "correctAnswer": "Sandpaper",
-    "feedback": "- PVC should be chamfered and even lightly sanded before gluing for better insertion on the fitting\n- Steel Wool: used as an abrasive in finishing and repair work for polishing wood or metal objects, cleaning household cookware, cleaning windows, and sanding surfaces.\n- Emery cloth: used primarily to smooth edges of copper piping"
+    "feedback": "Additional info:\n- PVC should be chamfered and even lightly sanded before gluing for better insertion on the fitting\n- Steel Wool: used as an abrasive in finishing and repair work for polishing wood or metal objects, cleaning household cookware, cleaning windows, and sanding surfaces.\n- Emery cloth: used primarily to smooth edges of copper piping"
   },
   {
     "id": 32,
@@ -379,7 +380,7 @@ window.epQuestionsData = [
       "Looped Vent"
     ],
     "correctAnswer": "Looped Vent",
-    "feedback": "Source: PDE by Max Fajardo\n- Utility vent: a type of ventilation component commonly found on the exterior of buildings, usually on the roof or walls. \n- Local Vent: a pipe or shaft to convey foul air from a plumbing fixture\nor a room to the outer air.\n- Relief Vent: a vertical vent line, the primary function of which is to provide additional circulation of air between the drainage and vent systems"
+    "feedback": "Source: PDE by Max Fajardo\n\nAdditional info:\n- Utility vent: a type of ventilation component commonly found on the exterior of buildings, usually on the roof or walls. \n- Local Vent: a pipe or shaft to convey foul air from a plumbing fixture\nor a room to the outer air.\n- Relief Vent: a vertical vent line, the primary function of which is to provide additional circulation of air between the drainage and vent systems"
   },
   {
     "id": 33,
@@ -391,7 +392,7 @@ window.epQuestionsData = [
       "Vent Stack"
     ],
     "correctAnswer": "Main Vent",
-    "image": "/assets/ep-q33.jpg"
+    "image": "./EP (R)_files/unnamed(4).jpg"
   },
   {
     "id": 34,
@@ -403,8 +404,8 @@ window.epQuestionsData = [
       "to avoid trap seal loss"
     ],
     "correctAnswer": "to avoid pooling of water",
-    "feedback": "- Bleeder fittings are small, precision-engineered components designed to safely release trapped pressure or residual fluid from instrumentation systems, hydraulic circuits, or pipeline assemblies.",
-    "image": "/assets/ep-q34.jpg"
+    "feedback": "Additional info:\n- Bleeder fittings are small, precision-engineered components designed to safely release trapped pressure or residual fluid from instrumentation systems, hydraulic circuits, or pipeline assemblies.",
+    "image": "./EP (R)_files/unnamed(5).jpg"
   },
   {
     "id": 35,
@@ -427,7 +428,7 @@ window.epQuestionsData = [
       "Type K with nominal size of 2 1/2\" has an OD of 2 5/8\"."
     ],
     "correctAnswer": "Type K with nominal size of 2 1/2\" has an OD of 2 5/8\".",
-    "feedback": "Source: shanghaimetal.com\n- OD is always 1/8\" larger than the nominal size, not the interior diameter.\n- ID is dependent upon the type of Copper Tube."
+    "feedback": "Source: shanghaimetal.com\n\nAdditional info: \n- OD is always 1/8\" larger than the nominal size, not the interior diameter.\n- ID is dependent upon the type of Copper Tube."
   },
   {
     "id": 37,
@@ -439,7 +440,7 @@ window.epQuestionsData = [
       "Pipe Die"
     ],
     "correctAnswer": "Nipple Chuck",
-    "feedback": "- Nipple Chuck holds short or close nipples for threading."
+    "feedback": "Additional info:\n- Nipple Chuck holds short or close nipples for threading."
   },
   {
     "id": 38,
@@ -451,7 +452,7 @@ window.epQuestionsData = [
       "Lead"
     ],
     "correctAnswer": "Cast iron",
-    "feedback": "Source: RNPCP, Chapter 11\n- Lead: rarely used nowadays due to health and environmental issues\n- Galvanized iron: can have rust over time\n- Aluminum: lightweight and a bit corrosive"
+    "feedback": "Source: RNPCP, Chapter 11\n\nAdditional info:\n- Lead: rarely used nowadays due to health and environmental issues\n- Galvanized iron: can have rust over time\n- Aluminum: lightweight and a bit corrosive"
   },
   {
     "id": 39,
@@ -463,7 +464,7 @@ window.epQuestionsData = [
       "twist the pipe and fitting, until the solder cracks"
     ],
     "correctAnswer": "reheat the area until the solder melts, and pull the joints apart",
-    "feedback": "- soldering is reversible, and previously soldered copper pipe and fitting can be reused"
+    "feedback": "Additional info:\n- soldering is reversible, and previously soldered copper pipe and fitting can be reused"
   },
   {
     "id": 40,
@@ -475,7 +476,7 @@ window.epQuestionsData = [
       "pipe wrench"
     ],
     "correctAnswer": "pipe wrench",
-    "feedback": "- pipe wrench is only needed when turning pipes\n- sealant can be applied to the adapter threads, control stop, and tailpiece to avoid leakage\n- smooth jaw spud wrench or adjustable wrench is used to tighten tailpiece, vacuum breaker, and spud coupling\n- allen wrench can secure the escutcheon and supply flange"
+    "feedback": "Additional info:\n- pipe wrench is only needed when turning pipes\n- sealant can be applied to the adapter threads, control stop, and tailpiece to avoid leakage\n- smooth jaw spud wrench or adjustable wrench is used to tighten tailpiece, vacuum breaker, and spud coupling\n- allen wrench can secure the escutcheon and supply flange"
   },
   {
     "id": 41,
@@ -497,8 +498,8 @@ window.epQuestionsData = [
       "using gloves to secure the end of the pipe for safety against vibration",
       "supporting the heavy end of pipe with pipe support"
     ],
-    "correctAnswer": "using gloves to secure the end of the pipe to absorb vibration",
-    "feedback": "- pipes must be supported by pipe supports, not hands"
+    "correctAnswer": "using gloves to secure the end of the pipe for safety against vibration",
+    "feedback": "Additional info:\n- pipes must be supported by pipe supports, not hands"
   },
   {
     "id": 43,
@@ -509,8 +510,8 @@ window.epQuestionsData = [
       "The Gas emitted will deteriorate concrete",
       "Cracks and leaks cannot be detected"
     ],
-    "correctAnswer": "The gas emitted will deteriorate the concrete",
-    "feedback": "- The gas from sewage is not the most significant reason as to why soil stacks are prohibited in the column."
+    "correctAnswer": "The Gas emitted will deteriorate concrete",
+    "feedback": "Additional info: \n- The gas from sewage is not the most significant reason as to why soil stacks are prohibited in the column."
   },
   {
     "id": 44,
@@ -522,7 +523,7 @@ window.epQuestionsData = [
       "not lubricating the blade"
     ],
     "correctAnswer": "too much pressure is applied on the return stroke",
-    "feedback": "- a hacksaw is designed to cut using forward strokes"
+    "feedback": "Additional info:\n- a hacksaw is designed to cut using forward strokes"
   },
   {
     "id": 45,
@@ -533,8 +534,8 @@ window.epQuestionsData = [
       "hex bushing",
       "nipple"
     ],
-    "correctAnswer": "Socket",
-    "feedback": "- hex bushing: used to reduce the size of female threads from a larger to a smaller diameter\n- nipple: a fitting consisting of a short piece of pipe, usually provided with a male pipe thread at each end\n- face bushing: Male and female threaded; it connects different pipe sizes without hex head component."
+    "correctAnswer": "socket",
+    "feedback": "Additional info:\n- hex bushing: used to reduce the size of female threads from a larger to a smaller diameter\n- nipple: a fitting consisting of a short piece of pipe, usually provided with a male pipe thread at each end\n- face bushing: Male and female threaded; it connects different pipe sizes without hex head component."
   },
   {
     "id": 46,
@@ -545,7 +546,7 @@ window.epQuestionsData = [
       "150 m",
       "135 m"
     ],
-    "correctAnswer": "160 m"
+    "correctAnswer": "140 m"
   },
   {
     "id": 47,
@@ -568,7 +569,7 @@ window.epQuestionsData = [
       "Tool Chest"
     ],
     "correctAnswer": "Tool Chest",
-    "feedback": "- Tool Kit: Portable small storage for tools"
+    "feedback": "Additional info:\n- Tool Kit: Portable small storage for tools"
   },
   {
     "id": 49,
@@ -580,7 +581,7 @@ window.epQuestionsData = [
       "Sick Building Syndrome"
     ],
     "correctAnswer": "Building Related Illness",
-    "feedback": "Source: Philippine Green Building Code\n- Sick Building Syndrome: Building whose occupants experience acute health and/or comfort effects that appear to be linked to time spent therein, but where no specific illness or cause can be identified"
+    "feedback": "Source: Philippine Green Building Code\n\nAdditional info: \n- Sick Building Syndrome: Building whose occupants experience acute health and/or comfort effects that appear to be linked to time spent therein, but where no specific illness or cause can be identified"
   },
   {
     "id": 50,
@@ -603,8 +604,8 @@ window.epQuestionsData = [
       "ensure the drain and overflow are properly sized",
       "route uninsulated metal piping adjacent to bathtub"
     ],
-    "correctAnswer": "add fiberglass insulation around the body of the bathtub",
-    "feedback": "- acrylic bathtubs have fiberglass insulation layer. \n- for built-up bathtubs, the insulation can be an insulation wrap or foam"
+    "correctAnswer": "add fiberglass insulation in or around the body of the bathtub",
+    "feedback": "Additional info:\n- acrylic bathtubs have fiberglass insulation layer. \n- for built-up bathtubs, the insulation can be an insulation wrap or foam"
   },
   {
     "id": 52,
@@ -615,8 +616,8 @@ window.epQuestionsData = [
       "The pump is installed before the underground water cistern.",
       "The pneumatic tank must have a corrosion-resistant material to avoid cavitation."
     ],
-    "correctAnswer": "The Pneumatic tank shall be designed for twice the maximum total dynamic pressure required.",
-    "feedback": "Source: PD 1096\n- Pneumatic tank: an unfired pressure vessel, initially full of air, into which water from mains is pumped."
+    "correctAnswer": "The pneumatic tank shall be designed for twice the maximum total dynamic pressure required.",
+    "feedback": "Source: PD 1096\n\nAdditional info:\n- Pneumatic tank: an unfired pressure vessel, initially full of air, into which water from mains is pumped."
   },
   {
     "id": 53,
@@ -628,8 +629,8 @@ window.epQuestionsData = [
       "C only"
     ],
     "correctAnswer": "C only",
-    "feedback": "- A: Screwed Cap\n- B: Screwed Plug-Pipe\n- C: Flanged Union\n- D: Screwed Bushing\n- E: Screwed Reducer- Concentric\n- F: Screwed Angle Gate Valve (Plan)",
-    "image": "/assets/ep-q53.jpg"
+    "feedback": "Additional info:\n- A: Screwed Cap\n- B: Screwed Plug-Pipe\n- C: Flanged Union\n- D: Screwed Bushing\n- E: Screwed Reducer- Concentric\n- F: Screwed Angle Gate Valve (Plan)",
+    "image": "./EP (R)_files/unnamed(6).jpg"
   },
   {
     "id": 54,
@@ -641,7 +642,7 @@ window.epQuestionsData = [
       "pipe wrench"
     ],
     "correctAnswer": "basin wrench",
-    "feedback": "Source: thespruce.com\n- A basin wrench is a specialty plumbing tool with a rotating, self-adjusting gripping head and long handle. It is used to tighten and remove the mounting nuts of faucet tailpieces."
+    "feedback": "Source: thespruce.com\n\nAdditional info:\n- A basin wrench is a specialty plumbing tool with a rotating, self-adjusting gripping head and long handle. It is used to tighten and remove the mounting nuts of faucet tailpieces."
   },
   {
     "id": 55,
@@ -653,7 +654,7 @@ window.epQuestionsData = [
       "drift plug"
     ],
     "correctAnswer": "dresser",
-    "feedback": "- Turnpin:  tool used for expanding the ends of lead pipe\n- Shave hook: used for stripping paint from surfaces such as window frames, mouldings, doors and furniture\n- Drift plug: a hardwood plug that is conical or has rounded ends to be driven into or through a lead pipe to flare it or to straighten a buckle."
+    "feedback": "Additional info:\n- Turnpin:  tool used for expanding the ends of lead pipe\n- Shave hook: used for stripping paint from surfaces such as window frames, mouldings, doors and furniture\n- Drift plug: a hardwood plug that is conical or has rounded ends to be driven into or through a lead pipe to flare it or to straighten a buckle."
   },
   {
     "id": 56,
@@ -665,7 +666,7 @@ window.epQuestionsData = [
       "Hook Auger"
     ],
     "correctAnswer": "Retrieving Auger",
-    "feedback": "Source: Ridgid\n- Drop Head Auger: For cleaning back to back mounted fixtures e.g., sinks where cable needs to be led into down pipe\n- Hook Auger: For heavy and dense root stoppages in pipes that require hooking and breaking up\n- Straight Auger: For use in exploring and breaking up stoppages or returning sample to surface to determine the correct tool"
+    "feedback": "Source: Ridgid\n\nAdditional info:\n- Drop Head Auger: For cleaning back to back mounted fixtures e.g., sinks where cable needs to be led into down pipe\n- Hook Auger: For heavy and dense root stoppages in pipes that require hooking and breaking up\n- Straight Auger: For use in exploring and breaking up stoppages or returning sample to surface to determine the correct tool"
   },
   {
     "id": 57,
@@ -688,7 +689,7 @@ window.epQuestionsData = [
       "the set torque level can secure pipes"
     ],
     "correctAnswer": "the movable upper jaw can accommodate different pipe sizes",
-    "feedback": "- Stillson wrench has serrated (toothed) jaws meant to grip various pipe sizes"
+    "feedback": "Additional info:\n- Stillson wrench has serrated (toothed) jaws meant to grip various pipe sizes"
   },
   {
     "id": 59,
@@ -700,7 +701,7 @@ window.epQuestionsData = [
       "replace valve seat"
     ],
     "correctAnswer": "replace o-ring",
-    "feedback": "cartridge and ball faucets are washerless"
+    "feedback": "Additional info: cartridge and ball faucets are washerless"
   },
   {
     "id": 60,
@@ -712,7 +713,7 @@ window.epQuestionsData = [
       "hex wrench"
     ],
     "correctAnswer": "hex wrench",
-    "feedback": "Source: Ridgid Catalogue\n- Spud Wrench: features narrow jaws to fit into tight places; Smooth, toothless jaws ideal for square or rectangular stock.\n- Chain wrench: A double jaw gives fast, ratchetlike action in either direction.\n- Monkey wrench: a wrench with one fixed and one adjustable jaw at right angles to a straight handle"
+    "feedback": "Source: Ridgid Catalogue\n\nAdditional info:\n- Spud Wrench: features narrow jaws to fit into tight places; Smooth, toothless jaws ideal for square or rectangular stock.\n- Chain wrench: A double jaw gives fast, ratchetlike action in either direction.\n- Monkey wrench: a wrench with one fixed and one adjustable jaw at right angles to a straight handle"
   },
   {
     "id": 61,
@@ -724,7 +725,7 @@ window.epQuestionsData = [
       "it is the energy efficiency rating for central air conditioners"
     ],
     "correctAnswer": "it is the energy efficiency rating for room air conditioners that lists how many Btu per hour are used for each watt of power it draws",
-    "feedback": "Source: Philippine Green Building Code\n- Energy Efficiency Ratio: energy efficiency rating for room air conditioners that lists how many Btu per hour are used for each watt of power it draws"
+    "feedback": "Source: Philippine Green Building Code\n\nAdditional info:\n- Energy Efficiency Ratio: energy efficiency rating for room air conditioners that lists how many Btu per hour are used for each watt of power it draws"
   },
   {
     "id": 62,
@@ -736,7 +737,7 @@ window.epQuestionsData = [
       "usage of solvent cement"
     ],
     "correctAnswer": "deburring of pipe",
-    "feedback": "- A pipe that is not deburred can lead to leaks."
+    "feedback": "Additional info:\n- A pipe that is not deburred can lead to leaks."
   },
   {
     "id": 63,
@@ -747,8 +748,8 @@ window.epQuestionsData = [
       "21",
       "18"
     ],
-    "correctAnswer": "17",
-    "image": "/assets/ep-q63.jpg"
+    "correctAnswer": "21",
+    "image": "./EP (R)_files/unnamed(7).jpg"
   },
   {
     "id": 64,
@@ -760,7 +761,7 @@ window.epQuestionsData = [
       "rigid piping material"
     ],
     "correctAnswer": "vibration isolation",
-    "feedback": "- vibration dampener or isolators prevent transmission of stress and noise to the pipe connected"
+    "feedback": "Additional info: \n- vibration dampener or isolators prevent transmission of stress and noise to the pipe connected"
   },
   {
     "id": 65,
@@ -784,7 +785,8 @@ window.epQuestionsData = [
       "Urinal (Stall)"
     ],
     "correctAnswer": "Urinal (Stall)",
-    "image": "/assets/ep-q66.png"
+    "feedback": "Memorize all the plumbing symbols.",
+    "image": "./EP (R)_files/unnamed(8).png"
   },
   {
     "id": 67,
@@ -796,7 +798,7 @@ window.epQuestionsData = [
       "running trap"
     ],
     "correctAnswer": "cleanout",
-    "feedback": "- Cleanout serves as an access for maintenance, cleaning, and removal of blockages\n- Running trap is installed to avoid freezing of the area drain pipe\n- Catch basin filters out debris before it enters the drain\n- Valve controls the flow of water"
+    "feedback": "Additional info:\n- Cleanout serves as an access for maintenance, cleaning, and removal of blockages\n- Running trap is installed to avoid freezing of the area drain pipe\n- Catch basin filters out debris before it enters the drain\n- Valve controls the flow of water"
   },
   {
     "id": 68,
@@ -819,7 +821,7 @@ window.epQuestionsData = [
       "ranges, boilers"
     ],
     "correctAnswer": "tankless water heater, furnaces",
-    "feedback": "Source: riversideca.gov\n- Appliances such as furnaces and water heaters require a sediment trap downstream of the appliance shutoff valve and as close as practical to the inlet of the appliance"
+    "feedback": "Source: riversideca.gov\n\nAdditional info:\n- Appliances such as furnaces and water heaters require a sediment trap downstream of the appliance shutoff valve and as close as practical to the inlet of the appliance"
   },
   {
     "id": 70,
@@ -831,7 +833,7 @@ window.epQuestionsData = [
       "Vacuum"
     ],
     "correctAnswer": "Vacuum",
-    "feedback": "Source: mass.gov\n- Oscillation- too much air from wind outside the house could be getting into the pipes and may bounce the water out of the bowl.\n- Evaporation- Overly dry air conditions can cause the water in your plumbing trap to evaporate.\n- Capillary Action- If something is stuck inside of the pipe and is wicking or absorbing the water from the toilet, capillary action could be to blame."
+    "feedback": "Source: mass.gov (248 CMR: Board of State Examiner of Plumbers and Gas Fitters)\n\nAdditional info:\n- Oscillation- too much air from wind outside the house could be getting into the pipes and may bounce the water out of the bowl.\n- Evaporation- Overly dry air conditions can cause the water in your plumbing trap to evaporate.\n- Capillary Action- If something is stuck inside of the pipe and is wicking or absorbing the water from the toilet, capillary action could be to blame."
   },
   {
     "id": 71,
@@ -843,7 +845,7 @@ window.epQuestionsData = [
       "insert additional bigger pipe"
     ],
     "correctAnswer": "cut and insert coupling",
-    "feedback": "Other possible remedies: Fiberglass resin tape, Epoxy putty, rubber and silicone repair tape, etc."
+    "feedback": "Additional info:\n\nOther possible remedies: Fiberglass resin tape, Epoxy putty, rubber and silicone repair tape, etc."
   },
   {
     "id": 72,
@@ -855,7 +857,7 @@ window.epQuestionsData = [
       "mounting ring"
     ],
     "correctAnswer": "washer",
-    "feedback": "- washer: primary purpose of most washers is to evenly distribute the load of the threaded fastener with which they are used\n- o-ring: used with mounting ring to secure vessel sinks\n- silicone adhesive: using a bead of silicone under the vessel sink and around the edge helps adhere the sink to the countertop, and secure watertight connection"
+    "feedback": "Additional info:\n- washer: primary purpose of most washers is to evenly distribute the load of the threaded fastener with which they are used\n- o-ring: used with mounting ring to secure vessel sinks\n- silicone adhesive: using a bead of silicone under the vessel sink and around the edge helps adhere the sink to the countertop, and secure watertight connection"
   },
   {
     "id": 73,
@@ -879,7 +881,7 @@ window.epQuestionsData = [
       "trapeze hanger"
     ],
     "correctAnswer": "clevis hanger",
-    "feedback": "- clevis: A support device providing vertical adjustment consisting of a clevis-type top bolted to a formed steel bottom strap.\n- pipe clamp: A bolted clamp attachment that connects a pipe to a hanger, support, assembly, or structural element.\n- pipe shoe: A hanger or support (typically T shaped) attached to the pipe to transmit the load or forces to adjacent structural elements.\n- trapeze: pipe hanger consisting of parallel vertical rods connected at their lower ends by a horizontal member that is suspended from a structural element."
+    "feedback": "Additional info:\n- clevis: A support device providing vertical adjustment consisting of a clevis-type top bolted to a formed steel bottom strap.\n- pipe clamp: A bolted clamp attachment that connects a pipe to a hanger, support, assembly, or structural element.\n- pipe shoe: A hanger or support (typically T shaped) attached to the pipe to transmit the load or forces to adjacent structural elements.\n- trapeze: pipe hanger consisting of parallel vertical rods connected at their lower ends by a horizontal member that is suspended from a structural element."
   },
   {
     "id": 75,
@@ -891,7 +893,7 @@ window.epQuestionsData = [
       "F"
     ],
     "correctAnswer": "F",
-    "image": "/assets/ep-q75.jpg"
+    "image": "./EP (R)_files/unnamed(9).jpg"
   },
   {
     "id": 76,
@@ -903,7 +905,7 @@ window.epQuestionsData = [
       "Pipe joint compound"
     ],
     "correctAnswer": "Plumber's putty",
-    "feedback": "Source: various websites\n- Plumber's putty is a soft, pliable sealing compound that is used to make watertight seals around faucets, drains, and other plumbing parts."
+    "feedback": "Source: various websites\n\nAdditional info:\n- Plumber's putty is a soft, pliable sealing compound that is used to make watertight seals around faucets, drains, and other plumbing parts."
   },
   {
     "id": 77,
@@ -915,7 +917,7 @@ window.epQuestionsData = [
       "to delegate work assignment"
     ],
     "correctAnswer": "to assess work and discuss safety precautions",
-    "feedback": "- A toolbox talk is a brief, informal safety meeting led by a foreman, site supervisor, or safety officer at the start of a work shift"
+    "feedback": "Additional info:\n- A toolbox talk is a brief, informal safety meeting led by a foreman, site supervisor, or safety officer at the start of a work shift"
   },
   {
     "id": 78,
@@ -927,7 +929,7 @@ window.epQuestionsData = [
       "Self-retracting lifeline"
     ],
     "correctAnswer": "Lanyard",
-    "feedback": "- Lanyard is a sample of Connector\n- Anchorage Connector is a point of connection to any anchorage (beams, girders, etc). Samples are steel plate, bolt connector, etc.\n- Self-retracting lifeline is a deceleration device at the same time connector\n- Deceleration device is any mechanism that serves to dissipate energy during a fall."
+    "feedback": "Additional info:\n- Lanyard is a sample of Connector\n- Anchorage Connector is a point of connection to any anchorage (beams, girders, etc). Samples are steel plate, bolt connector, etc.\n- Self-retracting lifeline is a deceleration device at the same time connector\n- Deceleration device is any mechanism that serves to dissipate energy during a fall."
   },
   {
     "id": 79,
@@ -940,7 +942,7 @@ window.epQuestionsData = [
     ],
     "correctAnswer": "Socket",
     "feedback": "Source: PDE by Max Fajardo",
-    "image": "/assets/ep-q79.png"
+    "image": "./EP (R)_files/unnamed(10).png"
   },
   {
     "id": 80,
@@ -952,7 +954,7 @@ window.epQuestionsData = [
       "110 liters"
     ],
     "correctAnswer": "120 liters",
-    "feedback": "- Assume the multiplier is 80%. But according to code, the multiplier to get hot water demand is 75%."
+    "feedback": "Additional info: \n- Assume the multiplier is 80%. But according to code, the multiplier to get hot water demand is 75%."
   },
   {
     "id": 81,
@@ -963,8 +965,8 @@ window.epQuestionsData = [
       "10 mm",
       "25 mm"
     ],
-    "correctAnswer": "15 mm (Nominal Diameter)",
-    "feedback": "Source: Pipe Brand Brochures\n- Standard GI Pipe length is 6 meters"
+    "correctAnswer": "15 mm",
+    "feedback": "Source: Pipe Brand Brochures\n\nAdditional info:\n- Standard GI Pipe length is 6 meters"
   },
   {
     "id": 82,
@@ -976,8 +978,8 @@ window.epQuestionsData = [
       "Hinged Pipe Vise"
     ],
     "correctAnswer": "Hinged Pipe Vise",
-    "feedback": "Source: Ridgid\n- Bench Chain Vise: A\n- Bench Yoke Vise: B\n- Top Screw Bench Chain Vise: D",
-    "image": "/assets/ep-q82.png"
+    "feedback": "Source: Ridgid\n\nAdditional info: \n- Bench Chain Vise: A\n- Bench Yoke Vise: B\n- Top Screw Bench Chain Vise: D",
+    "image": "./EP (R)_files/unnamed(11).png"
   },
   {
     "id": 83,
@@ -989,7 +991,7 @@ window.epQuestionsData = [
       "Coat the pipe with epoxy"
     ],
     "correctAnswer": "Replace with stainless steel or other corrosion-resistant material",
-    "feedback": "Source: hnssd.com\n- In corrosive environments, such as coastal areas or industrial areas, stainless steel pipes have more advantages"
+    "feedback": "Source: hnssd.com; various sources\n\nAdditional info:\n- In corrosive environments, such as coastal areas or industrial areas, stainless steel pipes have more advantages"
   },
   {
     "id": 84,
@@ -1012,7 +1014,7 @@ window.epQuestionsData = [
       "Type L"
     ],
     "correctAnswer": "Type DWV",
-    "feedback": "Source: RNPCP, Chapter 14\n- Type K: Heaviest; suitable for underground use\n- Type L: Copper tube tor water supply piping shall have a weight of not less than Type \"L\".\n- Type M: may be used for water piping when piping is above wound inside or atop a building, or underground outside of structures with outside protective coating."
+    "feedback": "Source: RNPCP, Chapter 14\n\nAdditional info:\n- Type K: Heaviest; suitable for underground use\n- Type L: Copper tube tor water supply piping shall have a weight of not less than Type \"L\".\n- Type M: may be used for water piping when piping is above wound inside or atop a building, or underground outside of structures with outside protective coating."
   },
   {
     "id": 86,
@@ -1024,7 +1026,7 @@ window.epQuestionsData = [
       "The water source is too far from the heater."
     ],
     "correctAnswer": "There is not enough water flow.",
-    "feedback": "- Instantaneous water heater requires minimum flow rate to activate the heating element."
+    "feedback": "Additional info: \n- Instantaneous water heater requires minimum flow rate to activate the heating element."
   },
   {
     "id": 87,
@@ -1035,7 +1037,7 @@ window.epQuestionsData = [
       "1/4 turn",
       "2 turns"
     ],
-    "correctAnswer": "one-quarter turn",
+    "correctAnswer": "1/4 turn",
     "feedback": "Source: steeltubeinstitute.org"
   },
   {
@@ -1048,7 +1050,7 @@ window.epQuestionsData = [
       "more than 23 meters"
     ],
     "correctAnswer": "23 meters or less",
-    "feedback": "Source: RA 9514"
+    "feedback": "Source: RA 9514\n\n- if highest outlet is 23 m above the fire service connection: 4\" standpipe diameter\n- if highest outlet is higher than 23 m above the fire service connection: 6\"standpipe diameter"
   },
   {
     "id": 89,
@@ -1060,7 +1062,7 @@ window.epQuestionsData = [
       "installing high-powered air conditioners"
     ],
     "correctAnswer": "choosing a high-reflective roof paint",
-    "feedback": "- light-colored building envelope and roof surfaces have high solar reflectance index (SRI)"
+    "feedback": "Additional info:\n- light-colored building envelope and roof surfaces have high solar reflectance index (SRI)"
   },
   {
     "id": 90,
@@ -1071,8 +1073,8 @@ window.epQuestionsData = [
       "gloves shall allow free movement of the fingers",
       "natural or synthetic rubber gloves can be used for handling corrosive substances"
     ],
-    "correctAnswer": "gloves shall be worn during operating drills and punch presses (inappropriate)",
-    "feedback": "- Gloves shall not be worn by workers operating drills, punch presses or other machinery in which the hand may be caught by moving parts."
+    "correctAnswer": "gloves shall be worn during operating drills and punch presses",
+    "feedback": "Additional info:\n- Gloves shall not be worn by workers operating drills, punch presses or other machinery in which the hand may be caught by moving parts."
   },
   {
     "id": 91,
@@ -1084,7 +1086,7 @@ window.epQuestionsData = [
       "supply of potable water at least 80 to 180 liters per person per day"
     ],
     "correctAnswer": "kitchen is within the living accommodation",
-    "feedback": "Source: DOLE\n- kitchen, which may produce fire hazard, should be outside living accommodation"
+    "feedback": "Source: DOLE\n\nAdditional info:\n- kitchen, which may produce fire hazard, should be outside living accommodation"
   },
   {
     "id": 92,
@@ -1096,7 +1098,7 @@ window.epQuestionsData = [
       "Overflow line"
     ],
     "correctAnswer": "Overflow line",
-    "image": "/assets/ep-q92.jpg"
+    "image": "./EP (R)_files/unnamed(12).jpg"
   },
   {
     "id": 93,
@@ -1107,7 +1109,7 @@ window.epQuestionsData = [
       "1 in 65.5 m would be required",
       "1 in 50.5 m would be required."
     ],
-    "correctAnswer": "1 in 62.5 m would be required."
+    "correctAnswer": "1 in 52.5 m would be required."
   },
   {
     "id": 94,
@@ -1119,7 +1121,7 @@ window.epQuestionsData = [
       "8"
     ],
     "correctAnswer": "9",
-    "image": "/assets/ep-q94.jpg"
+    "image": "./EP (R)_files/unnamed(13).jpg"
   },
   {
     "id": 95,
@@ -1130,7 +1132,7 @@ window.epQuestionsData = [
       "all are acceptable",
       "spring-loaded"
     ],
-    "correctAnswer": "Spring-loaded",
+    "correctAnswer": "spring-loaded",
     "feedback": "Source: UN Enable"
   },
   {
@@ -1142,7 +1144,7 @@ window.epQuestionsData = [
       "6\"",
       "12\""
     ],
-    "correctAnswer": "18 inches",
+    "correctAnswer": "18\"",
     "feedback": "Source: lochinvar.com"
   },
   {
@@ -1155,7 +1157,7 @@ window.epQuestionsData = [
       "to change shower valves"
     ],
     "correctAnswer": "to turn overhead pipework in restricted spaces",
-    "feedback": "- Offset Pipe Wrench: Features a jaw opening parallel to the handle and a narrower hook jaw head. Provides easy entry into tight spots."
+    "feedback": "Additional info:\n- Offset Pipe Wrench: Features a jaw opening parallel to the handle and a narrower hook jaw head. Provides easy entry into tight spots."
   },
   {
     "id": 98,
@@ -1178,7 +1180,7 @@ window.epQuestionsData = [
       "hex"
     ],
     "correctAnswer": "pozidriv",
-    "image": "/assets/ep-q99.jpg"
+    "image": "./EP (R)_files/unnamed(14).jpg"
   },
   {
     "id": 100,
@@ -1190,6 +1192,6 @@ window.epQuestionsData = [
       "hinged cutter"
     ],
     "correctAnswer": "ratchet cutter",
-    "feedback": "- hacksaw is also fit for large and rigid PVC pipes, but it leaves a rougher, less square cut\n- hinged cutter is best for steel and cast iron pipe\n- coping saw is used to cut curves and intricate shapes"
+    "feedback": "Additional info:\n- hacksaw is also fit for large and rigid PVC pipes, but it leaves a rougher, less square cut\n- hinged cutter is best for steel and cast iron pipe\n- coping saw is used to cut curves and intricate shapes"
   }
 ];
