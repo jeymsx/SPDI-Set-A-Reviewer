@@ -1,4 +1,4 @@
-window.mt4QuestionsData = [
+window.mt4bQuestionsData = [
   {
     "id": 1,
     "question": "Receptors, indirect waste receptors for commercial sinks, dishwashers, air washers, etc. DFU",
@@ -59,7 +59,7 @@ window.mt4QuestionsData = [
       "4 DFU",
       "6 DFU"
     ],
-    "correctAnswer": "1 DFU"
+    "correctAnswer": "6 DFU"
   },
   {
     "id": 6,
@@ -113,7 +113,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 10,
-    "question": "Lavatory - Private (WSFU)",
+    "question": "Lavatory   - Private (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -215,7 +215,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 18,
-    "question": "Drinking Fountain - Private (WSFU)",
+    "question": "Drinking Fountain    - Private (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -275,7 +275,7 @@ window.mt4QuestionsData = [
       "4 DFU",
       "6 DFU"
     ],
-    "correctAnswer": "1 DFU"
+    "correctAnswer": "2 DFU"
   },
   {
     "id": 23,
@@ -291,7 +291,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 24,
-    "question": "Kitchen Sink - Private (WSFU)",
+    "question": "Kitchen Sink   - Private (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -411,7 +411,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 33,
-    "question": "Dental Lavatory - Private (WSFU)",
+    "question": "Dental Lavatory \n\n - Private (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -437,7 +437,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 35,
-    "question": "Flush Tank - Private (WSFU)",
+    "question": "Flush Tank - Private  (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -475,7 +475,8 @@ window.mt4QuestionsData = [
       "6 WSFU",
       "10 WSFU"
     ],
-    "correctAnswer": "6 WSFU"
+    "correctAnswer": "6 WSFU",
+    "feedback": "High WSFU because the supply relies on direct water pressure. Flushometer does not have a water tank."
   },
   {
     "id": 38,
@@ -553,7 +554,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 44,
-    "question": "Drinking Fountain - Public (WSFU)",
+    "question": "Drinking Fountain    - Public (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -567,7 +568,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 45,
-    "question": "Dental Lavatory - Public (WSFU)",
+    "question": "Dental Lavatory \n\n - Public (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -581,7 +582,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 46,
-    "question": "Lavatory - Public (WSFU)",
+    "question": "Lavatory   - Public (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
@@ -729,7 +730,8 @@ window.mt4QuestionsData = [
       "6 WSFU",
       "10 WSFU"
     ],
-    "correctAnswer": "10 WSFU"
+    "correctAnswer": "10 WSFU",
+    "feedback": "High WSFU because the supply relies on direct water pressure. Flushometer does not have a water tank."
   },
   {
     "id": 57,
@@ -747,7 +749,7 @@ window.mt4QuestionsData = [
   },
   {
     "id": 58,
-    "question": "Kitchen Sink - Public (WSFU)",
+    "question": "Kitchen Sink   - Public (WSFU)",
     "choices": [
       "1 WSFU",
       "2 WSFU",
