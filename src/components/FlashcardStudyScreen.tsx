@@ -31,6 +31,8 @@ function shuffleArray<T>(arr: T[]): T[] {
 interface FlipCardProps {
   front: string;
   back: string;
+  imageUrl: string | null;
+  imageOn: 'front' | 'back';
   flipped: boolean;
   dragX: number;
   isDragging: boolean;
@@ -42,7 +44,7 @@ interface FlipCardProps {
 
 const CARD_HEIGHT = 280;
 
-function FlipCard({ front, back, flipped, dragX, isDragging, onFlip, onPointerDown, onPointerMove, onPointerUp }: FlipCardProps) {
+function FlipCard({ front, back, imageUrl, imageOn, flipped, dragX, isDragging, onFlip, onPointerDown, onPointerMove, onPointerUp }: FlipCardProps) {
   const swipePct = Math.min(Math.abs(dragX) / SWIPE_THRESHOLD, 1);
 
   return (
@@ -102,6 +104,9 @@ function FlipCard({ front, back, flipped, dragX, isDragging, onFlip, onPointerDo
             style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as React.CSSProperties}
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Term</p>
+            {imageUrl && imageOn === 'front' && (
+              <img src={imageUrl} alt="" className="max-h-28 mb-4 rounded-lg object-contain" />
+            )}
             <p className="text-xl sm:text-2xl font-bold leading-snug">{front}</p>
             <p className="text-xs text-muted-foreground mt-6">tap to reveal</p>
           </div>
@@ -116,6 +121,9 @@ function FlipCard({ front, back, flipped, dragX, isDragging, onFlip, onPointerDo
             } as React.CSSProperties}
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mb-4">Definition</p>
+            {imageUrl && imageOn === 'back' && (
+              <img src={imageUrl} alt="" className="max-h-28 mb-4 rounded-lg object-contain" />
+            )}
             <p className="text-lg sm:text-xl leading-relaxed whitespace-pre-wrap">{back}</p>
           </div>
         </div>
@@ -294,6 +302,15 @@ export default function FlashcardStudyScreen() {
   const current = deck[0];
   const front = flipDirection === 'front-first' ? (current?.front ?? '') : (current?.back ?? '');
   const back  = flipDirection === 'front-first' ? (current?.back ?? '')  : (current?.front ?? '');
+
+  // Image URL for current card (revoked on card change to avoid memory leaks)
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  useEffect(() => {
+    if (!current?.image) { setImageUrl(null); return; }
+    const url = URL.createObjectURL(current.image);
+    setImageUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [current?.id]);
 
   // Swipe/drag state
   const [dragX, setDragX] = useState(0);
@@ -493,6 +510,8 @@ export default function FlashcardStudyScreen() {
           <FlipCard
             front={front}
             back={back}
+            imageUrl={imageUrl}
+            imageOn={current?.imageOn ?? 'front'}
             flipped={flipped}
             dragX={dragX}
             isDragging={isDraggingRef.current && Math.abs(dragX) > 5}

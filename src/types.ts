@@ -34,6 +34,8 @@ export interface Flashcard {
   front: string;
   back: string;
   order: number;
+  image?: Blob;
+  imageOn?: 'front' | 'back';
 }
 export interface TagRecord {
   key: string;    // 'exam:{examId}' | 'fc:{setId}'

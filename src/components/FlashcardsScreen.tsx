@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks';
-import { BookOpen, Edit2, Lock, MoreVertical, Plus, Tag, Trash2, X } from 'lucide-react';
+import { BookOpen, Edit2, ImageIcon, Lock, MoreVertical, Plus, Tag, Trash2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -92,30 +92,69 @@ function InlineTags({ tags, onChange }: InlineTagsProps) {
 
 // ---- Card editor row ----
 interface CardRowProps {
-  front: string; back: string;
-  onChange: (front: string, back: string) => void;
+  front: string;
+  back: string;
+  image?: Blob;
+  imageOn: 'front' | 'back';
+  onChange: (front: string, back: string, image?: Blob, imageOn?: 'front' | 'back') => void;
   onRemove: () => void;
   index: number;
 }
-function CardRow({ front, back, onChange, onRemove, index }: CardRowProps) {
+function CardRow({ front, back, image, imageOn, onChange, onRemove, index }: CardRowProps) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const previewUrl = image ? URL.createObjectURL(image) : null;
+
+  function pickImage() { fileRef.current?.click(); }
+  function onFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) onChange(front, back, file, imageOn);
+    e.target.value = '';
+  }
+  function removeImage() { onChange(front, back, undefined, 'front'); }
+  function toggleSide() { onChange(front, back, image, imageOn === 'front' ? 'back' : 'front'); }
+
   return (
-    <div className="flex gap-2 items-start">
-      <span className="text-xs text-muted-foreground w-5 pt-2.5 shrink-0 text-right">{index + 1}</span>
-      <input
-        className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-        placeholder="Term"
-        value={front}
-        onChange={e => onChange(e.target.value, back)}
-      />
-      <input
-        className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-        placeholder="Definition"
-        value={back}
-        onChange={e => onChange(front, e.target.value)}
-      />
-      <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0 text-muted-foreground hover:text-destructive" onClick={onRemove}>
-        <X className="h-3.5 w-3.5" />
-      </Button>
+    <div className="space-y-1.5">
+      <div className="flex gap-2 items-start">
+        <span className="text-xs text-muted-foreground w-5 pt-2.5 shrink-0 text-right">{index + 1}</span>
+        <input
+          className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          placeholder="Term"
+          value={front}
+          onChange={e => onChange(e.target.value, back, image, imageOn)}
+        />
+        <input
+          className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          placeholder="Definition"
+          value={back}
+          onChange={e => onChange(front, e.target.value, image, imageOn)}
+        />
+        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onFile} />
+        <Button
+          variant="ghost" size="icon"
+          className={cn('h-9 w-9 shrink-0', image ? 'text-primary' : 'text-muted-foreground hover:text-primary')}
+          onClick={pickImage} title="Attach image"
+        >
+          <ImageIcon className="h-3.5 w-3.5" />
+        </Button>
+        <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0 text-muted-foreground hover:text-destructive" onClick={onRemove}>
+          <X className="h-3.5 w-3.5" />
+        </Button>
+      </div>
+      {previewUrl && (
+        <div className="ml-7 flex items-center gap-2">
+          <img src={previewUrl} className="h-16 rounded border object-contain bg-muted" alt="preview" />
+          <div className="flex flex-col gap-1">
+            <button
+              onClick={toggleSide}
+              className="text-xs px-2 py-0.5 rounded border border-input hover:bg-accent text-muted-foreground"
+            >
+              Show under: <span className="font-medium text-foreground">{imageOn === 'front' ? 'Term' : 'Definition'}</span>
+            </button>
+            <button onClick={removeImage} className="text-xs text-destructive hover:underline text-left">Remove image</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -130,7 +169,7 @@ function EditModal({ editSet, onClose }: EditModalProps) {
   const [name, setName] = useState(editSet?.name ?? '');
   const [description, setDescription] = useState(editSet?.description ?? '');
   const [tags, setTags] = useState<string[]>([]);
-  const [rows, setRows] = useState<{ front: string; back: string }[]>([{ front: '', back: '' }]);
+  const [rows, setRows] = useState<{ front: string; back: string; image?: Blob; imageOn: 'front' | 'back' }[]>([{ front: '', back: '', imageOn: 'front' }]);
   const [bulkText, setBulkText] = useState('');
   const [showBulk, setShowBulk] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -140,7 +179,7 @@ function EditModal({ editSet, onClose }: EditModalProps) {
     nameRef.current?.focus();
     if (editSet?.id) {
       db.flashcards.where('setId').equals(editSet.id).sortBy('order').then(cards => {
-        if (cards.length) setRows(cards.map(c => ({ front: c.front, back: c.back })));
+        if (cards.length) setRows(cards.map(c => ({ front: c.front, back: c.back, image: c.image, imageOn: c.imageOn ?? 'front' })));
       });
       db.tags.get('fc:' + editSet.id).then(rec => {
         setTags(rec?.tags ?? []);
@@ -148,21 +187,21 @@ function EditModal({ editSet, onClose }: EditModalProps) {
     }
   }, [editSet]);
 
-  function updateRow(i: number, front: string, back: string) {
-    setRows(r => r.map((row, idx) => idx === i ? { front, back } : row));
+  function updateRow(i: number, front: string, back: string, image?: Blob, imageOn?: 'front' | 'back') {
+    setRows(r => r.map((row, idx) => idx === i ? { front, back, image, imageOn: imageOn ?? row.imageOn } : row));
   }
   function removeRow(i: number) {
-    setRows(r => r.length === 1 ? [{ front: '', back: '' }] : r.filter((_, idx) => idx !== i));
+    setRows(r => r.length === 1 ? [{ front: '', back: '', imageOn: 'front' }] : r.filter((_, idx) => idx !== i));
   }
-  function addRow() { setRows(r => [...r, { front: '', back: '' }]); }
+  function addRow() { setRows(r => [...r, { front: '', back: '', imageOn: 'front' }]); }
 
   function applyBulk() {
     const parsed = bulkText.trim().split('\n').map(line => {
       const tab = line.indexOf('\t');
-      if (tab !== -1) return { front: line.slice(0, tab).trim(), back: line.slice(tab + 1).trim() };
+      if (tab !== -1) return { front: line.slice(0, tab).trim(), back: line.slice(tab + 1).trim(), imageOn: 'front' as const };
       const comma = line.indexOf(',');
-      if (comma !== -1) return { front: line.slice(0, comma).trim(), back: line.slice(comma + 1).trim() };
-      return { front: line.trim(), back: '' };
+      if (comma !== -1) return { front: line.slice(0, comma).trim(), back: line.slice(comma + 1).trim(), imageOn: 'front' as const };
+      return { front: line.trim(), back: '', imageOn: 'front' as const };
     }).filter(r => r.front);
     if (parsed.length) setRows(prev => [...prev.filter(r => r.front || r.back), ...parsed]);
     setBulkText('');
@@ -179,11 +218,11 @@ function EditModal({ editSet, onClose }: EditModalProps) {
     if (editSet?.id) {
       await db.flashcardSets.update(editSet.id, { name: name.trim(), description: description.trim(), updatedAt: now });
       await db.flashcards.where('setId').equals(editSet.id).delete();
-      await db.flashcards.bulkAdd(validRows.map((r, i) => ({ setId: editSet.id!, front: r.front.trim(), back: r.back.trim(), order: i })));
+      await db.flashcards.bulkAdd(validRows.map((r, i) => ({ setId: editSet.id!, front: r.front.trim(), back: r.back.trim(), order: i, image: r.image, imageOn: r.imageOn })));
       setId = editSet.id;
     } else {
       setId = (await db.flashcardSets.add({ name: name.trim(), description: description.trim(), createdAt: now, updatedAt: now })) as number;
-      await db.flashcards.bulkAdd(validRows.map((r, i) => ({ setId, front: r.front.trim(), back: r.back.trim(), order: i })));
+      await db.flashcards.bulkAdd(validRows.map((r, i) => ({ setId, front: r.front.trim(), back: r.back.trim(), order: i, image: r.image, imageOn: r.imageOn })));
     }
     await db.tags.put({ key: 'fc:' + setId, tags });
     setSaving(false);
@@ -253,10 +292,11 @@ function EditModal({ editSet, onClose }: EditModalProps) {
                 <span className="flex-1">Term (front)</span>
                 <span className="flex-1">Definition (back)</span>
                 <span className="w-9" />
+                <span className="w-9" />
               </div>
               {rows.map((row, i) => (
-                <CardRow key={i} index={i} front={row.front} back={row.back}
-                  onChange={(f, b) => updateRow(i, f, b)}
+                <CardRow key={i} index={i} front={row.front} back={row.back} image={row.image} imageOn={row.imageOn}
+                  onChange={(f, b, img, on) => updateRow(i, f, b, img, on)}
                   onRemove={() => removeRow(i)}
                 />
               ))}

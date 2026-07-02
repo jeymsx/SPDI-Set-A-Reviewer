@@ -33,6 +33,14 @@ class AppDB extends Dexie {
       flashcards: '++id, setId',
       tags: 'key',
     });
+    // v5: Flashcard.image (Blob) — no index change, Dexie stores Blobs natively
+    this.version(5).stores({
+      takes: '++id, examId, startedAt',
+      questionStats: 'key, examId',
+      flashcardSets: '++id, createdAt, updatedAt',
+      flashcards: '++id, setId',
+      tags: 'key',
+    });
   }
 }
 
