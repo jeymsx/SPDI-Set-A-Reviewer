@@ -34,6 +34,7 @@ interface FlipCardProps {
   imageUrl: string | null;
   imageOn: 'front' | 'back';
   flipped: boolean;
+  snapFlip: boolean;
   dragX: number;
   isDragging: boolean;
   onFlip: () => void;
@@ -44,7 +45,7 @@ interface FlipCardProps {
 
 const CARD_HEIGHT = 280;
 
-function FlipCard({ front, back, imageUrl, imageOn, flipped, dragX, isDragging, onFlip, onPointerDown, onPointerMove, onPointerUp }: FlipCardProps) {
+function FlipCard({ front, back, imageUrl, imageOn, flipped, snapFlip, dragX, isDragging, onFlip, onPointerDown, onPointerMove, onPointerUp }: FlipCardProps) {
   const swipePct = Math.min(Math.abs(dragX) / SWIPE_THRESHOLD, 1);
 
   return (
@@ -95,7 +96,7 @@ function FlipCard({ front, back, imageUrl, imageOn, flipped, dragX, isDragging, 
           style={{
             transformStyle: 'preserve-3d',
             transform: `rotateY(${flipped ? 180 : 0}deg)`,
-            transition: 'transform 0.45s cubic-bezier(0.4,0,0.2,1)',
+            transition: snapFlip ? 'none' : 'transform 0.45s cubic-bezier(0.4,0,0.2,1)',
           }}
         >
           {/* Front face */}
@@ -296,6 +297,9 @@ export default function FlashcardStudyScreen() {
   const [knownIds, setKnownIds] = useState<Set<number>>(new Set());
   const [stillLearningIds, setStillLearningIds] = useState<Set<number>>(new Set());
   const [flipped, setFlipped] = useState(false);
+  // When advancing cards, snap the flip back instantly (no animation) so the next
+  // card's content doesn't bleed through during the flip-back transition.
+  const [snapFlip, setSnapFlip] = useState(false);
 
   // Derived
   const done = roundCards.length > 0 && deck.length === 0;
@@ -326,30 +330,41 @@ export default function FlashcardStudyScreen() {
     setKnownIds(new Set());
     setStillLearningIds(new Set());
     setFlipped(false);
+    setSnapFlip(false);
   }, []);
 
   useEffect(() => {
     if (rawCards.length) buildDeck(rawCards, shuffle);
   }, [rawCards, buildDeck]); // don't include shuffle here — only rebuild on data change
 
+  // Advance to next card: snap the flip back instantly (no animation), then on the
+  // next two frames (after the snap has painted) swap the card. This prevents the
+  // next card's back-face content from showing during the flip-back animation.
+  const advance = useCallback((id: number, known: boolean) => {
+    setSnapFlip(true);   // disable flip transition
+    setFlipped(false);   // instant snap to front face
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (known) setKnownIds(prev => new Set([...prev, id]));
+        else       setStillLearningIds(prev => new Set([...prev, id]));
+        setDeck(prev => prev.slice(1));
+        setSnapFlip(false); // restore transition for the new card
+      });
+    });
+  }, []);
+
   // Mark got it: advance to next card, record as known
   const markGotIt = useCallback(() => {
     if (!current?.id) return;
-    const id = current.id;
-    setKnownIds(prev => new Set([...prev, id]));
-    setDeck(prev => prev.slice(1));
-    setFlipped(false);
-  }, [current]);
+    advance(current.id, true);
+  }, [current, advance]);
 
   // Mark still learning: advance to next card, record as still-learning
   // At completion, user can review all still-learning cards
   const markStillLearning = useCallback(() => {
     if (!current?.id) return;
-    const id = current.id;
-    setStillLearningIds(prev => new Set([...prev, id]));
-    setDeck(prev => prev.slice(1));
-    setFlipped(false);
-  }, [current]);
+    advance(current.id, false);
+  }, [current, advance]);
 
   // Pointer handlers
   function handlePointerDown(e: React.PointerEvent) {
@@ -513,6 +528,7 @@ export default function FlashcardStudyScreen() {
             imageUrl={imageUrl}
             imageOn={current?.imageOn ?? 'front'}
             flipped={flipped}
+            snapFlip={snapFlip}
             dragX={dragX}
             isDragging={isDraggingRef.current && Math.abs(dragX) > 5}
             onFlip={handleFlip}
