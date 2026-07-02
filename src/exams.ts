@@ -24,6 +24,16 @@ export const EXAMS: Exam[] = [
   },
 
   {
+    id: 'eerc',
+    title: 'Plumbing Code - Preboards (EERC)',
+    subtitle: 'Plumbing Code Pre-Board Exam',
+    dataVar: 'eercQuestionsData',
+    scriptSrc: '/eerc-questions.js',
+    questionCount: 100,
+    description: 'Pre-board exam covering joints, venting, drainage, indirect waste, traps, pipe materials, cleanouts, and plumbing law provisions.',
+    defaultTags: ['Plumbing Code', 'Preboards'],
+  },
+  {
     id: 'cdpb',
     title: 'Plumbing Code - Preboards',
     subtitle: 'Comprehensive Drainage & Plumbing Board Exam',
