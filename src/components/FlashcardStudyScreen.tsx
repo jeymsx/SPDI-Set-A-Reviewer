@@ -32,8 +32,7 @@ interface FlipCardProps {
   front: string;
   back: string;
   imageUrl: string | null;
-  imageOn: 'front' | 'back';
-  imageLabel: string; // text from card data for the face that holds the image
+  imageOnFront: boolean; // true = image shows on the front face; false = back face
   flipped: boolean;
   snapFlip: boolean;
   dragX: number;
@@ -46,7 +45,7 @@ interface FlipCardProps {
 
 const CARD_HEIGHT = 280;
 
-function FlipCard({ front, back, imageUrl, imageOn, imageLabel, flipped, snapFlip, dragX, isDragging, onFlip, onPointerDown, onPointerMove, onPointerUp }: FlipCardProps) {
+function FlipCard({ front, back, imageUrl, imageOnFront, flipped, snapFlip, dragX, isDragging, onFlip, onPointerDown, onPointerMove, onPointerUp }: FlipCardProps) {
   const swipePct = Math.min(Math.abs(dragX) / SWIPE_THRESHOLD, 1);
 
   return (
@@ -106,15 +105,8 @@ function FlipCard({ front, back, imageUrl, imageOn, imageLabel, flipped, snapFli
             style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as React.CSSProperties}
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Term</p>
-            {imageUrl && imageOn === 'front' ? (
-              <>
-                <img src={imageUrl} alt="" className="max-h-28 rounded-lg object-contain" />
-                {imageLabel && (
-                  <span className="mt-3 inline-block rounded-full border bg-muted px-3 py-1 text-sm font-semibold text-foreground">
-                    {imageLabel}
-                  </span>
-                )}
-              </>
+            {imageUrl && imageOnFront ? (
+              <img src={imageUrl} alt="" className="max-h-40 rounded-lg object-contain" />
             ) : (
               <p className="text-xl sm:text-2xl font-bold leading-snug">{front}</p>
             )}
@@ -131,17 +123,10 @@ function FlipCard({ front, back, imageUrl, imageOn, imageLabel, flipped, snapFli
             } as React.CSSProperties}
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mb-4">Definition</p>
-            {imageUrl && imageOn === 'back' && (
-              <>
-                <img src={imageUrl} alt="" className="max-h-28 rounded-lg object-contain" />
-                {imageLabel && (
-                  <span className="mt-3 inline-block rounded-full border bg-muted px-3 py-1 text-sm font-semibold text-foreground">
-                    {imageLabel}
-                  </span>
-                )}
-              </>
+            {imageUrl && !imageOnFront && (
+              <img src={imageUrl} alt="" className="max-h-28 mb-3 rounded-lg object-contain" />
             )}
-            {!(imageUrl && imageOn === 'back') && (
+            {back && (
               <p className="text-lg sm:text-xl leading-relaxed whitespace-pre-wrap">{back}</p>
             )}
           </div>
@@ -324,9 +309,13 @@ export default function FlashcardStudyScreen() {
   const current = deck[0];
   const front = flipDirection === 'front-first' ? (current?.front ?? '') : (current?.back ?? '');
   const back  = flipDirection === 'front-first' ? (current?.back ?? '')  : (current?.front ?? '');
-  // Label beneath the image — always reads from card data (not swapped display vars)
-  // so it doesn't change with flip direction or show text from the wrong field.
-  const imageLabel = current?.imageOn === 'front' ? (current?.front ?? '') : (current?.back ?? '');
+  // Image appears on the FlipCard front face when card's imageOn side matches
+  // the currently displayed side. In back-first mode the sides are swapped, so
+  // imageOn:'front' (card data) means image shows on the FlipCard back face.
+  const cardImageOn = current?.imageOn ?? 'front';
+  const imageOnFront =
+    (flipDirection === 'front-first' && cardImageOn === 'front') ||
+    (flipDirection === 'back-first'  && cardImageOn === 'back');
 
   // Image URL for current card.
   // Built-in cards use imagePath (public asset string); user cards use image (Blob).
@@ -550,8 +539,7 @@ export default function FlashcardStudyScreen() {
             front={front}
             back={back}
             imageUrl={imageUrl}
-            imageOn={current?.imageOn ?? 'front'}
-            imageLabel={imageLabel}
+            imageOnFront={imageOnFront}
             flipped={flipped}
             snapFlip={snapFlip}
             dragX={dragX}
