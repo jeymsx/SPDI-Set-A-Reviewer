@@ -36,6 +36,15 @@ export const BUILT_IN_FLASHCARD_SETS: BuiltInFlashcardSet[] = [
     scriptSrc: '/flashcard-plumbing-tools.js',
     defaultTags: ['Practical', 'Tools'],
   },
+  {
+    id: -4,
+    name: 'Plumbing Tools: Definitions',
+    description: 'Know what each tool does. 32 cards covering wrenches, cutters, reamers, vises, and drain cleaners — with photos where available.',
+    cardCount: 32,
+    dataVar: 'fcPlumbingToolsDefs',
+    scriptSrc: '/flashcard-plumbing-tools-definitions.js',
+    defaultTags: ['Practical', 'Tools'],
+  },
 ];
 
 type BuiltInCard = { front: string; back: string; imagePath?: string; imageOn?: 'front' | 'back' };

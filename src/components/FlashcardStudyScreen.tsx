@@ -105,10 +105,18 @@ function FlipCard({ front, back, imageUrl, imageOn, flipped, snapFlip, dragX, is
             style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as React.CSSProperties}
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Term</p>
-            {imageUrl && imageOn === 'front' && (
-              <img src={imageUrl} alt="" className="max-h-28 mb-4 rounded-lg object-contain" />
+            {imageUrl && imageOn === 'front' ? (
+              <>
+                <img src={imageUrl} alt="" className="max-h-28 rounded-lg object-contain" />
+                {front && (
+                  <span className="mt-3 inline-block rounded-full border bg-muted px-3 py-1 text-sm font-semibold text-foreground">
+                    {front}
+                  </span>
+                )}
+              </>
+            ) : (
+              <p className="text-xl sm:text-2xl font-bold leading-snug">{front}</p>
             )}
-            <p className="text-xl sm:text-2xl font-bold leading-snug">{front}</p>
             <p className="text-xs text-muted-foreground mt-6">tap to reveal</p>
           </div>
 
@@ -123,9 +131,18 @@ function FlipCard({ front, back, imageUrl, imageOn, flipped, snapFlip, dragX, is
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mb-4">Definition</p>
             {imageUrl && imageOn === 'back' && (
-              <img src={imageUrl} alt="" className="max-h-28 mb-4 rounded-lg object-contain" />
+              <>
+                <img src={imageUrl} alt="" className="max-h-28 rounded-lg object-contain" />
+                {back && (
+                  <span className="mt-3 inline-block rounded-full border bg-muted px-3 py-1 text-sm font-semibold text-foreground">
+                    {back}
+                  </span>
+                )}
+              </>
             )}
-            <p className="text-lg sm:text-xl leading-relaxed whitespace-pre-wrap">{back}</p>
+            {!(imageUrl && imageOn === 'back') && (
+              <p className="text-lg sm:text-xl leading-relaxed whitespace-pre-wrap">{back}</p>
+            )}
           </div>
         </div>
       </div>
