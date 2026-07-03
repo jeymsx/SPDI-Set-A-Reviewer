@@ -21,6 +21,7 @@ export function makeKeys(prefix: string) {
     practiceMode:    `${prefix}_practice_mode`,
     practiceAnswers: `${prefix}_practice_answers`,
     pool:            `${prefix}_shuffled_pool_indices`,
+    choicePool:      `${prefix}_shuffled_choice_pool`,
   };
 }
 
@@ -291,6 +292,8 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     const shuffC = localStorage.getItem(k.shuffleC) === 'true';
     setShuffleQuestionsEnabled(shuffQ);
     setShuffleChoicesEnabled(shuffC);
+    // Restore any persisted per-question choice order so a reload is stable.
+    shuffledChoicesPoolRef.current = shuffC ? lsGet<Record<number, string[]>>(k.choicePool, {}) : {};
 
     const dur = parseInt(localStorage.getItem(k.timerDuration) ?? '90', 10);
     setTimerDuration(isNaN(dur) ? 90 : dur);
@@ -359,13 +362,16 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   }, [keys.answers]);
 
   // ---- shuffled choices ----
+  // The shuffled order per question is persisted so a mid-exam reload keeps the
+  // same A/B/C/D order instead of silently re-randomizing under the user.
   const shuffledChoicesFor = useCallback((q: Question): string[] => {
     if (!shuffleChoicesEnabled) return q.choices;
     if (!shuffledChoicesPoolRef.current[q.id]) {
       shuffledChoicesPoolRef.current[q.id] = shuffle([...q.choices]);
+      localStorage.setItem(keys.choicePool, JSON.stringify(shuffledChoicesPoolRef.current));
     }
     return shuffledChoicesPoolRef.current[q.id];
-  }, [shuffleChoicesEnabled]);
+  }, [shuffleChoicesEnabled, keys.choicePool]);
 
   // ---- settings ----
   const setShuffleQ = useCallback((v: boolean) => {
@@ -379,7 +385,8 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     setShuffleChoicesEnabled(v);
     localStorage.setItem(keys.shuffleC, String(v));
     shuffledChoicesPoolRef.current = {};
-  }, [keys.shuffleC]);
+    localStorage.removeItem(keys.choicePool);
+  }, [keys.shuffleC, keys.choicePool]);
 
   const setReviewIncorrect = useCallback((v: boolean) => {
     setReviewIncorrectOnly(v);

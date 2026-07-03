@@ -1,27 +1,28 @@
-import { AlertTriangle, ChevronLeft, ClipboardList, Play, RotateCcw, Settings, Timer, Trash2 } from 'lucide-react';
+import { ChevronLeft, ClipboardList, Play, RotateCcw, Settings, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
-import { cn } from '@/lib/utils';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
-import { useTimer } from '../hooks/useTimer';
+import type { TimerState } from '../hooks/useTimer';
+import ExamTimer from './ExamTimer';
 import Navigator from './Navigator';
 
 type Confirm = 'retake' | 'reset' | null;
 
-export default function Sidebar() {
+interface Props {
+  timer: TimerState;
+  timerActive: boolean;
+}
+
+export default function Sidebar({ timer, timerActive }: Props) {
   const { guardedNavigation, showExamSelect } = useApp();
   const {
     shuffleQuestionsEnabled, shuffleChoicesEnabled, setShuffleQ, setShuffleC,
     resetProgress, startExam, startPractice, practiceMode, timerDuration,
-    timerEndTime, isGraded, examStarted, submitExam,
   } = useExam();
-
-  const timerActive = examStarted && !isGraded && !practiceMode && timerDuration > 0;
-  const timer = useTimer(timerEndTime, submitExam, timerActive);
 
   const [confirm, setConfirm] = useState<Confirm>(null);
 
@@ -32,36 +33,14 @@ export default function Sidebar() {
 
   return (
     <aside className="space-y-4">
-      {/* Timer — shown when exam mode has an active countdown */}
+      {/* Timer — desktop only; the mobile sticky bar is rendered in ExamWorkspace */}
       {timerActive && timer.formattedTime && (
-        <div className={cn(
-          'rounded-xl border px-4 py-3 flex items-center gap-3 transition-colors',
-          timer.isUrgent
-            ? 'border-destructive/60 bg-destructive/10 dark:bg-destructive/20'
-            : 'border-primary/30 bg-primary/5 dark:bg-primary/10',
-        )}>
-          <Timer className={cn(
-            'h-5 w-5 shrink-0',
-            timer.isUrgent ? 'text-destructive animate-pulse' : 'text-primary',
-          )} />
-          <div className="flex-1 min-w-0">
-            <p className={cn(
-              'text-[11px] font-semibold uppercase tracking-widest',
-              timer.isUrgent ? 'text-destructive' : 'text-primary/70',
-            )}>
-              {timer.isUrgent ? 'Time running out' : 'Time remaining'}
-            </p>
-            <p className={cn(
-              'font-mono font-black tabular-nums leading-none mt-0.5',
-              timer.isUrgent ? 'text-destructive text-2xl' : 'text-foreground text-2xl',
-            )}>
-              {timer.formattedTime}
-            </p>
-          </div>
-          {timer.isUrgent && (
-            <AlertTriangle className="h-5 w-5 text-destructive shrink-0" />
-          )}
-        </div>
+        <ExamTimer
+          layout="card"
+          formattedTime={timer.formattedTime}
+          isUrgent={timer.isUrgent}
+          className="hidden lg:flex rounded-xl px-4 py-3"
+        />
       )}
 
       {/* Settings */}

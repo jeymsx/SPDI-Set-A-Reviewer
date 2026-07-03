@@ -1,11 +1,21 @@
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useExam } from '../context/ExamContext';
+import { useTimer } from '../hooks/useTimer';
 import QuestionView from './QuestionView';
 import Sidebar from './Sidebar';
+import ExamTimer from './ExamTimer';
 
 export default function ExamWorkspace() {
-  const { loading, error, retryLoad, isGraded, practiceMode, submitExam, currentQuestion } = useExam();
+  const {
+    loading, error, retryLoad, isGraded, practiceMode, submitExam, currentQuestion,
+    examStarted, timerDuration, timerEndTime,
+  } = useExam();
+
+  // Single authoritative timer instance for the whole workspace — drives both the
+  // mobile sticky bar and the desktop sidebar block, so onExpire fires only once.
+  const timerActive = examStarted && !isGraded && !practiceMode && timerDuration > 0;
+  const timer = useTimer(timerEndTime, submitExam, timerActive);
 
   if (loading) {
     return (
@@ -30,6 +40,14 @@ export default function ExamWorkspace() {
 
   return (
     <div className="space-y-4">
+      {/* Mobile sticky timer — the sidebar (with the desktop timer) sits below the
+          question on small screens, so surface a slim countdown at the top instead. */}
+      {timerActive && timer.formattedTime && (
+        <div className="lg:hidden sticky top-14 z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-2 bg-background/95 backdrop-blur border-b">
+          <ExamTimer layout="bar" formattedTime={timer.formattedTime} isUrgent={timer.isUrgent} className="rounded-lg px-3 py-2" />
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start">
         <div className="space-y-4">
           <QuestionView />
@@ -41,7 +59,7 @@ export default function ExamWorkspace() {
             </div>
           )}
         </div>
-        <Sidebar />
+        <Sidebar timer={timer} timerActive={timerActive} />
       </div>
     </div>
   );

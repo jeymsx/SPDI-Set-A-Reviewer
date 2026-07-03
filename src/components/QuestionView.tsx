@@ -83,6 +83,16 @@ export default function QuestionView() {
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       if (e.key === 'ArrowLeft') navigatePrev();
       if (e.key === 'ArrowRight') { if (!practiceMode || isRevealed || !q) navigateNext(); }
+      if (e.key === 'Enter') {
+        // Let a focused button handle its own Enter (avoids double-advancing).
+        if (tag === 'BUTTON') return;
+        if (practiceMode) {
+          // Can't skip ahead until the answer is revealed.
+          if (isRevealed) { if (isLast) finishPractice(); else navigateNext(); }
+        } else {
+          navigateNext();
+        }
+      }
       if (['1','2','3','4','5','6','7','8'].includes(e.key)) {
         const idx = parseInt(e.key) - 1;
         if (choices[idx]) handleSelect(choices[idx]);
@@ -91,7 +101,7 @@ export default function QuestionView() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigatePrev, navigateNext, choices, practiceMode, isRevealed, q]);
+  }, [navigatePrev, navigateNext, choices, practiceMode, isRevealed, isLast, finishPractice, q]);
 
   const showFeedback = (isGraded || (practiceMode && isRevealed)) && (q.feedback || selectedAnswer);
   const wasCorrect = selectedAnswer === q.correctAnswer;
@@ -242,6 +252,9 @@ export default function QuestionView() {
         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">←</kbd>
         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">→</kbd>
         <span>to move</span>
+        <span className="text-muted-foreground/50">·</span>
+        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
+        <span>next</span>
       </p>
     </div>
   );
