@@ -346,6 +346,7 @@ export default function FlashcardStudyScreen() {
   // card's content doesn't bleed through during the flip-back transition.
   const [snapFlip, setSnapFlip] = useState(false);
   const [sessionStartedAt, setSessionStartedAt] = useState<number>(Date.now());
+  const [isSubRound, setIsSubRound] = useState(false);
 
   // Past sessions for this set (for history on completion screen)
   const pastSessions = useLiveQuery(
@@ -400,7 +401,7 @@ export default function FlashcardStudyScreen() {
 
   // Build deck — also sets roundCards so progress/stats are scoped to this round.
   // Pass clearSaved=true when the user explicitly restarts (clears the resume state).
-  const buildDeck = useCallback((cards: Flashcard[], doShuffle: boolean, clearSaved = false) => {
+  const buildDeck = useCallback((cards: Flashcard[], doShuffle: boolean, clearSaved = false, subRound = false) => {
     const ordered = doShuffle ? shuffleArray(cards) : [...cards];
     setRoundCards(cards);
     setDeck(ordered);
@@ -409,6 +410,7 @@ export default function FlashcardStudyScreen() {
     setFlipped(false);
     setSnapFlip(false);
     setSessionStartedAt(Date.now());
+    setIsSubRound(subRound);
     if (clearSaved && currentFlashcardSetId != null) {
       localStorage.removeItem(sessionKey(currentFlashcardSetId));
     }
@@ -470,9 +472,10 @@ export default function FlashcardStudyScreen() {
     localStorage.setItem(sessionKey(currentFlashcardSetId), JSON.stringify(session));
   }, [deck, knownIds, stillLearningIds, done, currentFlashcardSetId, roundCards, sessionStartedAt]);
 
-  // When a round completes, save a history record and clear the resume state.
+  // When a full round completes, save a history record and clear the resume state.
+  // Sub-rounds (reviewing still-learning cards) are not counted as new sessions.
   useEffect(() => {
-    if (!done || currentFlashcardSetId == null || !roundCards.length) return;
+    if (!done || currentFlashcardSetId == null || !roundCards.length || isSubRound) return;
     db.flashcardSessions.add({
       setId: currentFlashcardSetId,
       setName: setData?.name ?? '',
@@ -483,7 +486,7 @@ export default function FlashcardStudyScreen() {
       total: roundCards.length,
     });
     localStorage.removeItem(sessionKey(currentFlashcardSetId));
-  }, [done, currentFlashcardSetId, roundCards, sessionStartedAt, knownIds, stillLearningIds, setData]);
+  }, [done, currentFlashcardSetId, roundCards, sessionStartedAt, knownIds, stillLearningIds, setData, isSubRound]);
 
   // Mark got it: advance to next card, record as known
   const markGotIt = useCallback(() => {
@@ -643,7 +646,7 @@ export default function FlashcardStudyScreen() {
           onRestartAll={() => buildDeck(rawCards, shuffle, true)}
           onRestartMissed={() => {
             const missed = rawCards.filter(c => c.id !== undefined && stillLearningIds.has(c.id!));
-            if (missed.length) buildDeck(missed, shuffle, true);
+            if (missed.length) buildDeck(missed, shuffle, true, true);
           }}
         />
       ) : current ? (
