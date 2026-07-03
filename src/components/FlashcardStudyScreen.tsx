@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import {
   Check, ChevronLeft, RotateCcw, Settings, Shuffle, Sparkles, X,
 } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BUILT_IN_FLASHCARD_SETS, loadBuiltInSetCards } from '../flashcard-sets';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -296,6 +296,10 @@ function CompletionScreen({ total, knownCount, stillLearningCount, mastery, past
           <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-amber-400" />{mastery.learning} learning</span>
           <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-border" />{mastery.fresh} new</span>
         </div>
+        <p className="text-[11px] text-muted-foreground/70 leading-snug">
+          This is separate from "known this round" — a card is mastered after several
+          correct reviews spread across sessions, not in a single pass.
+        </p>
       </div>
 
       <div className="flex flex-col gap-3 w-full">
@@ -377,7 +381,13 @@ export default function FlashcardStudyScreen() {
     [],
   ) as Flashcard[];
 
-  const setData = isBuiltIn ? { name: builtInName } : dbSetData;
+  // Memoized so built-in sets get a stable object reference across renders —
+  // `{ name: builtInName }` as an inline literal would be a new object every
+  // render, which re-triggers any effect that depends on setData.
+  const setData = useMemo(
+    () => (isBuiltIn ? { name: builtInName } : dbSetData),
+    [isBuiltIn, builtInName, dbSetData],
+  );
   const rawCards: Flashcard[] = isBuiltIn ? builtInCards : dbCards;
 
   // Settings (persisted)
@@ -562,8 +572,14 @@ export default function FlashcardStudyScreen() {
 
   // When a full round completes, save a history record and clear the resume state.
   // Sub-rounds (reviewing still-learning cards) are not counted as new sessions.
+  // savedForRoundRef guards against re-saving: `done` can stay true across several
+  // re-renders (e.g. live queries like pastSessions/progressRows updating), and
+  // without this guard the effect would insert a duplicate row on each of them.
+  const savedForRoundRef = useRef(false);
   useEffect(() => {
-    if (!done || currentFlashcardSetId == null || !roundCards.length || isSubRound) return;
+    if (!done) { savedForRoundRef.current = false; return; }
+    if (currentFlashcardSetId == null || !roundCards.length || isSubRound || savedForRoundRef.current) return;
+    savedForRoundRef.current = true;
     db.flashcardSessions.add({
       setId: currentFlashcardSetId,
       setName: setData?.name ?? '',

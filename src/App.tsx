@@ -14,11 +14,12 @@ import BottomNav from './components/BottomNav';
 import ResultsModal from './components/ResultsModal';
 import NavGuardModal from './components/NavGuardModal';
 import { seedDefaultTags } from './tag-seeds';
+import { dedupeFlashcardSessions } from './lib/cleanup';
 
 function AppShell() {
   const { screen } = useApp();
 
-  useEffect(() => { seedDefaultTags(); }, []);
+  useEffect(() => { seedDefaultTags(); dedupeFlashcardSessions(); }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
