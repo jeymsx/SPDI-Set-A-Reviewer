@@ -407,32 +407,28 @@ function SetCard({ reviewId, name, description, cardCount, updatedAt, builtIn, t
         <div className="flex items-center gap-2 mt-auto pt-1">
           <Badge variant="secondary" className="text-xs">{cardCount} cards</Badge>
           {builtIn && <Badge variant="outline" className="text-xs text-muted-foreground">Built-in</Badge>}
-          {reviewed && (
-            <Badge variant="outline" className="text-xs border-emerald-500/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 gap-1">
-              <CheckCircle2 className="h-3 w-3" /> Reviewed
-            </Badge>
-          )}
-          {updatedAt && !builtIn && <span className="text-xs text-muted-foreground ml-auto">{formatDate(updatedAt)}</span>}
+          <div className="ml-auto flex items-center gap-2">
+            {updatedAt && !builtIn && <span className="text-xs text-muted-foreground">{formatDate(updatedAt)}</span>}
+            <button
+              onClick={() => toggleReviewed('fc', reviewId)}
+              title={reviewed ? 'Reviewed — tap to unmark' : 'Mark as reviewed'}
+              className={cn(
+                'flex items-center gap-1 text-xs font-medium transition-colors shrink-0',
+                reviewed
+                  ? 'text-emerald-600 dark:text-emerald-400'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+            >
+              {reviewed
+                ? <><CheckCircle2 className="h-3.5 w-3.5" /> Reviewed</>
+                : <><Circle className="h-3.5 w-3.5" /> Reviewed?</>}
+            </button>
+          </div>
         </div>
 
-        <div className="flex gap-2">
-          <Button className="flex-1 gap-2" size="sm" onClick={onStudy}>
-            <BookOpen className="h-3.5 w-3.5" /> Study
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn(
-              'shrink-0 gap-1.5',
-              reviewed && 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-950/20 hover:bg-emerald-100/60',
-            )}
-            onClick={() => toggleReviewed('fc', reviewId)}
-            title={reviewed ? 'Reviewed — tap to unmark' : 'Mark as reviewed'}
-          >
-            {reviewed ? <CheckCircle2 className="h-3.5 w-3.5" /> : <Circle className="h-3.5 w-3.5" />}
-            <span className="sr-only sm:not-sr-only">{reviewed ? 'Reviewed' : 'Mark'}</span>
-          </Button>
-        </div>
+        <Button className="w-full gap-2" size="sm" onClick={onStudy}>
+          <BookOpen className="h-3.5 w-3.5" /> Study
+        </Button>
       </CardContent>
     </Card>
   );

@@ -78,12 +78,6 @@ export default function ExamCard({ exam, onClick, onEditTags }: Props) {
             {exam.title}
           </h3>
           <div className="flex items-center gap-1.5 shrink-0">
-            {reviewed && (
-              <Badge variant="outline" className="border-emerald-500/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 text-[10px] px-1.5 gap-1">
-                <CheckCircle2 className="h-3 w-3" />
-                Reviewed
-              </Badge>
-            )}
             {isInProgress && !reviewed && (
               <Badge variant="outline" className="border-primary/40 text-primary bg-primary/5 text-[10px] px-1.5 gap-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
@@ -121,32 +115,28 @@ export default function ExamCard({ exam, onClick, onEditTags }: Props) {
           </button>
         </div>
 
-        <div className="flex items-center justify-between pt-0.5 mt-auto">
-          <span className="text-xs text-muted-foreground tabular-nums">
+        <div className="flex items-center justify-between gap-2 pt-0.5 mt-auto">
+          <span className="text-xs text-muted-foreground tabular-nums flex items-center gap-1.5">
             {exam.questionCount} questions · 1 pt each
+            {lastDotColor && (
+              <span className={`h-1.5 w-1.5 rounded-full ${lastDotColor}`} title="Last run" />
+            )}
           </span>
-          {lastDotColor && (
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className={`h-1.5 w-1.5 rounded-full ${lastDotColor}`} />
-              last run
-            </span>
-          )}
+          <button
+            onClick={e => { e.stopPropagation(); toggleReviewed('exam', exam.id); }}
+            title={reviewed ? 'Reviewed — tap to unmark' : 'Mark as reviewed'}
+            className={cn(
+              'flex items-center gap-1 text-xs font-medium transition-colors shrink-0',
+              reviewed
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-muted-foreground hover:text-foreground',
+            )}
+          >
+            {reviewed
+              ? <><CheckCircle2 className="h-3.5 w-3.5" /> Reviewed</>
+              : <><Circle className="h-3.5 w-3.5" /> Reviewed?</>}
+          </button>
         </div>
-
-        {/* Reviewed toggle */}
-        <button
-          onClick={e => { e.stopPropagation(); toggleReviewed('exam', exam.id); }}
-          className={cn(
-            'flex items-center justify-center gap-1.5 rounded-md border py-1.5 text-xs font-medium transition-colors',
-            reviewed
-              ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-950/20 hover:bg-emerald-100/60 dark:hover:bg-emerald-950/40'
-              : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30',
-          )}
-        >
-          {reviewed
-            ? <><CheckCircle2 className="h-3.5 w-3.5" /> Reviewed — tap to unmark</>
-            : <><Circle className="h-3.5 w-3.5" /> Mark as reviewed</>}
-        </button>
       </CardContent>
 
       {/* Score bar */}
