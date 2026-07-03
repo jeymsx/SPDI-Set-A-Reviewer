@@ -317,17 +317,20 @@ export default function FlashcardStudyScreen() {
     (flipDirection === 'front-first' && cardImageOn === 'front') ||
     (flipDirection === 'back-first'  && cardImageOn === 'back');
 
-  // Image URL for current card.
-  // Built-in cards use imagePath (public asset string); user cards use image (Blob).
-  // Blob URLs are revoked on card change to avoid memory leaks.
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  // Blob URL for user-created cards (needs lifecycle management for revocation).
+  // Built-in cards use imagePath directly in render — no state lag.
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
   useEffect(() => {
-    if (current?.imagePath) { setImageUrl(current.imagePath); return; }
-    if (!current?.image) { setImageUrl(null); return; }
-    const url = URL.createObjectURL(current.image);
-    setImageUrl(url);
-    return () => URL.revokeObjectURL(url);
+    if (current?.image) {
+      const url = URL.createObjectURL(current.image);
+      setBlobUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+    setBlobUrl(null);
   }, [current?.id]);
+
+  // Derived synchronously so it always matches current in the same render frame.
+  const imageUrl = current?.imagePath ?? blobUrl;
 
   // Swipe/drag state
   const [dragX, setDragX] = useState(0);
