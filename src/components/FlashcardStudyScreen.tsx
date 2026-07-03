@@ -250,7 +250,7 @@ export default function FlashcardStudyScreen() {
     if (def) setBuiltInName(def.name);
     loadBuiltInSetCards(currentFlashcardSetId)
       .then(cards => {
-        setBuiltInCards(cards.map((c, i) => ({ id: i + 1, setId: currentFlashcardSetId, front: c.front, back: c.back, order: i })));
+        setBuiltInCards(cards.map((c, i) => ({ id: i + 1, setId: currentFlashcardSetId, front: c.front, back: c.back, order: i, imagePath: c.imagePath, imageOn: c.imageOn })));
       })
       .catch(err => {
         setBuiltInError(String(err));
@@ -307,9 +307,12 @@ export default function FlashcardStudyScreen() {
   const front = flipDirection === 'front-first' ? (current?.front ?? '') : (current?.back ?? '');
   const back  = flipDirection === 'front-first' ? (current?.back ?? '')  : (current?.front ?? '');
 
-  // Image URL for current card (revoked on card change to avoid memory leaks)
+  // Image URL for current card.
+  // Built-in cards use imagePath (public asset string); user cards use image (Blob).
+  // Blob URLs are revoked on card change to avoid memory leaks.
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   useEffect(() => {
+    if (current?.imagePath) { setImageUrl(current.imagePath); return; }
     if (!current?.image) { setImageUrl(null); return; }
     const url = URL.createObjectURL(current.image);
     setImageUrl(url);

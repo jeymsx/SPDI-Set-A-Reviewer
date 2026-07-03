@@ -27,19 +27,30 @@ export const BUILT_IN_FLASHCARD_SETS: BuiltInFlashcardSet[] = [
     scriptSrc: '/flashcard-tech-specs.js',
     defaultTags: ['Technical Specs', 'NPC'],
   },
+  {
+    id: -3,
+    name: 'Plumbing Tools Refresher',
+    description: 'Identify 150 plumbing tools by photo. Image shows on front — flip to reveal the tool name and description.',
+    cardCount: 150,
+    dataVar: 'fcPlumbingTools',
+    scriptSrc: '/flashcard-plumbing-tools.js',
+    defaultTags: ['Practical', 'Tools'],
+  },
 ];
 
-export function loadBuiltInSetCards(id: number): Promise<{ front: string; back: string }[]> {
+type BuiltInCard = { front: string; back: string; imagePath?: string; imageOn?: 'front' | 'back' };
+
+export function loadBuiltInSetCards(id: number): Promise<BuiltInCard[]> {
   const def = BUILT_IN_FLASHCARD_SETS.find(s => s.id === id);
   if (!def) return Promise.reject(new Error(`Unknown built-in flashcard set ${id}`));
   return new Promise((resolve, reject) => {
     const existing = (window as Record<string, unknown>)[def.dataVar];
-    if (Array.isArray(existing)) { resolve(existing as { front: string; back: string }[]); return; }
+    if (Array.isArray(existing)) { resolve(existing as BuiltInCard[]); return; }
     const script = document.createElement('script');
     script.src = def.scriptSrc;
     script.onload = () => {
       const data = (window as Record<string, unknown>)[def.dataVar];
-      if (Array.isArray(data)) resolve(data as { front: string; back: string }[]);
+      if (Array.isArray(data)) resolve(data as BuiltInCard[]);
       else reject(new Error(`${def.dataVar} not found after loading ${def.scriptSrc}`));
     };
     script.onerror = () => reject(new Error(`Failed to load ${def.scriptSrc}`));

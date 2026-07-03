@@ -34,7 +34,8 @@ export interface Flashcard {
   front: string;
   back: string;
   order: number;
-  image?: Blob;
+  image?: Blob;       // user-created cards: binary blob stored in IndexedDB
+  imagePath?: string; // built-in cards: public asset path
   imageOn?: 'front' | 'back';
 }
 export interface TagRecord {
