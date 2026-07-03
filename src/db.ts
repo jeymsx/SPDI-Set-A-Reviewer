@@ -1,5 +1,5 @@
 import Dexie, { type Table } from 'dexie';
-import type { Take, QuestionStat, FlashcardSet, Flashcard, TagRecord } from './types';
+import type { Take, QuestionStat, FlashcardSet, Flashcard, TagRecord, FlashcardSession } from './types';
 
 class AppDB extends Dexie {
   takes!: Table<Take>;
@@ -7,6 +7,7 @@ class AppDB extends Dexie {
   flashcardSets!: Table<FlashcardSet>;
   flashcards!: Table<Flashcard>;
   tags!: Table<TagRecord>;
+  flashcardSessions!: Table<FlashcardSession>;
 
   constructor() {
     super('spdi-reviewer');
@@ -40,6 +41,15 @@ class AppDB extends Dexie {
       flashcardSets: '++id, createdAt, updatedAt',
       flashcards: '++id, setId',
       tags: 'key',
+    });
+    // v6: flashcardSessions — records completed flashcard rounds for history
+    this.version(6).stores({
+      takes: '++id, examId, startedAt',
+      questionStats: 'key, examId',
+      flashcardSets: '++id, createdAt, updatedAt',
+      flashcards: '++id, setId',
+      tags: 'key',
+      flashcardSessions: '++id, setId, finishedAt',
     });
   }
 }

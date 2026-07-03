@@ -58,6 +58,17 @@ export interface Take {
   answers?: Record<number, string>; // questionId → chosen answer (stored for history review)
 }
 
+export interface FlashcardSession {
+  id?: number;
+  setId: number;
+  setName: string;
+  finishedAt: number;
+  durationMs: number;
+  knownCount: number;
+  stillLearningCount: number;
+  total: number;
+}
+
 export interface QuestionStat {
   key: string; // `${examId}__${questionId}`
   examId: string;

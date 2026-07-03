@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import {
-  ArrowLeft, Check, ChevronLeft, RotateCcw, Settings, Shuffle, X,
+  Check, ChevronLeft, RotateCcw, Settings, Shuffle, X,
 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BUILT_IN_FLASHCARD_SETS, loadBuiltInSetCards } from '../flashcard-sets';
@@ -17,6 +17,15 @@ import type { Flashcard } from '../types';
 const LS_FLIP = 'fc_flip_direction';
 const LS_SHUFFLE = 'fc_shuffle';
 const SWIPE_THRESHOLD = 80;
+
+const sessionKey = (setId: number) => `fc_session_${setId}`;
+interface SavedSession {
+  deckIds: number[];
+  knownIds: number[];
+  stillLearningIds: number[];
+  roundCardIds: number[];
+  startedAt: number;
+}
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -196,14 +205,17 @@ interface CompletionProps {
   total: number;
   knownCount: number;
   stillLearningCount: number;
+  pastSessions: import('../types').FlashcardSession[];
   onRestartAll: () => void;
   onRestartMissed: () => void;
 }
 
-function CompletionScreen({ total, knownCount, stillLearningCount, onRestartAll, onRestartMissed }: CompletionProps) {
+function CompletionScreen({ total, knownCount, stillLearningCount, pastSessions, onRestartAll, onRestartMissed }: CompletionProps) {
   const pct = Math.round((knownCount / total) * 100);
+  // pastSessions includes the session just completed (saved before this renders)
+  const history = pastSessions.slice(0, 5);
   return (
-    <div className="flex flex-col items-center justify-center py-16 gap-6 text-center max-w-sm mx-auto">
+    <div className="flex flex-col items-center justify-center py-10 gap-6 text-center max-w-sm mx-auto">
       <div className={cn(
         'rounded-full p-6',
         pct === 100 ? 'bg-emerald-100 dark:bg-emerald-950/40' : 'bg-amber-100 dark:bg-amber-950/40',
@@ -235,6 +247,33 @@ function CompletionScreen({ total, knownCount, stillLearningCount, onRestartAll,
           <Shuffle className="h-4 w-4" /> Restart all cards
         </Button>
       </div>
+
+      {history.length > 1 && (
+        <div className="w-full text-left space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Past sessions</p>
+          <div className="space-y-1.5">
+            {history.map((s, i) => {
+              const sessionPct = Math.round((s.knownCount / s.total) * 100);
+              const date = new Date(s.finishedAt);
+              const label = date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+              const mins = Math.round(s.durationMs / 60000);
+              return (
+                <div key={s.id ?? i} className="flex items-center gap-3 rounded-lg border bg-card px-3 py-2">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-muted-foreground">{label} · {mins > 0 ? `${mins}m` : '<1m'}</p>
+                    <div className="mt-1 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                      <div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${sessionPct}%` }} />
+                    </div>
+                  </div>
+                  <span className={cn('text-sm font-semibold tabular-nums', sessionPct === 100 ? 'text-emerald-500' : 'text-foreground')}>
+                    {sessionPct}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -306,6 +345,19 @@ export default function FlashcardStudyScreen() {
   // When advancing cards, snap the flip back instantly (no animation) so the next
   // card's content doesn't bleed through during the flip-back transition.
   const [snapFlip, setSnapFlip] = useState(false);
+  const [sessionStartedAt, setSessionStartedAt] = useState<number>(Date.now());
+
+  // Past sessions for this set (for history on completion screen)
+  const pastSessions = useLiveQuery(
+    () => currentFlashcardSetId
+      ? db.flashcardSessions
+          .where('setId').equals(currentFlashcardSetId)
+          .toArray()
+          .then(rows => rows.sort((a, b) => b.finishedAt - a.finishedAt).slice(0, 5))
+      : Promise.resolve([]),
+    [currentFlashcardSetId],
+    [],
+  );
 
   // Derived
   const done = roundCards.length > 0 && deck.length === 0;
@@ -341,8 +393,9 @@ export default function FlashcardStudyScreen() {
   const startXRef = useRef(0);
   const didDragRef = useRef(false);
 
-  // Build deck — also sets roundCards so progress/stats are scoped to this round
-  const buildDeck = useCallback((cards: Flashcard[], doShuffle: boolean) => {
+  // Build deck — also sets roundCards so progress/stats are scoped to this round.
+  // Pass clearSaved=true when the user explicitly restarts (clears the resume state).
+  const buildDeck = useCallback((cards: Flashcard[], doShuffle: boolean, clearSaved = false) => {
     const ordered = doShuffle ? shuffleArray(cards) : [...cards];
     setRoundCards(cards);
     setDeck(ordered);
@@ -350,11 +403,37 @@ export default function FlashcardStudyScreen() {
     setStillLearningIds(new Set());
     setFlipped(false);
     setSnapFlip(false);
-  }, []);
+    setSessionStartedAt(Date.now());
+    if (clearSaved && currentFlashcardSetId != null) {
+      localStorage.removeItem(sessionKey(currentFlashcardSetId));
+    }
+  }, [currentFlashcardSetId]);
 
   useEffect(() => {
-    if (rawCards.length) buildDeck(rawCards, shuffle);
-  }, [rawCards, buildDeck]); // don't include shuffle here — only rebuild on data change
+    if (!rawCards.length || currentFlashcardSetId == null) return;
+    const saved = localStorage.getItem(sessionKey(currentFlashcardSetId));
+    if (saved) {
+      try {
+        const s: SavedSession = JSON.parse(saved);
+        const cardMap = new Map(rawCards.map(c => [c.id!, c]));
+        const deckCards = s.deckIds.map(id => cardMap.get(id)).filter((c): c is Flashcard => !!c);
+        const roundCardList = s.roundCardIds.map(id => cardMap.get(id)).filter((c): c is Flashcard => !!c);
+        if (deckCards.length > 0) {
+          setDeck(deckCards);
+          setRoundCards(roundCardList.length ? roundCardList : rawCards);
+          setKnownIds(new Set(s.knownIds));
+          setStillLearningIds(new Set(s.stillLearningIds));
+          setSessionStartedAt(s.startedAt);
+          setFlipped(false);
+          setSnapFlip(false);
+          return;
+        }
+      } catch {
+        localStorage.removeItem(sessionKey(currentFlashcardSetId));
+      }
+    }
+    buildDeck(rawCards, shuffle);
+  }, [rawCards, currentFlashcardSetId]); // don't include shuffle — only rebuild on data change
 
   // Advance to next card: snap the flip back instantly (no animation), then on the
   // next two frames (after the snap has painted) swap the card. This prevents the
@@ -372,6 +451,35 @@ export default function FlashcardStudyScreen() {
     });
   }, []);
 
+  // Persist session state to localStorage after every advance so the user can resume.
+  useEffect(() => {
+    if (currentFlashcardSetId == null || !roundCards.length || done) return;
+    if (!deck.length) return;
+    const session: SavedSession = {
+      deckIds: deck.map(c => c.id!),
+      knownIds: [...knownIds],
+      stillLearningIds: [...stillLearningIds],
+      roundCardIds: roundCards.map(c => c.id!),
+      startedAt: sessionStartedAt,
+    };
+    localStorage.setItem(sessionKey(currentFlashcardSetId), JSON.stringify(session));
+  }, [deck, knownIds, stillLearningIds, done, currentFlashcardSetId, roundCards, sessionStartedAt]);
+
+  // When a round completes, save a history record and clear the resume state.
+  useEffect(() => {
+    if (!done || currentFlashcardSetId == null || !roundCards.length) return;
+    db.flashcardSessions.add({
+      setId: currentFlashcardSetId,
+      setName: setData?.name ?? '',
+      finishedAt: Date.now(),
+      durationMs: Date.now() - sessionStartedAt,
+      knownCount: knownIds.size,
+      stillLearningCount: stillLearningIds.size,
+      total: roundCards.length,
+    });
+    localStorage.removeItem(sessionKey(currentFlashcardSetId));
+  }, [done]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Mark got it: advance to next card, record as known
   const markGotIt = useCallback(() => {
     if (!current?.id) return;
@@ -384,6 +492,11 @@ export default function FlashcardStudyScreen() {
     if (!current?.id) return;
     advance(current.id, false);
   }, [current, advance]);
+
+  // Skip: move current card to end of deck without marking it either way
+  const skip = useCallback(() => {
+    setDeck(prev => prev.length > 1 ? [...prev.slice(1), prev[0]] : prev);
+  }, []);
 
   // Pointer handlers
   function handlePointerDown(e: React.PointerEvent) {
@@ -472,8 +585,8 @@ export default function FlashcardStudyScreen() {
             <SettingsPanel
               flipDirection={flipDirection}
               shuffle={shuffle}
-              onFlipChange={v => { setFlipDirection(v); buildDeck(roundCards.length ? roundCards : rawCards, shuffle); }}
-              onShuffleChange={v => { setShuffle(v); buildDeck(roundCards.length ? roundCards : rawCards, v); }}
+              onFlipChange={v => { setFlipDirection(v); buildDeck(roundCards.length ? roundCards : rawCards, shuffle, true); }}
+              onShuffleChange={v => { setShuffle(v); buildDeck(roundCards.length ? roundCards : rawCards, v, true); }}
               onClose={() => setShowSettings(false)}
             />
           )}
@@ -522,10 +635,11 @@ export default function FlashcardStudyScreen() {
           total={total}
           knownCount={knownCount}
           stillLearningCount={stillLearningCount}
-          onRestartAll={() => buildDeck(rawCards, shuffle)}
+          pastSessions={pastSessions ?? []}
+          onRestartAll={() => buildDeck(rawCards, shuffle, true)}
           onRestartMissed={() => {
             const missed = rawCards.filter(c => c.id !== undefined && stillLearningIds.has(c.id!));
-            if (missed.length) buildDeck(missed, shuffle);
+            if (missed.length) buildDeck(missed, shuffle, true);
           }}
         />
       ) : current ? (
@@ -558,10 +672,18 @@ export default function FlashcardStudyScreen() {
 
           {/* Action area */}
           {!flipped ? (
-            <div className="text-center">
+            <div className="flex flex-col items-center gap-2">
               <p className="text-xs text-muted-foreground">
                 <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono">Space</kbd> or tap card to flip
               </p>
+              {deck.length > 1 && (
+                <button
+                  onClick={skip}
+                  className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
+                >
+                  Skip →
+                </button>
+              )}
             </div>
           ) : (
             <div className="space-y-3">
