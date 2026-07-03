@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks';
-import { BookOpen, Edit2, ImageIcon, Lock, MoreVertical, Plus, Tag, Trash2, X } from 'lucide-react';
+import { BookOpen, CheckCircle2, Circle, Edit2, ImageIcon, Lock, MoreVertical, Plus, Tag, Trash2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { tagColorClass } from '@/lib/tags';
+import { useReviewed, toggleReviewed } from '@/lib/reviewed';
 import { db } from '../db';
 import { useApp } from '../context/AppContext';
 import { BUILT_IN_FLASHCARD_SETS } from '../flashcard-sets';
@@ -321,6 +322,7 @@ function EditModal({ editSet, onClose }: EditModalProps) {
 
 // ---- Set card ----
 interface SetCardProps {
+  reviewId: number;
   name: string;
   description?: string;
   cardCount: number;
@@ -333,9 +335,10 @@ interface SetCardProps {
   onEditTags: () => void;
 }
 
-function SetCard({ name, description, cardCount, updatedAt, builtIn, tags, onStudy, onEdit, onDelete, onEditTags }: SetCardProps) {
+function SetCard({ reviewId, name, description, cardCount, updatedAt, builtIn, tags, onStudy, onEdit, onDelete, onEditTags }: SetCardProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const reviewed = useReviewed('fc', reviewId);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -347,7 +350,10 @@ function SetCard({ name, description, cardCount, updatedAt, builtIn, tags, onStu
   }, [menuOpen]);
 
   return (
-    <Card className="group flex flex-col h-full overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+    <Card className={cn(
+      'group flex flex-col h-full overflow-hidden hover:-translate-y-0.5 hover:shadow-md transition-all duration-200',
+      reviewed && 'ring-1 ring-emerald-500/40 bg-emerald-50/30 dark:bg-emerald-950/10',
+    )}>
       <CardContent className="p-5 flex flex-col flex-1 space-y-3">
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
@@ -401,12 +407,32 @@ function SetCard({ name, description, cardCount, updatedAt, builtIn, tags, onStu
         <div className="flex items-center gap-2 mt-auto pt-1">
           <Badge variant="secondary" className="text-xs">{cardCount} cards</Badge>
           {builtIn && <Badge variant="outline" className="text-xs text-muted-foreground">Built-in</Badge>}
+          {reviewed && (
+            <Badge variant="outline" className="text-xs border-emerald-500/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 gap-1">
+              <CheckCircle2 className="h-3 w-3" /> Reviewed
+            </Badge>
+          )}
           {updatedAt && !builtIn && <span className="text-xs text-muted-foreground ml-auto">{formatDate(updatedAt)}</span>}
         </div>
 
-        <Button className="w-full gap-2" size="sm" onClick={onStudy}>
-          <BookOpen className="h-3.5 w-3.5" /> Study
-        </Button>
+        <div className="flex gap-2">
+          <Button className="flex-1 gap-2" size="sm" onClick={onStudy}>
+            <BookOpen className="h-3.5 w-3.5" /> Study
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className={cn(
+              'shrink-0 gap-1.5',
+              reviewed && 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-950/20 hover:bg-emerald-100/60',
+            )}
+            onClick={() => toggleReviewed('fc', reviewId)}
+            title={reviewed ? 'Reviewed — tap to unmark' : 'Mark as reviewed'}
+          >
+            {reviewed ? <CheckCircle2 className="h-3.5 w-3.5" /> : <Circle className="h-3.5 w-3.5" />}
+            <span className="sr-only sm:not-sr-only">{reviewed ? 'Reviewed' : 'Mark'}</span>
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
@@ -524,6 +550,7 @@ export default function FlashcardsScreen() {
           {visibleBuiltIn.map(set => (
             <SetCard
               key={set.id}
+              reviewId={set.id}
               name={set.name}
               description={set.description}
               cardCount={set.cardCount}
@@ -536,6 +563,7 @@ export default function FlashcardsScreen() {
           {visibleUserSets.map(set => (
             <SetCard
               key={set.id}
+              reviewId={set.id!}
               name={set.name}
               description={set.description}
               cardCount={cardCountFor(set.id!)}

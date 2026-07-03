@@ -5,7 +5,7 @@ import QuestionView from './QuestionView';
 import Sidebar from './Sidebar';
 
 export default function ExamWorkspace() {
-  const { loading, error, retryLoad, isGraded, practiceMode, submitExam } = useExam();
+  const { loading, error, retryLoad, isGraded, practiceMode, submitExam, currentQuestion } = useExam();
 
   if (loading) {
     return (
@@ -33,7 +33,7 @@ export default function ExamWorkspace() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start">
         <div className="space-y-4">
           <QuestionView />
-          {!isGraded && !practiceMode && (
+          {!isGraded && !practiceMode && currentQuestion && (
             <div className="flex justify-end">
               <Button onClick={submitExam} className="gap-2">
                 <Send className="h-4 w-4" /> Submit Exam

@@ -18,10 +18,43 @@ export default function QuestionView() {
     navigateNext, navigatePrev,
     shuffledChoicesFor,
     bookmarks, toggleBookmark,
+    reviewIncorrectOnly, reviewBookmarkedOnly, setReviewIncorrect, setReviewBookmarked,
   } = useExam();
 
   const q = currentQuestion;
-  if (!q) return null;
+
+  // No question to show. If a Navigator filter emptied the list, explain it here
+  // in the main panel instead of leaving a blank column next to the sidebar.
+  if (!q) {
+    const filterActive = reviewIncorrectOnly || reviewBookmarkedOnly;
+    if (!filterActive) return null;
+    return (
+      <Card>
+        <CardContent className="py-14 flex flex-col items-center text-center gap-3">
+          <div className="rounded-full bg-muted p-3">
+            <Bookmark className="h-6 w-6 text-muted-foreground" />
+          </div>
+          <div className="space-y-1">
+            <p className="font-semibold">No questions match this filter</p>
+            <p className="text-sm text-muted-foreground max-w-xs">
+              {reviewIncorrectOnly && reviewBookmarkedOnly
+                ? "You have no wrong or bookmarked questions in this set yet."
+                : reviewIncorrectOnly
+                  ? "Nothing's marked wrong yet — answer some questions or grade the exam first."
+                  : "You haven't bookmarked any questions in this set yet."}
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => { setReviewIncorrect(false); setReviewBookmarked(false); }}
+          >
+            Show all questions
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const isFirst = currentIdx === 0;
   const isLast = currentIdx === indicesMap.length - 1;
@@ -198,6 +231,18 @@ export default function QuestionView() {
           </Button>
         </CardContent>
       </Card>
+
+      {/* Keyboard shortcut hint — desktop only */}
+      <p className="hidden sm:flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
+        <span>Tip:</span>
+        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">1</kbd>–
+        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">{Math.min(choices.length, 8)}</kbd>
+        <span>to answer</span>
+        <span className="text-muted-foreground/50">·</span>
+        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">←</kbd>
+        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">→</kbd>
+        <span>to move</span>
+      </p>
     </div>
   );
 }

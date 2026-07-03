@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
-import { Tag } from 'lucide-react';
+import { CheckCircle2, Circle, Tag } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { tagColorClass } from '@/lib/tags';
+import { useReviewed, toggleReviewed } from '@/lib/reviewed';
 import { db } from '../db';
 import { makeKeys } from '../context/ExamContext';
 import type { Exam } from '../types';
@@ -61,10 +62,15 @@ export default function ExamCard({ exam, onClick, onEditTags }: Props) {
     return started && !graded;
   }, [exam.id]);
 
+  const reviewed = useReviewed('exam', exam.id);
+
   return (
     <Card
       onClick={onClick}
-      className="group cursor-pointer overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg flex flex-col h-full"
+      className={cn(
+        'group cursor-pointer overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg flex flex-col h-full',
+        reviewed && 'ring-1 ring-emerald-500/40 bg-emerald-50/30 dark:bg-emerald-950/10',
+      )}
     >
       <CardContent className="p-5 space-y-3 flex-1 flex flex-col">
         <div className="flex items-start justify-between gap-3">
@@ -72,7 +78,13 @@ export default function ExamCard({ exam, onClick, onEditTags }: Props) {
             {exam.title}
           </h3>
           <div className="flex items-center gap-1.5 shrink-0">
-            {isInProgress && (
+            {reviewed && (
+              <Badge variant="outline" className="border-emerald-500/50 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 text-[10px] px-1.5 gap-1">
+                <CheckCircle2 className="h-3 w-3" />
+                Reviewed
+              </Badge>
+            )}
+            {isInProgress && !reviewed && (
               <Badge variant="outline" className="border-primary/40 text-primary bg-primary/5 text-[10px] px-1.5 gap-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                 In Progress
@@ -120,6 +132,21 @@ export default function ExamCard({ exam, onClick, onEditTags }: Props) {
             </span>
           )}
         </div>
+
+        {/* Reviewed toggle */}
+        <button
+          onClick={e => { e.stopPropagation(); toggleReviewed('exam', exam.id); }}
+          className={cn(
+            'flex items-center justify-center gap-1.5 rounded-md border py-1.5 text-xs font-medium transition-colors',
+            reviewed
+              ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-50/60 dark:bg-emerald-950/20 hover:bg-emerald-100/60 dark:hover:bg-emerald-950/40'
+              : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30',
+          )}
+        >
+          {reviewed
+            ? <><CheckCircle2 className="h-3.5 w-3.5" /> Reviewed — tap to unmark</>
+            : <><Circle className="h-3.5 w-3.5" /> Mark as reviewed</>}
+        </button>
       </CardContent>
 
       {/* Score bar */}
