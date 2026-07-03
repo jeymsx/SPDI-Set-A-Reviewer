@@ -248,7 +248,7 @@ function CompletionScreen({ total, knownCount, stillLearningCount, pastSessions,
         </Button>
       </div>
 
-      {history.length > 1 && (
+      {history.length > 0 && (
         <div className="w-full text-left space-y-2">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Past sessions</p>
           <div className="space-y-1.5">
@@ -387,6 +387,11 @@ export default function FlashcardStudyScreen() {
   // Derived synchronously so it always matches current in the same render frame.
   const imageUrl = current?.imagePath ?? blobUrl;
 
+  // Keep a ref to shuffle so the rawCards effect always reads the current value
+  // without needing shuffle as a dep (which would re-run it on every toggle).
+  const shuffleRef = useRef(shuffle);
+  useEffect(() => { shuffleRef.current = shuffle; }, [shuffle]);
+
   // Swipe/drag state
   const [dragX, setDragX] = useState(0);
   const isDraggingRef = useRef(false);
@@ -432,8 +437,8 @@ export default function FlashcardStudyScreen() {
         localStorage.removeItem(sessionKey(currentFlashcardSetId));
       }
     }
-    buildDeck(rawCards, shuffle);
-  }, [rawCards, currentFlashcardSetId]); // don't include shuffle — only rebuild on data change
+    buildDeck(rawCards, shuffleRef.current);
+  }, [rawCards, currentFlashcardSetId]); // shuffleRef always current; not a dep to avoid re-running on toggle
 
   // Advance to next card: snap the flip back instantly (no animation), then on the
   // next two frames (after the snap has painted) swap the card. This prevents the
@@ -478,7 +483,7 @@ export default function FlashcardStudyScreen() {
       total: roundCards.length,
     });
     localStorage.removeItem(sessionKey(currentFlashcardSetId));
-  }, [done]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [done, currentFlashcardSetId, roundCards, sessionStartedAt, knownIds, stillLearningIds, setData]);
 
   // Mark got it: advance to next card, record as known
   const markGotIt = useCallback(() => {
@@ -564,7 +569,6 @@ export default function FlashcardStudyScreen() {
   const knownCount = knownIds.size;
   const stillLearningCount = stillLearningIds.size;
   const seenCount = knownCount + stillLearningCount;
-  const progressPct = total > 0 ? Math.round((seenCount / total) * 100) : 0;
   const position = seenCount + 1; // 1-based position
 
   return (
