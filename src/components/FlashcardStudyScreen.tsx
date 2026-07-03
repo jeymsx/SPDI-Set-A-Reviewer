@@ -107,8 +107,8 @@ function FlipCard({ front, back, imageUrl, imageOnFront, flipped, snapFlip, drag
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">Term</p>
             {imageUrl && imageOnFront ? (
               <>
-                <img src={imageUrl} alt="" className="max-h-28 rounded-lg object-contain" />
-                {front && <p className="mt-3 text-base sm:text-lg leading-relaxed whitespace-pre-wrap">{front}</p>}
+                <img src={imageUrl} alt="" className="max-h-20 rounded-lg object-contain shrink-0" />
+                {front && <p className="mt-2 text-sm sm:text-base leading-snug whitespace-pre-wrap">{front}</p>}
               </>
             ) : (
               <p className="text-xl sm:text-2xl font-bold leading-snug">{front}</p>
@@ -127,7 +127,7 @@ function FlipCard({ front, back, imageUrl, imageOnFront, flipped, snapFlip, drag
           >
             <p className="text-xs font-semibold uppercase tracking-widest text-primary/70 mb-4">Definition</p>
             {imageUrl && !imageOnFront && (
-              <img src={imageUrl} alt="" className="max-h-28 mb-3 rounded-lg object-contain" />
+              <img src={imageUrl} alt="" className="max-h-20 mb-2 rounded-lg object-contain shrink-0" />
             )}
             {back && (
               <p className="text-lg sm:text-xl leading-relaxed whitespace-pre-wrap">{back}</p>
