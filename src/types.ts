@@ -69,6 +69,18 @@ export interface FlashcardSession {
   total: number;
 }
 
+// Per-card spaced-repetition state (Leitner boxes). One row per card per set.
+export interface FlashcardProgress {
+  key: string;               // `${setId}:${cardId}`
+  setId: number;
+  cardId: number;
+  box: number;               // 0..5 mastery level; higher = longer interval
+  due: number;               // ms epoch: next time this card should resurface
+  lastSeen: number;          // ms epoch of last grade
+  timesKnown: number;
+  timesStillLearning: number;
+}
+
 export interface QuestionStat {
   key: string; // `${examId}__${questionId}`
   examId: string;

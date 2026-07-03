@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import {
-  Check, ChevronLeft, RotateCcw, Settings, Shuffle, X,
+  Check, ChevronLeft, RotateCcw, Settings, Shuffle, Sparkles, X,
 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BUILT_IN_FLASHCARD_SETS, loadBuiltInSetCards } from '../flashcard-sets';
@@ -12,10 +12,12 @@ import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 import { db } from '../db';
 import { useApp } from '../context/AppContext';
-import type { Flashcard } from '../types';
+import { masteryFor, orderSmart, recordCardResult, type MasteryStats } from '@/lib/flashcard-sr';
+import type { Flashcard, FlashcardProgress } from '../types';
 
 const LS_FLIP = 'fc_flip_direction';
 const LS_SHUFFLE = 'fc_shuffle';
+const LS_STUDY_MODE = 'fc_study_mode';
 const SWIPE_THRESHOLD = 80;
 
 const sessionKey = (setId: number) => `fc_session_${setId}`;
@@ -152,12 +154,15 @@ function FlipCard({ front, back, imageUrl, imageOnFront, flipped, snapFlip, drag
 interface SettingsPanelProps {
   flipDirection: 'front-first' | 'back-first';
   shuffle: boolean;
+  studyMode: 'classic' | 'smart';
   onFlipChange: (v: 'front-first' | 'back-first') => void;
   onShuffleChange: (v: boolean) => void;
+  onStudyModeChange: (v: 'classic' | 'smart') => void;
   onClose: () => void;
 }
 
-function SettingsPanel({ flipDirection, shuffle, onFlipChange, onShuffleChange, onClose }: SettingsPanelProps) {
+function SettingsPanel({ flipDirection, shuffle, studyMode, onFlipChange, onShuffleChange, onStudyModeChange, onClose }: SettingsPanelProps) {
+  const smart = studyMode === 'smart';
   return (
     <div className="absolute right-0 top-10 z-30 w-72 rounded-xl border bg-popover shadow-lg p-4 space-y-4">
       <div className="flex items-center justify-between">
@@ -167,11 +172,45 @@ function SettingsPanel({ flipDirection, shuffle, onFlipChange, onShuffleChange, 
       <Separator />
 
       <div className="space-y-3">
+        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Study Mode</p>
+        <div className="flex flex-col gap-2">
+          {(['classic', 'smart'] as const).map(opt => (
+            <button
+              key={opt}
+              onClick={() => onStudyModeChange(opt)}
+              className={cn(
+                'flex items-start gap-2 rounded-lg border p-2.5 text-sm text-left transition-colors',
+                studyMode === opt
+                  ? 'border-primary bg-primary/5 text-primary font-medium'
+                  : 'border-border hover:bg-accent',
+              )}
+            >
+              <span className={cn('mt-0.5 h-3.5 w-3.5 rounded-full border-2 flex-shrink-0', studyMode === opt ? 'border-primary bg-primary' : 'border-muted-foreground')} />
+              <span className="min-w-0">
+                <span className="flex items-center gap-1.5">
+                  {opt === 'smart' && <Sparkles className="h-3.5 w-3.5" />}
+                  {opt === 'classic' ? 'Classic' : 'Smart review'}
+                </span>
+                <span className="block text-[11px] font-normal text-muted-foreground leading-snug mt-0.5">
+                  {opt === 'classic'
+                    ? 'Go through the deck in order.'
+                    : 'Surfaces due & weakest cards first (spaced repetition).'}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <Separator />
+
+      <div className="space-y-3">
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Card Order</p>
         <div className="flex items-center justify-between">
-          <label className="text-sm cursor-pointer" htmlFor="fc-shuffle">Shuffle cards</label>
-          <Switch id="fc-shuffle" checked={shuffle} onCheckedChange={onShuffleChange} />
+          <label className={cn('text-sm', smart ? 'text-muted-foreground/50' : 'cursor-pointer')} htmlFor="fc-shuffle">Shuffle cards</label>
+          <Switch id="fc-shuffle" checked={shuffle && !smart} disabled={smart} onCheckedChange={onShuffleChange} />
         </div>
+        {smart && <p className="text-[11px] text-muted-foreground">Order is handled by Smart review.</p>}
       </div>
 
       <Separator />
@@ -205,15 +244,17 @@ interface CompletionProps {
   total: number;
   knownCount: number;
   stillLearningCount: number;
+  mastery: MasteryStats;
   pastSessions: import('../types').FlashcardSession[];
   onRestartAll: () => void;
   onRestartMissed: () => void;
 }
 
-function CompletionScreen({ total, knownCount, stillLearningCount, pastSessions, onRestartAll, onRestartMissed }: CompletionProps) {
+function CompletionScreen({ total, knownCount, stillLearningCount, mastery, pastSessions, onRestartAll, onRestartMissed }: CompletionProps) {
   const pct = Math.round((knownCount / total) * 100);
   // pastSessions includes the session just completed (saved before this renders)
   const history = pastSessions.slice(0, 5);
+  const masteryPct = mastery.total > 0 ? Math.round((mastery.mastered / mastery.total) * 100) : 0;
   return (
     <div className="flex flex-col items-center justify-center py-10 gap-6 text-center max-w-sm mx-auto">
       <div className={cn(
@@ -235,8 +276,28 @@ function CompletionScreen({ total, knownCount, stillLearningCount, pastSessions,
       </div>
       <div className="w-full space-y-1">
         <Progress value={pct} className="h-3" />
-        <p className="text-xs text-muted-foreground">{pct}% known</p>
+        <p className="text-xs text-muted-foreground">{pct}% known this round</p>
       </div>
+
+      {/* Overall mastery across the whole set (spaced repetition) */}
+      <div className="w-full rounded-xl border bg-card p-4 space-y-2 text-left">
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <Sparkles className="h-3.5 w-3.5" /> Set mastery
+          </span>
+          <span className="text-sm font-bold tabular-nums text-emerald-600 dark:text-emerald-400">{masteryPct}%</span>
+        </div>
+        <div className="flex h-2 w-full overflow-hidden rounded-full bg-muted">
+          <div className="h-full bg-emerald-500 transition-all" style={{ width: `${(mastery.mastered / Math.max(1, mastery.total)) * 100}%` }} />
+          <div className="h-full bg-amber-400 transition-all" style={{ width: `${(mastery.learning / Math.max(1, mastery.total)) * 100}%` }} />
+        </div>
+        <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] text-muted-foreground">
+          <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-emerald-500" />{mastery.mastered} mastered</span>
+          <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-amber-400" />{mastery.learning} learning</span>
+          <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-border" />{mastery.fresh} new</span>
+        </div>
+      </div>
+
       <div className="flex flex-col gap-3 w-full">
         {stillLearningCount > 0 && (
           <Button className="w-full gap-2" onClick={onRestartMissed}>
@@ -324,6 +385,9 @@ export default function FlashcardStudyScreen() {
     () => (localStorage.getItem(LS_FLIP) as 'front-first' | 'back-first') ?? 'front-first',
   );
   const [shuffle, setShuffleState] = useState(() => localStorage.getItem(LS_SHUFFLE) === 'true');
+  const [studyMode, setStudyModeState] = useState<'classic' | 'smart'>(
+    () => (localStorage.getItem(LS_STUDY_MODE) as 'classic' | 'smart') ?? 'classic',
+  );
   const [showSettings, setShowSettings] = useState(false);
 
   function setFlipDirection(v: 'front-first' | 'back-first') {
@@ -333,6 +397,14 @@ export default function FlashcardStudyScreen() {
   function setShuffle(v: boolean) {
     setShuffleState(v);
     localStorage.setItem(LS_SHUFFLE, String(v));
+  }
+  // studyModeRef is set eagerly (not via effect) so buildDeck reads the new value
+  // immediately when the user switches modes and we rebuild the deck.
+  const studyModeRef = useRef(studyMode);
+  function setStudyMode(v: 'classic' | 'smart') {
+    setStudyModeState(v);
+    studyModeRef.current = v;
+    localStorage.setItem(LS_STUDY_MODE, v);
   }
 
   // Study state
@@ -359,6 +431,20 @@ export default function FlashcardStudyScreen() {
     [currentFlashcardSetId],
     [],
   );
+
+  // Per-card spaced-repetition progress for this set. Kept in a ref so buildDeck
+  // can read the latest values without re-running (and re-ordering) on every write.
+  const progressRows = useLiveQuery(
+    () => currentFlashcardSetId != null
+      ? db.flashcardProgress.where('setId').equals(currentFlashcardSetId).toArray()
+      : Promise.resolve([]),
+    [currentFlashcardSetId],
+    [],
+  ) as FlashcardProgress[];
+  const progressRef = useRef<Map<number, FlashcardProgress>>(new Map());
+  useEffect(() => {
+    progressRef.current = new Map((progressRows ?? []).map(p => [p.cardId, p]));
+  }, [progressRows]);
 
   // Derived
   const done = roundCards.length > 0 && deck.length === 0;
@@ -402,7 +488,9 @@ export default function FlashcardStudyScreen() {
   // Build deck — also sets roundCards so progress/stats are scoped to this round.
   // Pass clearSaved=true when the user explicitly restarts (clears the resume state).
   const buildDeck = useCallback((cards: Flashcard[], doShuffle: boolean, clearSaved = false, subRound = false) => {
-    const ordered = doShuffle ? shuffleArray(cards) : [...cards];
+    const ordered = studyModeRef.current === 'smart'
+      ? orderSmart(cards, progressRef.current, Date.now())
+      : (doShuffle ? shuffleArray(cards) : [...cards]);
     setRoundCards(cards);
     setDeck(ordered);
     setKnownIds(new Set());
@@ -488,18 +576,20 @@ export default function FlashcardStudyScreen() {
     localStorage.removeItem(sessionKey(currentFlashcardSetId));
   }, [done, currentFlashcardSetId, roundCards, sessionStartedAt, knownIds, stillLearningIds, setData, isSubRound]);
 
-  // Mark got it: advance to next card, record as known
+  // Mark got it: advance to next card, record as known + promote its SR box
   const markGotIt = useCallback(() => {
     if (!current?.id) return;
+    if (currentFlashcardSetId != null) recordCardResult(currentFlashcardSetId, current.id, true);
     advance(current.id, true);
-  }, [current, advance]);
+  }, [current, advance, currentFlashcardSetId]);
 
-  // Mark still learning: advance to next card, record as still-learning
+  // Mark still learning: advance to next card, record as still-learning + reset SR box.
   // At completion, user can review all still-learning cards
   const markStillLearning = useCallback(() => {
     if (!current?.id) return;
+    if (currentFlashcardSetId != null) recordCardResult(currentFlashcardSetId, current.id, false);
     advance(current.id, false);
-  }, [current, advance]);
+  }, [current, advance, currentFlashcardSetId]);
 
   // Skip: move current card to end of deck without marking it either way
   const skip = useCallback(() => {
@@ -573,6 +663,7 @@ export default function FlashcardStudyScreen() {
   const stillLearningCount = stillLearningIds.size;
   const seenCount = knownCount + stillLearningCount;
   const position = seenCount + 1; // 1-based position
+  const mastery = masteryFor(rawCards.length, progressRows ?? []);
 
   return (
     <div className="max-w-2xl mx-auto space-y-6 pb-16">
@@ -592,8 +683,10 @@ export default function FlashcardStudyScreen() {
             <SettingsPanel
               flipDirection={flipDirection}
               shuffle={shuffle}
+              studyMode={studyMode}
               onFlipChange={v => { setFlipDirection(v); buildDeck(roundCards.length ? roundCards : rawCards, shuffle, true); }}
               onShuffleChange={v => { setShuffle(v); buildDeck(roundCards.length ? roundCards : rawCards, v, true); }}
+              onStudyModeChange={v => { setStudyMode(v); buildDeck(rawCards, shuffle, true); }}
               onClose={() => setShowSettings(false)}
             />
           )}
@@ -642,6 +735,7 @@ export default function FlashcardStudyScreen() {
           total={total}
           knownCount={knownCount}
           stillLearningCount={stillLearningCount}
+          mastery={mastery}
           pastSessions={pastSessions ?? []}
           onRestartAll={() => buildDeck(rawCards, shuffle, true)}
           onRestartMissed={() => {
@@ -652,10 +746,17 @@ export default function FlashcardStudyScreen() {
       ) : current ? (
         <>
           {/* Card position */}
-          <div className="flex items-center justify-between">
-            <Badge variant="secondary" className="text-xs">
-              {position} / {total}
-            </Badge>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="text-xs">
+                {position} / {total}
+              </Badge>
+              {studyMode === 'smart' && (
+                <Badge variant="outline" className="text-xs gap-1 border-primary/40 text-primary bg-primary/5">
+                  <Sparkles className="h-3 w-3" /> Smart
+                </Badge>
+              )}
+            </div>
             <span className="text-xs text-muted-foreground">
               {flipDirection === 'front-first' ? 'Term → Definition' : 'Definition → Term'}
             </span>

@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { BookOpen, CheckCircle2, Circle, Edit2, ImageIcon, Lock, MoreVertical, Plus, Tag, Trash2, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { tagColorClass } from '@/lib/tags';
 import { useReviewed, toggleReviewed } from '@/lib/reviewed';
+import { masteryFor, type MasteryStats } from '@/lib/flashcard-sr';
 import { db } from '../db';
 import { useApp } from '../context/AppContext';
 import { BUILT_IN_FLASHCARD_SETS } from '../flashcard-sets';
@@ -99,11 +100,23 @@ interface CardRowProps {
   imageOn: 'front' | 'back';
   onChange: (front: string, back: string, image?: Blob, imageOn?: 'front' | 'back') => void;
   onRemove: () => void;
+  onEnter: () => void;
   index: number;
+  focusIndex: number | null;
+  clearFocus: () => void;
 }
-function CardRow({ front, back, image, imageOn, onChange, onRemove, index }: CardRowProps) {
+function CardRow({ front, back, image, imageOn, onChange, onRemove, onEnter, index, focusIndex, clearFocus }: CardRowProps) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const termRef = useRef<HTMLInputElement>(null);
   const previewUrl = image ? URL.createObjectURL(image) : null;
+
+  // Focus the Term field of a freshly-added row.
+  useEffect(() => {
+    if (focusIndex === index) {
+      termRef.current?.focus();
+      clearFocus();
+    }
+  }, [focusIndex, index, clearFocus]);
 
   function pickImage() { fileRef.current?.click(); }
   function onFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -113,22 +126,28 @@ function CardRow({ front, back, image, imageOn, onChange, onRemove, index }: Car
   }
   function removeImage() { onChange(front, back, undefined, 'front'); }
   function toggleSide() { onChange(front, back, image, imageOn === 'front' ? 'back' : 'front'); }
+  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') { e.preventDefault(); onEnter(); }
+  }
 
   return (
     <div className="space-y-1.5">
       <div className="flex gap-2 items-start">
         <span className="text-xs text-muted-foreground w-5 pt-2.5 shrink-0 text-right">{index + 1}</span>
         <input
-          className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          ref={termRef}
+          className="flex-1 min-w-0 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           placeholder="Term"
           value={front}
           onChange={e => onChange(e.target.value, back, image, imageOn)}
+          onKeyDown={onKeyDown}
         />
         <input
-          className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          className="flex-1 min-w-0 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           placeholder="Definition"
           value={back}
           onChange={e => onChange(front, e.target.value, image, imageOn)}
+          onKeyDown={onKeyDown}
         />
         <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onFile} />
         <Button
@@ -174,7 +193,16 @@ function EditModal({ editSet, onClose }: EditModalProps) {
   const [bulkText, setBulkText] = useState('');
   const [showBulk, setShowBulk] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [focusIndex, setFocusIndex] = useState<number | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+  const clearFocus = useCallback(() => setFocusIndex(null), []);
+
+  // Close on Escape.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') onClose(); }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   useEffect(() => {
     nameRef.current?.focus();
@@ -194,7 +222,10 @@ function EditModal({ editSet, onClose }: EditModalProps) {
   function removeRow(i: number) {
     setRows(r => r.length === 1 ? [{ front: '', back: '', imageOn: 'front' }] : r.filter((_, idx) => idx !== i));
   }
-  function addRow() { setRows(r => [...r, { front: '', back: '', imageOn: 'front' }]); }
+  function addRow() {
+    setFocusIndex(rows.length); // focus the Term field of the row about to be added
+    setRows(r => [...r, { front: '', back: '', imageOn: 'front' }]);
+  }
 
   function applyBulk() {
     const parsed = bulkText.trim().split('\n').map(line => {
@@ -220,6 +251,9 @@ function EditModal({ editSet, onClose }: EditModalProps) {
       await db.flashcardSets.update(editSet.id, { name: name.trim(), description: description.trim(), updatedAt: now });
       await db.flashcards.where('setId').equals(editSet.id).delete();
       await db.flashcards.bulkAdd(validRows.map((r, i) => ({ setId: editSet.id!, front: r.front.trim(), back: r.back.trim(), order: i, image: r.image, imageOn: r.imageOn })));
+      // Card ids are regenerated on save, so old spaced-repetition rows no longer map
+      // to real cards — clear them to keep mastery counts accurate.
+      await db.flashcardProgress.where('setId').equals(editSet.id).delete();
       setId = editSet.id;
     } else {
       setId = (await db.flashcardSets.add({ name: name.trim(), description: description.trim(), createdAt: now, updatedAt: now })) as number;
@@ -231,14 +265,14 @@ function EditModal({ editSet, onClose }: EditModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-4 overflow-y-auto">
-      <div className="w-full max-w-2xl bg-background rounded-xl border shadow-xl my-8">
-        <div className="flex items-center justify-between px-6 py-4 border-b">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="w-full max-w-2xl bg-background rounded-xl border shadow-xl flex flex-col max-h-[90vh]">
+        <div className="flex items-center justify-between px-6 py-4 border-b shrink-0">
           <h2 className="font-bold text-lg">{editSet ? 'Edit Set' : 'New Flashcard Set'}</h2>
           <Button variant="ghost" size="icon" onClick={onClose}><X className="h-4 w-4" /></Button>
         </div>
 
-        <div className="p-6 space-y-5">
+        <div className="flex-1 min-h-0 overflow-y-auto px-6 py-5 space-y-5">
           <div className="space-y-1.5">
             <label className="text-sm font-medium">Set Name <span className="text-destructive">*</span></label>
             <input
@@ -288,7 +322,7 @@ function EditModal({ editSet, onClose }: EditModalProps) {
               </div>
             )}
 
-            <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
+            <div className="space-y-2 px-1">
               <div className="flex gap-2 text-xs text-muted-foreground font-medium px-7">
                 <span className="flex-1">Term (front)</span>
                 <span className="flex-1">Definition (back)</span>
@@ -299,6 +333,9 @@ function EditModal({ editSet, onClose }: EditModalProps) {
                 <CardRow key={i} index={i} front={row.front} back={row.back} image={row.image} imageOn={row.imageOn}
                   onChange={(f, b, img, on) => updateRow(i, f, b, img, on)}
                   onRemove={() => removeRow(i)}
+                  onEnter={addRow}
+                  focusIndex={focusIndex}
+                  clearFocus={clearFocus}
                 />
               ))}
             </div>
@@ -309,7 +346,7 @@ function EditModal({ editSet, onClose }: EditModalProps) {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2 px-6 py-4 border-t">
+        <div className="flex items-center justify-end gap-2 px-6 py-4 border-t shrink-0">
           <Button variant="outline" onClick={onClose}>Cancel</Button>
           <Button onClick={handleSave} disabled={!name.trim() || saving}>
             {saving ? 'Saving…' : (editSet ? 'Save Changes' : 'Create Set')}
@@ -329,13 +366,14 @@ interface SetCardProps {
   updatedAt?: number;
   builtIn?: boolean;
   tags: string[];
+  mastery: MasteryStats;
   onStudy: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
   onEditTags: () => void;
 }
 
-function SetCard({ reviewId, name, description, cardCount, updatedAt, builtIn, tags, onStudy, onEdit, onDelete, onEditTags }: SetCardProps) {
+function SetCard({ reviewId, name, description, cardCount, updatedAt, builtIn, tags, mastery, onStudy, onEdit, onDelete, onEditTags }: SetCardProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const reviewed = useReviewed('fc', reviewId);
@@ -426,6 +464,19 @@ function SetCard({ reviewId, name, description, cardCount, updatedAt, builtIn, t
           </div>
         </div>
 
+        {/* Mastery bar — only once the set has been studied at least once */}
+        {mastery.mastered + mastery.learning > 0 && (
+          <div className="space-y-1">
+            <div className="flex h-1.5 w-full overflow-hidden rounded-full bg-muted" title={`${mastery.mastered} mastered · ${mastery.learning} learning · ${mastery.fresh} new`}>
+              <div className="h-full bg-emerald-500" style={{ width: `${(mastery.mastered / Math.max(1, mastery.total)) * 100}%` }} />
+              <div className="h-full bg-amber-400" style={{ width: `${(mastery.learning / Math.max(1, mastery.total)) * 100}%` }} />
+            </div>
+            <p className="text-[10px] text-muted-foreground tabular-nums">
+              {mastery.mastered}/{mastery.total} mastered
+            </p>
+          </div>
+        )}
+
         <Button className="w-full gap-2" size="sm" onClick={onStudy}>
           <BookOpen className="h-3.5 w-3.5" /> Study
         </Button>
@@ -447,6 +498,16 @@ export default function FlashcardsScreen() {
   const userSets = useLiveQuery(() => db.flashcardSets.orderBy('updatedAt').reverse().toArray(), []) ?? [];
   const allCards = useLiveQuery(() => db.flashcards.toArray(), []) ?? [];
   const tagRecords = useLiveQuery(() => db.tags.toArray(), []) ?? [];
+  const allProgress = useLiveQuery(() => db.flashcardProgress.toArray(), []) ?? [];
+
+  // Group spaced-repetition rows by set so each card can show its mastery.
+  const progressBySet = allProgress.reduce<Record<number, typeof allProgress>>((acc, p) => {
+    (acc[p.setId] ??= []).push(p);
+    return acc;
+  }, {});
+  function masteryOf(setId: number, cardCount: number): MasteryStats {
+    return masteryFor(cardCount, progressBySet[setId] ?? []);
+  }
 
   const fcTagsMap: Record<string, string[]> = Object.fromEntries(
     tagRecords
@@ -470,6 +531,7 @@ export default function FlashcardsScreen() {
     await db.flashcards.where('setId').equals(set.id).delete();
     await db.flashcardSets.delete(set.id);
     await db.tags.delete('fc:' + set.id);
+    await db.flashcardProgress.where('setId').equals(set.id).delete();
     setDeleteTarget(null);
   }
 
@@ -477,6 +539,14 @@ export default function FlashcardsScreen() {
     setTagEditorKey(entityKey);
     setTagEditorTitle(title);
   }
+
+  // Close the delete-confirm dialog on Escape.
+  useEffect(() => {
+    if (!deleteTarget) return;
+    function onKey(e: KeyboardEvent) { if (e.key === 'Escape') setDeleteTarget(null); }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [deleteTarget]);
 
   const visibleBuiltIn = selectedTags.length === 0
     ? BUILT_IN_FLASHCARD_SETS
@@ -552,6 +622,7 @@ export default function FlashcardsScreen() {
               cardCount={set.cardCount}
               builtIn
               tags={tagsFor(set.id)}
+              mastery={masteryOf(set.id, set.cardCount)}
               onStudy={() => studyFlashcardSet(set.id)}
               onEditTags={() => openTagEditor('fc:' + set.id, `Tags — ${set.name}`)}
             />
@@ -565,6 +636,7 @@ export default function FlashcardsScreen() {
               cardCount={cardCountFor(set.id!)}
               updatedAt={set.updatedAt}
               tags={tagsFor(set.id!)}
+              mastery={masteryOf(set.id!, cardCountFor(set.id!))}
               onStudy={() => studyFlashcardSet(set.id!)}
               onEdit={() => { setEditTarget(set); setShowCreate(true); }}
               onDelete={() => setDeleteTarget(set)}
