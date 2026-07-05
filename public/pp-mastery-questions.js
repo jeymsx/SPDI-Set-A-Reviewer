@@ -1092,5 +1092,75 @@ window.ppMasteryQuestionsData = [
     ],
     "correctAnswer": "Single Ladder",
     "feedback": "Reference:\n(1) American Ladder Institute\n(2) Master's Mastery Second Edition, page 108"
+  },
+  {
+    "id": 91,
+    "question": "Identify the parts of a flushometer valve. Which label points to the Body?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+    "correctAnswer": "B",
+    "image": "/assets/pp-mastery-diagram-flushometer.jpg"
+  },
+  {
+    "id": 92,
+    "question": "Identify the parts of a flushometer valve. Which label points to the Tailpiece?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+    "correctAnswer": "G",
+    "image": "/assets/pp-mastery-diagram-flushometer.jpg"
+  },
+  {
+    "id": 93,
+    "question": "Identify the parts of a flushometer valve. Which label points to the Flush Connection?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+    "correctAnswer": "K",
+    "image": "/assets/pp-mastery-diagram-flushometer.jpg"
+  },
+  {
+    "id": 94,
+    "question": "Identify the parts of a flushometer valve. Which label points to the Stop Coupling?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+    "correctAnswer": "J",
+    "image": "/assets/pp-mastery-diagram-flushometer.jpg"
+  },
+  {
+    "id": 95,
+    "question": "Identify the parts of a flushometer valve. Which label points to the Control Stop?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+    "correctAnswer": "H",
+    "image": "/assets/pp-mastery-diagram-flushometer.jpg"
+  },
+  {
+    "id": 96,
+    "question": "Identify the labeled pipe fittings. Which label points to the Cross?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
+    "correctAnswer": "D",
+    "image": "/assets/pp-mastery-diagram-fittings.jpg"
+  },
+  {
+    "id": 97,
+    "question": "Identify the labeled pipe fittings. Which label points to the Union?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
+    "correctAnswer": "E",
+    "image": "/assets/pp-mastery-diagram-fittings.jpg"
+  },
+  {
+    "id": 98,
+    "question": "Identify the labeled pipe fittings. Which label points to the Reducer?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
+    "correctAnswer": "J",
+    "image": "/assets/pp-mastery-diagram-fittings.jpg"
+  },
+  {
+    "id": 99,
+    "question": "Identify the labeled pipe fittings. Which label points to the Cap?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
+    "correctAnswer": "H",
+    "image": "/assets/pp-mastery-diagram-fittings.jpg"
+  },
+  {
+    "id": 100,
+    "question": "Identify the labeled pipe fittings. Which label points to the Globe Valve?",
+    "choices": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"],
+    "correctAnswer": "B",
+    "image": "/assets/pp-mastery-diagram-fittings.jpg"
   }
 ];

@@ -93,9 +93,15 @@ export default function QuestionView() {
           navigateNext();
         }
       }
-      if (['1','2','3','4','5','6','7','8'].includes(e.key)) {
+      if (['1','2','3','4','5','6','7','8','9'].includes(e.key)) {
         const idx = parseInt(e.key) - 1;
         if (choices[idx]) handleSelect(choices[idx]);
+      }
+      // Diagram-labeling questions can have more choices (letters) than the 1–9
+      // shortcut reaches — let the matching letter key select that choice directly.
+      if (/^[a-z]$/i.test(e.key)) {
+        const match = choices.find(c => c.length === 1 && c.toUpperCase() === e.key.toUpperCase());
+        if (match) handleSelect(match);
       }
     }
     window.addEventListener('keydown', onKey);
@@ -245,9 +251,18 @@ export default function QuestionView() {
       {/* Keyboard shortcut hint — desktop only */}
       <p className="hidden sm:flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
         <span>Tip:</span>
-        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">1</kbd>–
-        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">{Math.min(choices.length, 8)}</kbd>
-        <span>to answer</span>
+        {choices.length > 0 && choices.every(c => c.length === 1) ? (
+          <>
+            <span>press the letter</span>
+            <span>to answer</span>
+          </>
+        ) : (
+          <>
+            <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">1</kbd>–
+            <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">{Math.min(choices.length, 9)}</kbd>
+            <span>to answer</span>
+          </>
+        )}
         <span className="text-muted-foreground/50">·</span>
         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">←</kbd>
         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">→</kbd>

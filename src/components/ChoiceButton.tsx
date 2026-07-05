@@ -13,13 +13,22 @@ interface Props {
   onSelect: (choice: string) => void;
 }
 
-const LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+// Supports any choice count (A, B, C, … Z) rather than a fixed 8-entry array —
+// diagram-labeling questions can have well more than 8 lettered choices.
+function labelFor(index: number): string {
+  return index < 26 ? String.fromCharCode(65 + index) : String(index + 1);
+}
 
 export default function ChoiceButton({ choice, index, question, selectedAnswer, isGraded, practiceMode, isRevealed, onSelect }: Props) {
   const isSelected = selectedAnswer === choice;
   const isCorrect = choice === question.correctAnswer;
   const showResult = isGraded || (practiceMode && isRevealed);
   const isDisabled = isGraded || (practiceMode && isRevealed);
+  const label = labelFor(index);
+  // When the choice text IS itself a single letter (diagram-labeling questions,
+  // e.g. choice "B" for point B), showing the index-derived badge letter next to
+  // it would double up ("[A] A") — skip the redundant badge letter in that case.
+  const isSelfLabeled = choice.length === 1 && choice.toUpperCase() === label;
 
   let variant: 'default' | 'correct' | 'wrong' | 'selected' = 'default';
   if (showResult) {
@@ -51,10 +60,11 @@ export default function ChoiceButton({ choice, index, question, selectedAnswer, 
       )}>
         {showResult && isCorrect ? <Check className="h-3.5 w-3.5" /> :
          showResult && isSelected ? <X className="h-3.5 w-3.5" /> :
-         LABELS[index]}
+         isSelfLabeled ? <span className="h-1.5 w-1.5 rounded-full bg-current" /> :
+         label}
       </span>
       {choice.startsWith('/assets/')
-        ? <img src={choice} alt={`Choice ${LABELS[index]}`} className="max-h-40 rounded object-contain" />
+        ? <img src={choice} alt={`Choice ${label}`} className="max-h-40 rounded object-contain" />
         : <span className="flex-1 leading-relaxed">{choice}</span>
       }
     </button>

@@ -199,7 +199,7 @@ export const EXAMS: Exam[] = [
     subtitle: 'Practical Problems & Experiences',
     dataVar: 'ppMasteryQuestionsData',
     scriptSrc: '/pp-mastery-questions.js',
-    questionCount: 90,
+    questionCount: 100,
     description: "Mastery test on tools, fixtures, field scenarios, and practical plumbing problems — with photos for tool/part identification questions.",
     defaultTags: ['Practical', "Master's", 'Mastery Test'],
   },
