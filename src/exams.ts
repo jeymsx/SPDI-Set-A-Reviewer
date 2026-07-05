@@ -193,6 +193,16 @@ export const EXAMS: Exam[] = [
     description: 'Mastery test on Water Supply Fixture Units (WSFU) and Drainage Fixture Units (DFU) values for all standard plumbing fixtures.',
     defaultTags: ['Memorization', 'WSFU & DFU', 'Mastery Test'],
   },
+  {
+    id: 'pp-mastery',
+    title: "Practical Problems (Master's Mastery)",
+    subtitle: 'Practical Problems & Experiences',
+    dataVar: 'ppMasteryQuestionsData',
+    scriptSrc: '/pp-mastery-questions.js',
+    questionCount: 90,
+    description: "Mastery test on tools, fixtures, field scenarios, and practical plumbing problems — with photos for tool/part identification questions.",
+    defaultTags: ['Practical', "Master's", 'Mastery Test'],
+  },
 ];
 
 export function loadExamData(exam: Exam): Promise<Question[]> {
