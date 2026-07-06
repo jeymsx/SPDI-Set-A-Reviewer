@@ -48,7 +48,7 @@ export default function OverallStatsCard() {
   ];
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="relative overflow-hidden">
       <CardContent className="p-5">
         <div className="flex flex-col sm:flex-row sm:items-center gap-5">
           <div className="shrink-0">
