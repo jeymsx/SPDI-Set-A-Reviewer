@@ -5,6 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
+import {
+  AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { cn } from '@/lib/utils';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
@@ -200,27 +204,33 @@ export default function StartScreen() {
 
             {/* Reset */}
             <div>
-              {!showResetConfirm ? (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="gap-1.5 text-destructive hover:text-destructive hover:bg-destructive/10"
-                  onClick={() => setShowResetConfirm(true)}
-                >
-                  <Trash2 className="h-3.5 w-3.5" /> Reset Saved Progress
-                </Button>
-              ) : (
-                <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3 flex items-center gap-2 flex-wrap">
-                  <p className="text-xs font-medium text-destructive flex-1">This deletes all saved answers and scores.</p>
-                  <Button size="sm" variant="destructive" onClick={() => { resetProgress(); setShowResetConfirm(false); }}>
-                    Yes, Reset
-                  </Button>
-                  <Button size="sm" variant="outline" onClick={() => setShowResetConfirm(false)}>
-                    Cancel
-                  </Button>
-                </div>
-              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-1.5 text-destructive hover:text-destructive hover:bg-destructive/10"
+                onClick={() => setShowResetConfirm(true)}
+              >
+                <Trash2 className="h-3.5 w-3.5" /> Reset Saved Progress
+              </Button>
             </div>
+
+            <AlertDialog open={showResetConfirm} onOpenChange={setShowResetConfirm}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Reset saved progress?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This deletes your in-progress answers, bookmarks, and shuffled order for
+                    this exam. Your completed-attempt history is kept. This cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <Button variant="destructive" onClick={() => { resetProgress(); setShowResetConfirm(false); }}>
+                    Reset
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </CardContent>
         </Card>
       ) : tab === 'history' ? (

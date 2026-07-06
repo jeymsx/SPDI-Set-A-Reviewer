@@ -2,8 +2,11 @@ import { ChevronLeft, ClipboardList, Lightbulb, Play, RotateCcw, Settings, Trash
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
+import {
+  AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
 import type { TimerState } from '../hooks/useTimer';
@@ -102,65 +105,68 @@ export default function Sidebar({ timer, timerActive }: Props) {
       </Card>
 
       {/* Actions */}
-      {confirm === null ? (
-        <div className="space-y-2">
-          <Button
-            variant="outline"
-            className="w-full gap-2"
-            onClick={() => setConfirm('retake')}
-          >
-            <RotateCcw className="h-4 w-4" /> Restart / Switch Mode
-          </Button>
-          <Button
-            variant="ghost"
-            className="w-full gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
-            onClick={() => setConfirm('reset')}
-          >
-            <Trash2 className="h-4 w-4" /> Reset All Progress
-          </Button>
-        </div>
-      ) : confirm === 'retake' ? (
-        <Card>
-          <CardContent className="pt-4 space-y-3">
-            <p className="text-sm font-medium">Restart from Question 1?</p>
-            <p className="text-xs text-muted-foreground">
-              Current answers will be cleared. Choose a mode to restart in:
-            </p>
-            <Separator />
-            <div className="flex flex-col gap-2">
-              <Button
-                size="sm"
-                className="w-full gap-2 bg-violet-600 hover:bg-violet-700 text-white"
-                onClick={() => { startPractice(); setConfirm(null); }}
-              >
-                <Play className="h-3.5 w-3.5" /> Practice Mode
-              </Button>
-              <Button
-                size="sm"
-                className="w-full gap-2"
-                onClick={() => { startExam(timerDuration); setConfirm(null); }}
-              >
-                <ClipboardList className="h-3.5 w-3.5" /> Exam Mode
-              </Button>
-              <Button size="sm" variant="ghost" className="w-full" onClick={() => setConfirm(null)}>
-                Cancel
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card className="border-destructive/30">
-          <CardContent className="pt-4 space-y-3">
-            <p className="text-sm font-medium text-destructive">Reset all progress?</p>
-            <p className="text-xs text-muted-foreground">Clears all saved answers, shuffled order, and returns to the start screen. This cannot be undone.</p>
-            <Separator />
-            <div className="flex gap-2">
-              <Button size="sm" variant="destructive" className="flex-1" onClick={handleReset}>Reset</Button>
-              <Button size="sm" variant="outline" className="flex-1" onClick={() => setConfirm(null)}>Cancel</Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <div className="space-y-2">
+        <Button
+          variant="outline"
+          className="w-full gap-2"
+          onClick={() => setConfirm('retake')}
+        >
+          <RotateCcw className="h-4 w-4" /> Restart / Switch Mode
+        </Button>
+        <Button
+          variant="ghost"
+          className="w-full gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+          onClick={() => setConfirm('reset')}
+        >
+          <Trash2 className="h-4 w-4" /> Reset All Progress
+        </Button>
+      </div>
+
+      {/* Restart / switch mode */}
+      <AlertDialog open={confirm === 'retake'} onOpenChange={open => !open && setConfirm(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Restart from Question 1?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Your current answers will be cleared. Choose a mode to restart in:
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex flex-col gap-2">
+            <Button
+              className="w-full gap-2 bg-violet-600 hover:bg-violet-700 text-white"
+              onClick={() => { startPractice(); setConfirm(null); }}
+            >
+              <Play className="h-4 w-4" /> Practice Mode
+            </Button>
+            <Button
+              className="w-full gap-2"
+              onClick={() => { startExam(timerDuration); setConfirm(null); }}
+            >
+              <ClipboardList className="h-4 w-4" /> Exam Mode
+            </Button>
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Reset all progress */}
+      <AlertDialog open={confirm === 'reset'} onOpenChange={open => !open && setConfirm(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Reset all progress?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This clears all saved answers, bookmarks, and shuffled order for this exam,
+              then returns to the start screen. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <Button variant="destructive" onClick={handleReset}>Reset</Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </aside>
   );
 }
