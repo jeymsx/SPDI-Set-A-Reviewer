@@ -1,8 +1,9 @@
-import { Award, ClipboardList, Keyboard, Layers, Moon, Sun, Timer, Volume2, VolumeX, X } from 'lucide-react';
+import { Award, ClipboardList, Keyboard, Layers, Timer, Volume2, VolumeX, X } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
 import { useSoundEnabled, toggleSound } from '@/lib/sounds';
@@ -70,14 +71,15 @@ export default function Header() {
               {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4 text-muted-foreground" />}
             </Button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
+            <AnimatedThemeToggler
+              theme={theme}
+              onThemeChange={toggleTheme}
+              variant="circle"
+              duration={450}
               title="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
+              aria-label="Toggle theme"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-4"
+            />
 
             <Button
               variant="ghost"
