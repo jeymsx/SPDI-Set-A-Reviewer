@@ -18,7 +18,7 @@ export interface Exam {
   defaultTags: string[];
 }
 
-export type Screen = 'select' | 'start' | 'workspace' | 'flashcards' | 'flashcard-study' | 'take-review';
+export type Screen = 'select' | 'start' | 'workspace' | 'flashcards' | 'flashcard-study' | 'take-review' | 'mistake-bank';
 
 export interface FlashcardSet {
   id?: number;

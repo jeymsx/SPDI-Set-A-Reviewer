@@ -19,7 +19,8 @@ export default function QuestionView() {
     navigateNext, navigatePrev,
     shuffledChoicesFor,
     bookmarks, toggleBookmark,
-    reviewIncorrectOnly, reviewBookmarkedOnly, setReviewIncorrect, setReviewBookmarked,
+    reviewIncorrectOnly, reviewBookmarkedOnly, reviewUnansweredOnly,
+    setReviewIncorrect, setReviewBookmarked, setReviewUnanswered,
     activeRecallEnabled,
   } = useExam();
 
@@ -28,8 +29,13 @@ export default function QuestionView() {
   // No question to show. If a Navigator filter emptied the list, explain it here
   // in the main panel instead of leaving a blank column next to the sidebar.
   if (!q) {
-    const filterActive = reviewIncorrectOnly || reviewBookmarkedOnly;
+    const filterActive = reviewIncorrectOnly || reviewBookmarkedOnly || reviewUnansweredOnly;
     if (!filterActive) return null;
+    const message =
+      reviewUnansweredOnly ? "Every question is answered — you're ready to submit."
+      : reviewIncorrectOnly && reviewBookmarkedOnly ? "You have no wrong or bookmarked questions in this set yet."
+      : reviewIncorrectOnly ? "Nothing's marked wrong yet — answer some questions or grade the exam first."
+      : "You haven't bookmarked any questions in this set yet.";
     return (
       <Card>
         <CardContent className="py-14 flex flex-col items-center text-center gap-3">
@@ -38,18 +44,12 @@ export default function QuestionView() {
           </div>
           <div className="space-y-1">
             <p className="font-semibold">No questions match this filter</p>
-            <p className="text-sm text-muted-foreground max-w-xs">
-              {reviewIncorrectOnly && reviewBookmarkedOnly
-                ? "You have no wrong or bookmarked questions in this set yet."
-                : reviewIncorrectOnly
-                  ? "Nothing's marked wrong yet — answer some questions or grade the exam first."
-                  : "You haven't bookmarked any questions in this set yet."}
-            </p>
+            <p className="text-sm text-muted-foreground max-w-xs">{message}</p>
           </div>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => { setReviewIncorrect(false); setReviewBookmarked(false); }}
+            onClick={() => { setReviewIncorrect(false); setReviewBookmarked(false); setReviewUnanswered(false); }}
           >
             Show all questions
           </Button>

@@ -10,7 +10,9 @@ export default function Navigator() {
     userAnswers, isGraded,
     practiceMode, practiceAnswers, practiceRevealedIds,
     bookmarks,
-    reviewBookmarkedOnly, reviewIncorrectOnly, setReviewBookmarked, setReviewIncorrect,
+    reviewBookmarkedOnly, reviewIncorrectOnly, reviewUnansweredOnly,
+    setReviewBookmarked, setReviewIncorrect, setReviewUnanswered,
+    unansweredCount, navigateToFirstUnanswered,
   } = useExam();
 
   const [search, setSearch] = useState('');
@@ -66,7 +68,7 @@ export default function Navigator() {
       </div>
 
       {/* Filter toggles */}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button
           variant={reviewIncorrectOnly ? 'destructive' : 'outline'}
           size="sm"
@@ -83,7 +85,32 @@ export default function Navigator() {
         >
           Bookmarked
         </Button>
+        {!practiceMode && !isGraded && (
+          <Button
+            variant={reviewUnansweredOnly ? 'default' : 'outline'}
+            size="sm"
+            className="h-7 text-[11px] px-2.5 gap-1"
+            onClick={() => setReviewUnanswered(!reviewUnansweredOnly)}
+          >
+            Unanswered
+            {unansweredCount > 0 && (
+              <span className="rounded-full bg-background/25 px-1 tabular-nums">{unansweredCount}</span>
+            )}
+          </Button>
+        )}
       </div>
+
+      {/* Jump to next unanswered — exam mode, only while some remain */}
+      {!practiceMode && !isGraded && unansweredCount > 0 && (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-7 w-full text-[11px] text-muted-foreground hover:text-foreground"
+          onClick={navigateToFirstUnanswered}
+        >
+          Jump to next unanswered →
+        </Button>
+      )}
 
       {/* Search */}
       <div className="relative">

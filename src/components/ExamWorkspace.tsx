@@ -1,5 +1,10 @@
+import { useState } from 'react';
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { useExam } from '../context/ExamContext';
 import { useTimer } from '../hooks/useTimer';
 import QuestionView from './QuestionView';
@@ -10,7 +15,10 @@ export default function ExamWorkspace() {
   const {
     loading, error, retryLoad, isGraded, practiceMode, submitExam, currentQuestion,
     examStarted, timerDuration, timerEndTime,
+    unansweredCount, navigateToFirstUnanswered,
   } = useExam();
+
+  const [confirmSubmit, setConfirmSubmit] = useState(false);
 
   // Single authoritative timer instance for the whole workspace — drives both the
   // mobile sticky bar and the desktop sidebar block, so onExpire fires only once.
@@ -53,7 +61,7 @@ export default function ExamWorkspace() {
           <QuestionView />
           {!isGraded && !practiceMode && currentQuestion && (
             <div className="flex justify-end">
-              <Button onClick={submitExam} className="gap-2">
+              <Button onClick={() => setConfirmSubmit(true)} className="gap-2">
                 <Send className="h-4 w-4" /> Submit Exam
               </Button>
             </div>
@@ -61,6 +69,34 @@ export default function ExamWorkspace() {
         </div>
         <Sidebar timer={timer} timerActive={timerActive} />
       </div>
+
+      {/* Submit confirmation with an unanswered-question guard */}
+      <AlertDialog open={confirmSubmit} onOpenChange={setConfirmSubmit}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Submit exam?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {unansweredCount > 0
+                ? `You still have ${unansweredCount} unanswered question${unansweredCount === 1 ? '' : 's'}. Unanswered questions are marked incorrect. You can't change answers after submitting.`
+                : "You've answered every question. You can't change answers after submitting."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Keep working</AlertDialogCancel>
+            {unansweredCount > 0 && (
+              <Button
+                variant="outline"
+                onClick={() => { setConfirmSubmit(false); navigateToFirstUnanswered(); }}
+              >
+                Review unanswered
+              </Button>
+            )}
+            <Button onClick={() => { setConfirmSubmit(false); submitExam(); }}>
+              {unansweredCount > 0 ? 'Submit anyway' : 'Submit'}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

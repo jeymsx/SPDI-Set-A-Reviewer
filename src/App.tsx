@@ -9,6 +9,7 @@ import StartScreen from './components/StartScreen';
 import ExamWorkspace from './components/ExamWorkspace';
 import FlashcardsScreen from './components/FlashcardsScreen';
 import FlashcardStudyScreen from './components/FlashcardStudyScreen';
+import MistakeBankScreen from './components/MistakeBankScreen';
 import TakeReviewScreen from './components/TakeReviewScreen';
 import BottomNav from './components/BottomNav';
 import ResultsModal from './components/ResultsModal';
@@ -30,6 +31,7 @@ function AppShell() {
         {screen === 'workspace'       && <ExamWorkspace />}
         {screen === 'flashcards'      && <FlashcardsScreen />}
         {screen === 'flashcard-study' && <FlashcardStudyScreen />}
+        {screen === 'mistake-bank'    && <MistakeBankScreen />}
         {screen === 'take-review'     && <TakeReviewScreen />}
       </main>
       <BottomNav />

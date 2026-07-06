@@ -34,7 +34,7 @@ export default function Header() {
             <button
               onClick={() => guardedNavigation(showExamSelect)}
               className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                ['select','start','workspace'].includes(screen)
+                ['select','start','workspace','mistake-bank'].includes(screen)
                   ? 'bg-accent text-foreground'
                   : 'text-muted-foreground hover:text-foreground hover:bg-accent/60'
               }`}

@@ -90,11 +90,17 @@ export interface ExamContextValue {
   shuffleChoicesEnabled: boolean;
   reviewIncorrectOnly: boolean;
   reviewBookmarkedOnly: boolean;
+  reviewUnansweredOnly: boolean;
   setShuffleQ: (v: boolean) => void;
   setShuffleC: (v: boolean) => void;
   setReviewIncorrect: (v: boolean) => void;
   setReviewBookmarked: (v: boolean) => void;
+  setReviewUnanswered: (v: boolean) => void;
   shuffledChoicesFor: (q: Question) => string[];
+
+  // unanswered helpers (exam mode)
+  unansweredCount: number;
+  navigateToFirstUnanswered: () => void;
 
   // active recall — choices stay hidden behind a "Show options" button until
   // the student has thought of the answer themselves. Global preference.
@@ -166,6 +172,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   const [shuffleChoicesEnabled, setShuffleChoicesEnabled] = useState(false);
   const [reviewIncorrectOnly, setReviewIncorrectOnly] = useState(false);
   const [reviewBookmarkedOnly, setReviewBookmarkedOnly] = useState(false);
+  const [reviewUnansweredOnly, setReviewUnansweredOnly] = useState(false);
   const [activeRecallEnabled, setActiveRecallState] = useState(() => localStorage.getItem(LS_ACTIVE_RECALL) === 'true');
   const shuffledChoicesPoolRef = useRef<Record<number, string[]>>({});
   const pendingIdxRef = useRef<number | null>(null);
@@ -239,8 +246,31 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       });
     }
 
+    if (reviewUnansweredOnly && !practiceMode) {
+      indices = indices.filter(i => {
+        const q = questions[i];
+        return q && userAnswers[q.id] === undefined;
+      });
+    }
+
     return indices;
-  }, [questions, questionFilter, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, userAnswers, practiceAnswers, practiceRevealedIds, practiceMode, bookmarks, keys.pool]);
+  }, [questions, questionFilter, shuffleQuestionsEnabled, reviewIncorrectOnly, reviewBookmarkedOnly, reviewUnansweredOnly, userAnswers, practiceAnswers, practiceRevealedIds, practiceMode, bookmarks, keys.pool]);
+
+  // Count of unanswered questions within the real exam scope (ignores the review
+  // filters above so the number stays stable for the submit guard).
+  const scopedRealIndices = useMemo(() => {
+    let indices = Array.from({ length: questions.length }, (_, i) => i);
+    if (questionFilter !== null) {
+      const filterSet = new Set(questionFilter);
+      indices = indices.filter(i => questions[i] && filterSet.has(questions[i].id));
+    }
+    return indices;
+  }, [questions, questionFilter]);
+
+  const unansweredCount = useMemo(() => {
+    if (practiceMode || isGraded) return 0;
+    return scopedRealIndices.filter(i => userAnswers[questions[i].id] === undefined).length;
+  }, [scopedRealIndices, userAnswers, questions, practiceMode, isGraded]);
 
   const currentQuestion = useMemo(() => {
     const realIdx = indicesMap[currentIdx];
@@ -419,6 +449,30 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     setReviewBookmarkedOnly(v);
     setCurrentIdx(0);
   }, []);
+
+  const setReviewUnanswered = useCallback((v: boolean) => {
+    setReviewUnansweredOnly(v);
+    setCurrentIdx(0);
+  }, []);
+
+  // Jump to the first unanswered question in the current (unfiltered) order.
+  // Clears any active review filter so the target is guaranteed to be reachable.
+  const navigateToFirstUnanswered = useCallback(() => {
+    setReviewIncorrectOnly(false);
+    setReviewBookmarkedOnly(false);
+    setReviewUnansweredOnly(false);
+    let base = Array.from({ length: questions.length }, (_, i) => i);
+    if (shuffleQuestionsEnabled) {
+      const saved = localStorage.getItem(keys.pool);
+      if (saved) { try { base = JSON.parse(saved); } catch { /* ignore */ } }
+    }
+    if (questionFilter !== null) {
+      const filterSet = new Set(questionFilter);
+      base = base.filter(i => questions[i] && filterSet.has(questions[i].id));
+    }
+    const target = base.findIndex(i => questions[i] && userAnswers[questions[i].id] === undefined);
+    if (target >= 0) setCurrentIdx(target);
+  }, [questions, userAnswers, questionFilter, shuffleQuestionsEnabled, keys.pool]);
 
   const setActiveRecall = useCallback((v: boolean) => {
     setActiveRecallState(v);
@@ -629,8 +683,9 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       startExam, submitExam, resetProgress, setTimerEndTime,
       shuffleQuestionsEnabled, shuffleChoicesEnabled,
       reviewIncorrectOnly, reviewBookmarkedOnly,
-      setShuffleQ, setShuffleC, setReviewIncorrect, setReviewBookmarked,
+      setShuffleQ, setShuffleC, setReviewIncorrect, setReviewBookmarked, setReviewUnanswered,
       shuffledChoicesFor,
+      reviewUnansweredOnly, unansweredCount, navigateToFirstUnanswered,
       activeRecallEnabled, setActiveRecall,
       welcomeDismissed, dismissWelcome,
       bookmarks, toggleBookmark,

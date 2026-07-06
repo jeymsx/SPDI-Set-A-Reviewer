@@ -12,6 +12,7 @@ interface AppContextValue {
 
   selectExam: (exam: Exam) => void;
   showExamSelect: () => void;
+  showMistakeBank: () => void;
   setScreen: (s: Screen) => void;
   toggleTheme: () => void;
   guardedNavigation: (callback: () => void) => void;
@@ -70,6 +71,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setScreen('flashcards');
   }, []);
 
+  const showMistakeBank = useCallback(() => {
+    setSessionActive(false);
+    setScreen('mistake-bank');
+  }, []);
+
   const studyFlashcardSet = useCallback((setId: number) => {
     setCurrentFlashcardSetId(setId);
     setScreen('flashcard-study');
@@ -113,7 +119,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <AppContext.Provider value={{
       currentExam, screen, theme, navGuardPending,
-      selectExam, showExamSelect, setScreen, toggleTheme,
+      selectExam, showExamSelect, showMistakeBank, setScreen, toggleTheme,
       guardedNavigation, navGuardConfirm, navGuardCancel,
       sessionActive, setSessionActive,
       currentFlashcardSetId, showFlashcards, studyFlashcardSet,
