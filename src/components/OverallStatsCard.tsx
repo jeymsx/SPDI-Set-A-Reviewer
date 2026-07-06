@@ -1,6 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks';
+import { useReducedMotion } from 'motion/react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { BorderBeam } from '@/components/ui/border-beam';
 import { db } from '../db';
 
 export default function OverallStatsCard() {
@@ -23,6 +25,8 @@ export default function OverallStatsCard() {
 
     return { totalSessions, uniqueExams, accuracy, passRate, bestScore, lastDate };
   }, []);
+
+  const reducedMotion = useReducedMotion();
 
   if (!stats) return null;
 
@@ -79,6 +83,14 @@ export default function OverallStatsCard() {
           style={{ width: `${stats.accuracy}%` }}
         />
       </div>
+
+      {/* Blue border beams — two on opposite sides for a balanced sweep */}
+      {!reducedMotion && (
+        <>
+          <BorderBeam duration={8} size={140} colorFrom="#60a5fa" colorTo="#2563eb" />
+          <BorderBeam duration={8} size={140} initialOffset={50} colorFrom="#60a5fa" colorTo="#2563eb" />
+        </>
+      )}
     </Card>
   );
 }
