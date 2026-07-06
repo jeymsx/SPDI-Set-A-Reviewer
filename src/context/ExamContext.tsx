@@ -176,6 +176,10 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   const [activeRecallEnabled, setActiveRecallState] = useState(() => localStorage.getItem(LS_ACTIVE_RECALL) === 'true');
   const shuffledChoicesPoolRef = useRef<Record<number, string[]>>({});
   const pendingIdxRef = useRef<number | null>(null);
+  // Guards the persist-idx effect: stays false from the moment a new exam starts
+  // loading until its saved index has been restored, so the initial currentIdx=0
+  // can't overwrite the saved position before hydrate reads it back.
+  const hydratedRef = useRef(false);
 
   // ---- welcome ----
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
@@ -301,6 +305,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     if (loadedExamId.current === currentExam.id && loadedRetryKey.current === loadRetryKey) return;
     loadedExamId.current = currentExam.id;
     loadedRetryKey.current = loadRetryKey;
+    hydratedRef.current = false; // block idx persistence until this exam is hydrated
     setExam(currentExam);
     setLoading(true);
     setError(null);
@@ -383,12 +388,14 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     if (questions.length > 0 && pendingIdxRef.current !== null) {
       setCurrentIdx(pendingIdxRef.current);
       pendingIdxRef.current = null;
+      hydratedRef.current = true; // saved position restored — safe to persist again
     }
   }, [questions]);
 
-  // ---- persist current idx ----
+  // ---- persist current idx (only after hydration, so it can't clobber the
+  //      saved position with the initial 0 while the exam is still loading) ----
   useEffect(() => {
-    if (exam) localStorage.setItem(keys.idx, String(currentIdx));
+    if (exam && hydratedRef.current) localStorage.setItem(keys.idx, String(currentIdx));
   }, [currentIdx, exam, keys.idx]);
 
   // ---- navigation ----
