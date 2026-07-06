@@ -1,14 +1,16 @@
-import { Award, ClipboardList, Keyboard, Layers, Moon, Sun, Timer, X } from 'lucide-react';
+import { Award, ClipboardList, Keyboard, Layers, Moon, Sun, Timer, Volume2, VolumeX, X } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
+import { useSoundEnabled, toggleSound } from '@/lib/sounds';
 
 export default function Header() {
   const { toggleTheme, theme, guardedNavigation, showExamSelect, showFlashcards, screen } = useApp();
   const { isGraded, practiceMode } = useExam();
+  const soundEnabled = useSoundEnabled();
   const [showShortcuts, setShowShortcuts] = useState(false);
 
   return (
@@ -57,6 +59,16 @@ export default function Header() {
                 <Timer className="h-3 w-3" /> Submitted
               </Badge>
             )}
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSound}
+              title={soundEnabled ? 'Mute sound effects' : 'Unmute sound effects'}
+              aria-label={soundEnabled ? 'Mute sound effects' : 'Unmute sound effects'}
+            >
+              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4 text-muted-foreground" />}
+            </Button>
 
             <Button
               variant="ghost"

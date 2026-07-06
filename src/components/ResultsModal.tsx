@@ -8,6 +8,7 @@ import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
 import { saveTake, updateQuestionStats } from '../hooks/useProgress';
 import { fireConfetti } from '@/lib/confetti';
+import { playSound } from '@/lib/sounds';
 
 export default function ResultsModal() {
   const { showExamSelect } = useApp();
@@ -36,12 +37,13 @@ export default function ResultsModal() {
   const passed = pct >= 70;
   const isPerfect = totalQ > 0 && pct === 100;
 
-  const confettiFiredRef = useRef(false);
+  const completionCuedRef = useRef(false);
   useEffect(() => {
-    if (!showResults) { confettiFiredRef.current = false; return; }
-    if (!isPerfect || confettiFiredRef.current) return;
-    confettiFiredRef.current = true;
-    fireConfetti();
+    if (!showResults) { completionCuedRef.current = false; return; }
+    if (completionCuedRef.current) return;
+    completionCuedRef.current = true;
+    playSound('roundComplete');
+    if (isPerfect) fireConfetti();
   }, [showResults, isPerfect]);
 
   useEffect(() => {

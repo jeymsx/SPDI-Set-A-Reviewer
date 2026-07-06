@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { Exam, Question } from '../types';
 import { loadExamData } from '../exams';
+import { playSound } from '../lib/sounds';
 import { useApp } from './AppContext';
 
 // ---- localStorage helpers ----
@@ -466,6 +467,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(keys.timerStart, String(Date.now()));
     setCurrentIdx(0);
     setSessionActive(true);
+    playSound('woosh');
     setScreen('workspace');
   }, [keys, setScreen, setSessionActive]);
 
@@ -495,6 +497,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(keys.timerStart, String(Date.now()));
     setCurrentIdx(0);
     setSessionActive(true);
+    playSound('woosh');
     setScreen('workspace');
   }, [keys, setScreen, setSessionActive]);
 
@@ -508,6 +511,8 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     const q = questions.find(q => q.id === qId);
     const isCorrect = q ? answer === q.correctAnswer : false;
     const isFirstAttempt = practiceAnswers[qId] === undefined;
+
+    playSound(isCorrect ? 'correct' : 'incorrect');
 
     if (isCorrect) {
       setPracticeRevealedIds(prev => {

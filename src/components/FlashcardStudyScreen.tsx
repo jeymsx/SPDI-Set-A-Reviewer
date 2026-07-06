@@ -14,6 +14,7 @@ import { db } from '../db';
 import { useApp } from '../context/AppContext';
 import { masteryFor, orderSmart, recordCardResult, type MasteryStats } from '@/lib/flashcard-sr';
 import { fireConfetti } from '@/lib/confetti';
+import { playSound } from '@/lib/sounds';
 import type { Flashcard, FlashcardProgress } from '../types';
 
 const LS_FLIP = 'fc_flip_direction';
@@ -257,12 +258,12 @@ function CompletionScreen({ total, knownCount, stillLearningCount, mastery, past
   const history = pastSessions.slice(0, 5);
   const masteryPct = mastery.total > 0 ? Math.round((mastery.mastered / mastery.total) * 100) : 0;
 
-  const confettiFiredRef = useRef(false);
+  const completionCuedRef = useRef(false);
   useEffect(() => {
-    if (pct === 100 && !confettiFiredRef.current) {
-      confettiFiredRef.current = true;
-      fireConfetti();
-    }
+    if (completionCuedRef.current) return;
+    completionCuedRef.current = true;
+    playSound('roundComplete');
+    if (pct === 100) fireConfetti();
   }, [pct]);
   return (
     <div className="flex flex-col items-center justify-center py-10 gap-6 text-center max-w-sm mx-auto">
@@ -604,6 +605,7 @@ export default function FlashcardStudyScreen() {
   // Mark got it: advance to next card, record as known + promote its SR box
   const markGotIt = useCallback(() => {
     if (!current?.id) return;
+    playSound('correct');
     if (currentFlashcardSetId != null) recordCardResult(currentFlashcardSetId, current.id, true);
     advance(current.id, true);
   }, [current, advance, currentFlashcardSetId]);
@@ -612,6 +614,7 @@ export default function FlashcardStudyScreen() {
   // At completion, user can review all still-learning cards
   const markStillLearning = useCallback(() => {
     if (!current?.id) return;
+    playSound('incorrect');
     if (currentFlashcardSetId != null) recordCardResult(currentFlashcardSetId, current.id, false);
     advance(current.id, false);
   }, [current, advance, currentFlashcardSetId]);
