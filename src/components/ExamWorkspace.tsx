@@ -81,19 +81,22 @@ export default function ExamWorkspace() {
                 : "You've answered every question. You can't change answers after submitting."}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Keep working</AlertDialogCancel>
+          {/* Stacked, full-width actions — three buttons don't fit in a row on
+              the narrow dialog. Primary on top, cancel at the bottom. */}
+          <AlertDialogFooter className="flex-col sm:flex-col gap-2">
+            <Button className="w-full" onClick={() => { setConfirmSubmit(false); submitExam(); }}>
+              {unansweredCount > 0 ? 'Submit anyway' : 'Submit'}
+            </Button>
             {unansweredCount > 0 && (
               <Button
                 variant="outline"
+                className="w-full"
                 onClick={() => { setConfirmSubmit(false); navigateToFirstUnanswered(); }}
               >
                 Review unanswered
               </Button>
             )}
-            <Button onClick={() => { setConfirmSubmit(false); submitExam(); }}>
-              {unansweredCount > 0 ? 'Submit anyway' : 'Submit'}
-            </Button>
+            <AlertDialogCancel className="w-full mt-0">Keep working</AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
