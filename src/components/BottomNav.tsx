@@ -4,7 +4,7 @@ import { useApp } from '../context/AppContext';
 export default function BottomNav() {
   const { screen, guardedNavigation, showExamSelect, showFlashcards } = useApp();
 
-  const onExams = ['select', 'start', 'workspace', 'take-review'].includes(screen);
+  const onExams = ['select', 'start', 'workspace', 'take-review', 'mistake-bank'].includes(screen);
   const onFlashcards = screen === 'flashcards' || screen === 'flashcard-study';
 
   return (
@@ -12,6 +12,7 @@ export default function BottomNav() {
       <div className="flex h-16">
         <button
           onClick={() => guardedNavigation(showExamSelect)}
+          aria-current={onExams ? 'page' : undefined}
           className={`flex-1 flex flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors ${
             onExams ? 'text-primary' : 'text-muted-foreground'
           }`}
@@ -21,6 +22,7 @@ export default function BottomNav() {
         </button>
         <button
           onClick={() => guardedNavigation(showFlashcards)}
+          aria-current={onFlashcards ? 'page' : undefined}
           className={`flex-1 flex flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors ${
             onFlashcards ? 'text-primary' : 'text-muted-foreground'
           }`}

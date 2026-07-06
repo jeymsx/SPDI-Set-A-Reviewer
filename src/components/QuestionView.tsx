@@ -140,9 +140,10 @@ export default function QuestionView() {
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 shrink-0 -ml-2 mt-0.5"
+          className="h-9 w-9 shrink-0 -ml-2 mt-0.5"
           onClick={() => guardedNavigation(returnToStart)}
           title="Back to start screen"
+          aria-label="Back to start screen"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -201,9 +202,11 @@ export default function QuestionView() {
             <Button
               variant="ghost"
               size="icon"
-              className={`h-7 w-7 shrink-0 ${isBookmarked ? 'text-amber-500' : 'text-muted-foreground hover:text-amber-500'}`}
+              className={`h-9 w-9 shrink-0 ${isBookmarked ? 'text-amber-500' : 'text-muted-foreground hover:text-amber-500'}`}
               onClick={() => toggleBookmark(q.id)}
-              title="Bookmark"
+              title={isBookmarked ? 'Remove bookmark' : 'Bookmark this question'}
+              aria-label={isBookmarked ? 'Remove bookmark' : 'Bookmark this question'}
+              aria-pressed={isBookmarked}
             >
               {isBookmarked ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
             </Button>

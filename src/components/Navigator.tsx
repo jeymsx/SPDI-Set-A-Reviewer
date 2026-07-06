@@ -140,7 +140,9 @@ export default function Navigator() {
                   key={virtualIdx}
                   onClick={() => navigateTo(virtualIdx)}
                   title={q ? q.question.substring(0, 60) : ''}
-                  className={`aspect-square rounded-md text-[11px] font-bold transition-all relative ${getButtonClass(virtualIdx)}`}
+                  aria-label={`Go to question ${virtualIdx + 1}${isCurrent ? ', current' : ''}${isBookmarked ? ', bookmarked' : ''}`}
+                  aria-current={isCurrent ? 'true' : undefined}
+                  className={`aspect-square min-h-[36px] rounded-md text-[11px] font-bold transition-all relative ${getButtonClass(virtualIdx)}`}
                 >
                   {virtualIdx + 1}
                   {isBookmarked && !isCurrent && (
