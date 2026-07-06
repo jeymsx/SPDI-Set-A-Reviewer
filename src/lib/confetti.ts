@@ -3,6 +3,9 @@ import confetti from 'canvas-confetti';
 // Full-screen celebratory burst for a perfect score — two side cannons plus a
 // center pop, staggered slightly so it reads as one continuous celebration.
 export function fireConfetti(): void {
+  // Respect the OS "reduce motion" preference — skip the animation entirely.
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+
   const colors = ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6'];
 
   confetti({
