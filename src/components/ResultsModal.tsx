@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
 import { saveTake, updateQuestionStats } from '../hooks/useProgress';
+import { fireConfetti } from '@/lib/confetti';
 
 export default function ResultsModal() {
   const { showExamSelect } = useApp();
@@ -33,6 +34,15 @@ export default function ResultsModal() {
   const totalQ = scopedQuestions.length;
   const pct = totalQ > 0 ? Math.round((correctCount / totalQ) * 100) : 0;
   const passed = pct >= 70;
+  const isPerfect = totalQ > 0 && pct === 100;
+
+  const confettiFiredRef = useRef(false);
+  useEffect(() => {
+    if (!showResults) { confettiFiredRef.current = false; return; }
+    if (!isPerfect || confettiFiredRef.current) return;
+    confettiFiredRef.current = true;
+    fireConfetti();
+  }, [showResults, isPerfect]);
 
   useEffect(() => {
     if (!exam || !showResults || savedRef.current) return;
@@ -68,7 +78,7 @@ export default function ResultsModal() {
               : <BookOpen className="h-7 w-7 text-rose-400" />}
           </div>
           <DialogTitle className="text-xl">
-            {passed ? 'You Passed!' : 'Keep Practicing'}
+            {isPerfect ? 'Perfect Score! 🎉' : passed ? 'You Passed!' : 'Keep Practicing'}
           </DialogTitle>
           <DialogDescription>
             {practiceMode ? 'Practice Session Complete' : 'Exam Submitted'}

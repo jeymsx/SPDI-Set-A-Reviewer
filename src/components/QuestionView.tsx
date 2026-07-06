@@ -1,9 +1,10 @@
-import { Bookmark, BookmarkCheck, CheckCircle, ChevronLeft, ChevronRight, XCircle } from 'lucide-react';
-import { useEffect } from 'react';
+import { Bookmark, BookmarkCheck, CheckCircle, ChevronLeft, ChevronRight, Lightbulb, XCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
 import { useApp } from '../context/AppContext';
 import { useExam } from '../context/ExamContext';
 import ChoiceButton from './ChoiceButton';
@@ -14,11 +15,12 @@ export default function QuestionView() {
     exam, returnToStart,
     currentQuestion, currentIdx, indicesMap,
     userAnswers, setAnswer, isGraded,
-    practiceMode, practiceAnswers, practiceRevealedIds, setPracticeAnswer, finishPractice,
+    practiceMode, practiceAnswers, practiceWrongAttempts, practiceRevealedIds, setPracticeAnswer, finishPractice,
     navigateNext, navigatePrev,
     shuffledChoicesFor,
     bookmarks, toggleBookmark,
     reviewIncorrectOnly, reviewBookmarkedOnly, setReviewIncorrect, setReviewBookmarked,
+    activeRecallEnabled,
   } = useExam();
 
   const q = currentQuestion;
@@ -62,6 +64,17 @@ export default function QuestionView() {
   const selectedAnswer = practiceMode ? practiceAnswers[q.id] : userAnswers[q.id];
   const isBookmarked = !!bookmarks[q.id];
   const choices = shuffledChoicesFor(q);
+  const alreadyAnswered = practiceMode ? isRevealed : (isGraded || selectedAnswer !== undefined);
+
+  // Active recall: choices stay hidden behind "Show options" until the student
+  // has thought it through — but only for a question they haven't answered yet.
+  // Re-evaluated only when landing on a (possibly different) question, not on
+  // every render, so toggling the setting mid-question doesn't yank options away.
+  const [choicesShown, setChoicesShown] = useState(!activeRecallEnabled || alreadyAnswered);
+  useEffect(() => {
+    setChoicesShown(!activeRecallEnabled || alreadyAnswered);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q.id]);
 
   const answeredCount = practiceMode ? Object.keys(practiceAnswers).length : Object.keys(userAnswers).length;
   const totalQ = indicesMap.length;
@@ -93,24 +106,32 @@ export default function QuestionView() {
           navigateNext();
         }
       }
-      if (['1','2','3','4','5','6','7','8','9'].includes(e.key)) {
-        const idx = parseInt(e.key) - 1;
-        if (choices[idx]) handleSelect(choices[idx]);
-      }
-      // Diagram-labeling questions can have more choices (letters) than the 1–9
-      // shortcut reaches — let the matching letter key select that choice directly.
-      if (/^[a-z]$/i.test(e.key)) {
-        const match = choices.find(c => c.length === 1 && c.toUpperCase() === e.key.toUpperCase());
-        if (match) handleSelect(match);
+      // Choices hidden behind active recall aren't selectable via shortcut either —
+      // that would defeat the point of thinking the answer through first.
+      if (choicesShown) {
+        if (['1','2','3','4','5','6','7','8','9'].includes(e.key)) {
+          const idx = parseInt(e.key) - 1;
+          if (choices[idx]) handleSelect(choices[idx]);
+        }
+        // Diagram-labeling questions can have more choices (letters) than the 1–9
+        // shortcut reaches — let the matching letter key select that choice directly.
+        if (/^[a-z]$/i.test(e.key)) {
+          const match = choices.find(c => c.length === 1 && c.toUpperCase() === e.key.toUpperCase());
+          if (match) handleSelect(match);
+        }
       }
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigatePrev, navigateNext, choices, practiceMode, isRevealed, isLast, finishPractice, q]);
+  }, [navigatePrev, navigateNext, choices, practiceMode, isRevealed, isLast, finishPractice, q, choicesShown]);
 
   const showFeedback = (isGraded || (practiceMode && isRevealed)) && (q.feedback || selectedAnswer);
-  const wasCorrect = selectedAnswer === q.correctAnswer;
+  // In practice mode, "revealed" only ever happens once the correct choice has
+  // been found (possibly after retries) — so the feedback panel should read as
+  // a win, not contradict the green highlight already shown on the choice list.
+  const wasCorrect = practiceMode ? isRevealed : selectedAnswer === q.correctAnswer;
+  const missedFirstTry = practiceMode && isRevealed && selectedAnswer !== q.correctAnswer;
 
   return (
     <div className="space-y-4">
@@ -197,22 +218,43 @@ export default function QuestionView() {
           <p className="text-xl font-semibold leading-relaxed whitespace-pre-wrap">{q.question}</p>
         </CardContent>
 
-        {/* Choices */}
-        <CardContent className="py-4 space-y-2">
-          {choices.map((choice, i) => (
-            <ChoiceButton
-              key={choice}
-              choice={choice}
-              index={i}
-              question={q}
-              selectedAnswer={selectedAnswer}
-              isGraded={isGraded}
-              practiceMode={practiceMode}
-              isRevealed={isRevealed}
-              onSelect={handleSelect}
-            />
-          ))}
-        </CardContent>
+        {/* Choices — or, with Active Recall on, a "think first" placeholder */}
+        {!choicesShown ? (
+          <>
+            <CardContent className="py-8 flex flex-col items-center text-center gap-3">
+              <div className="rounded-full bg-muted p-3">
+                <Lightbulb className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Think of the answer first to do active recall
+              </p>
+            </CardContent>
+            <Separator />
+            <button
+              onClick={() => setChoicesShown(true)}
+              className="w-full py-3.5 text-sm font-bold text-center hover:bg-accent transition-colors"
+            >
+              Show options
+            </button>
+          </>
+        ) : (
+          <CardContent className="py-4 space-y-2">
+            {choices.map((choice, i) => (
+              <ChoiceButton
+                key={choice}
+                choice={choice}
+                index={i}
+                question={q}
+                selectedAnswer={selectedAnswer}
+                isGraded={isGraded}
+                practiceMode={practiceMode}
+                isRevealed={isRevealed}
+                triedWrong={practiceMode && !isRevealed && (practiceWrongAttempts[q.id]?.includes(choice) ?? false)}
+                onSelect={handleSelect}
+              />
+            ))}
+          </CardContent>
+        )}
 
         {/* Feedback */}
         {showFeedback && (
@@ -232,6 +274,11 @@ export default function QuestionView() {
                   Correct answer: <span className="font-semibold text-emerald-700 dark:text-emerald-300">{q.correctAnswer}</span>
                 </p>
               )}
+              {missedFirstTry && (
+                <p className="text-xs text-muted-foreground mb-1 italic">
+                  Missed on the first try — logged in your weak-question stats.
+                </p>
+              )}
               {q.feedback && <p className="text-xs text-muted-foreground whitespace-pre-wrap mt-1">{q.feedback}</p>}
             </div>
           </CardContent>
@@ -248,7 +295,8 @@ export default function QuestionView() {
         </CardContent>
       </Card>
 
-      {/* Keyboard shortcut hint — desktop only */}
+      {/* Keyboard shortcut hint — desktop only, and only once choices are visible */}
+      {choicesShown && (
       <p className="hidden sm:flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
         <span>Tip:</span>
         {choices.length > 0 && choices.every(c => c.length === 1) ? (
@@ -271,6 +319,7 @@ export default function QuestionView() {
         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
         <span>next</span>
       </p>
+      )}
     </div>
   );
 }

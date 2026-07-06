@@ -24,12 +24,14 @@ export default function Navigator() {
     const isBookmarked = bookmarks[q.id];
 
     if (practiceMode) {
-      const answered = practiceRevealedIds.has(q.id);
-      const chosen = practiceAnswers[q.id];
-      const isCorrect = answered && chosen === q.correctAnswer;
+      // Retry-until-correct: "revealed" only ever happens once the correct
+      // choice has been found, so a revealed question is always a solve —
+      // just distinguish a clean first-try solve from one that took retries.
+      const revealed = practiceRevealedIds.has(q.id);
+      const solvedFirstTry = revealed && practiceAnswers[q.id] === q.correctAnswer;
       if (isCurrent) return 'bg-primary text-primary-foreground outline outline-2 outline-primary/40 outline-offset-1';
-      if (answered && isCorrect) return 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400';
-      if (answered && !isCorrect) return 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400';
+      if (solvedFirstTry) return 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400';
+      if (revealed) return 'bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400';
       if (isBookmarked) return 'bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400';
       return 'bg-muted text-muted-foreground hover:bg-muted/80';
     }

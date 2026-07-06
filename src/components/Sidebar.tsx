@@ -1,4 +1,4 @@
-import { ChevronLeft, ClipboardList, Play, RotateCcw, Settings, Trash2 } from 'lucide-react';
+import { ChevronLeft, ClipboardList, Lightbulb, Play, RotateCcw, Settings, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +22,7 @@ export default function Sidebar({ timer, timerActive }: Props) {
   const {
     shuffleQuestionsEnabled, shuffleChoicesEnabled, setShuffleQ, setShuffleC,
     resetProgress, startExam, startPractice, practiceMode, timerDuration,
+    activeRecallEnabled, setActiveRecall,
   } = useExam();
 
   const [confirm, setConfirm] = useState<Confirm>(null);
@@ -80,6 +81,12 @@ export default function Sidebar({ timer, timerActive }: Props) {
               Shuffle Choices
             </label>
             <Switch id="ws-shuffle-c" checked={shuffleChoicesEnabled} onCheckedChange={setShuffleC} />
+          </div>
+          <div className="flex items-center justify-between">
+            <label className="text-sm text-muted-foreground cursor-pointer flex items-center gap-1.5" htmlFor="ws-active-recall">
+              <Lightbulb className="h-3.5 w-3.5" /> Active Recall
+            </label>
+            <Switch id="ws-active-recall" checked={activeRecallEnabled} onCheckedChange={setActiveRecall} />
           </div>
         </CardContent>
       </Card>

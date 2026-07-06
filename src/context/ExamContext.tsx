@@ -20,12 +20,17 @@ export function makeKeys(prefix: string) {
     bookmarks:       `${prefix}_bookmarks`,
     practiceMode:    `${prefix}_practice_mode`,
     practiceAnswers: `${prefix}_practice_answers`,
+    practiceRevealed: `${prefix}_practice_revealed`,
+    practiceWrongAttempts: `${prefix}_practice_wrong_attempts`,
     pool:            `${prefix}_shuffled_pool_indices`,
     choicePool:      `${prefix}_shuffled_choice_pool`,
   };
 }
 
 type LSKeys = ReturnType<typeof makeKeys>;
+
+// Global (not per-exam) study preference — applies across every exam.
+const LS_ACTIVE_RECALL = 'exam_active_recall';
 
 function lsGet<T>(key: string, fallback: T): T {
   try {
@@ -90,6 +95,11 @@ export interface ExamContextValue {
   setReviewBookmarked: (v: boolean) => void;
   shuffledChoicesFor: (q: Question) => string[];
 
+  // active recall — choices stay hidden behind a "Show options" button until
+  // the student has thought of the answer themselves. Global preference.
+  activeRecallEnabled: boolean;
+  setActiveRecall: (v: boolean) => void;
+
   // welcome card
   welcomeDismissed: boolean;
   dismissWelcome: () => void;
@@ -100,7 +110,8 @@ export interface ExamContextValue {
 
   // practice mode
   practiceMode: boolean;
-  practiceAnswers: Record<number, string>;  // questionId → chosen
+  practiceAnswers: Record<number, string>;  // questionId → first attempt chosen
+  practiceWrongAttempts: Record<number, string[]>; // questionId → wrong choices tried so far
   practiceRevealedIds: Set<number>;
   practiceStreak: number;
   practiceBestStreak: number;
@@ -154,6 +165,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   const [shuffleChoicesEnabled, setShuffleChoicesEnabled] = useState(false);
   const [reviewIncorrectOnly, setReviewIncorrectOnly] = useState(false);
   const [reviewBookmarkedOnly, setReviewBookmarkedOnly] = useState(false);
+  const [activeRecallEnabled, setActiveRecallState] = useState(() => localStorage.getItem(LS_ACTIVE_RECALL) === 'true');
   const shuffledChoicesPoolRef = useRef<Record<number, string[]>>({});
   const pendingIdxRef = useRef<number | null>(null);
 
@@ -164,8 +176,14 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   const [bookmarks, setBookmarks] = useState<Record<number, boolean>>({});
 
   // ---- practice mode ----
+  // practiceAnswers holds each question's FIRST attempt (right or wrong) — the
+  // basis for scoring/weak-question stats. It does NOT track retries.
+  // practiceWrongAttempts holds every wrong choice tried per question, so the
+  // student can keep guessing (Kahoot-style) without the answer being spoiled —
+  // reveal (practiceRevealedIds) only happens once the correct choice is found.
   const [practiceMode, setPracticeMode] = useState(false);
   const [practiceAnswers, setPracticeAnswers] = useState<Record<number, string>>({});
+  const [practiceWrongAttempts, setPracticeWrongAttempts] = useState<Record<number, string[]>>({});
   const [practiceRevealedIds, setPracticeRevealedIds] = useState<Set<number>>(new Set());
   const [practiceStreak, setPracticeStreak] = useState(0);
   const [practiceBestStreak, setPracticeBestStreak] = useState(0);
@@ -285,7 +303,10 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     if (practice) {
       const pa = lsGet<Record<number, string>>(k.practiceAnswers, {});
       setPracticeAnswers(pa);
-      setPracticeRevealedIds(new Set(Object.keys(pa).map(Number)));
+      const revealedIds = lsGet<number[]>(k.practiceRevealed, []);
+      setPracticeRevealedIds(new Set(revealedIds));
+      const wrongAttempts = lsGet<Record<number, string[]>>(k.practiceWrongAttempts, {});
+      setPracticeWrongAttempts(wrongAttempts);
     }
 
     const shuffQ = localStorage.getItem(k.shuffleQ) === 'true';
@@ -398,6 +419,11 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     setCurrentIdx(0);
   }, []);
 
+  const setActiveRecall = useCallback((v: boolean) => {
+    setActiveRecallState(v);
+    localStorage.setItem(LS_ACTIVE_RECALL, String(v));
+  }, []);
+
   // ---- welcome ----
   const dismissWelcome = useCallback(() => {
     setWelcomeDismissed(true);
@@ -455,12 +481,15 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
 
     setPracticeMode(true);
     setPracticeAnswers({});
+    setPracticeWrongAttempts({});
     setPracticeRevealedIds(new Set());
     setPracticeStreak(0);
     setPracticeBestStreak(0);
     setPracticeCompleted(false);
     localStorage.setItem(keys.practiceMode, 'true');
     localStorage.setItem(keys.practiceAnswers, '{}');
+    localStorage.removeItem(keys.practiceRevealed);
+    localStorage.removeItem(keys.practiceWrongAttempts);
     setExamStarted(true);
     localStorage.setItem(keys.started, 'true');
     localStorage.setItem(keys.timerStart, String(Date.now()));
@@ -470,27 +499,48 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
   }, [keys, setScreen, setSessionActive]);
 
   // ---- practice answer ----
+  // Retry-until-correct: a wrong pick doesn't spoil the answer — it's recorded
+  // as a tried-and-wrong choice (disabling it) and the student keeps guessing.
+  // Only a correct pick reveals the answer/feedback and unlocks moving on.
+  // The FIRST attempt (right or wrong) is what's kept in practiceAnswers, since
+  // that's what scoring, weak-question stats, and the results screen key off of.
   const setPracticeAnswer = useCallback((qId: number, answer: string) => {
     const q = questions.find(q => q.id === qId);
     const isCorrect = q ? answer === q.correctAnswer : false;
-
-    setPracticeRevealedIds(prev => new Set([...prev, qId]));
-    setPracticeAnswers(prev => {
-      const next = { ...prev, [qId]: answer };
-      localStorage.setItem(keys.practiceAnswers, JSON.stringify(next));
-      return next;
-    });
+    const isFirstAttempt = practiceAnswers[qId] === undefined;
 
     if (isCorrect) {
-      setPracticeStreak(s => {
-        const next = s + 1;
-        setPracticeBestStreak(b => Math.max(b, next));
+      setPracticeRevealedIds(prev => {
+        const next = new Set(prev).add(qId);
+        localStorage.setItem(keys.practiceRevealed, JSON.stringify([...next]));
         return next;
       });
+      if (isFirstAttempt) {
+        setPracticeStreak(s => {
+          const next = s + 1;
+          setPracticeBestStreak(b => Math.max(b, next));
+          return next;
+        });
+      }
     } else {
-      setPracticeStreak(0);
+      setPracticeWrongAttempts(prev => {
+        const existing = prev[qId] ?? [];
+        if (existing.includes(answer)) return prev;
+        const next = { ...prev, [qId]: [...existing, answer] };
+        localStorage.setItem(keys.practiceWrongAttempts, JSON.stringify(next));
+        return next;
+      });
+      if (isFirstAttempt) setPracticeStreak(0);
     }
-  }, [questions, keys.practiceAnswers]);
+
+    if (isFirstAttempt) {
+      setPracticeAnswers(prev => {
+        const next = { ...prev, [qId]: answer };
+        localStorage.setItem(keys.practiceAnswers, JSON.stringify(next));
+        return next;
+      });
+    }
+  }, [questions, practiceAnswers, keys.practiceAnswers, keys.practiceRevealed, keys.practiceWrongAttempts]);
 
   // ---- submit exam ----
   const submitExam = useCallback(() => {
@@ -518,6 +568,7 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
     setExamStarted(false);
     setPracticeMode(false);
     setPracticeAnswers({});
+    setPracticeWrongAttempts({});
     setPracticeRevealedIds(new Set());
     setPracticeStreak(0);
     setPracticeBestStreak(0);
@@ -575,9 +626,10 @@ export function ExamProvider({ children }: { children: React.ReactNode }) {
       reviewIncorrectOnly, reviewBookmarkedOnly,
       setShuffleQ, setShuffleC, setReviewIncorrect, setReviewBookmarked,
       shuffledChoicesFor,
+      activeRecallEnabled, setActiveRecall,
       welcomeDismissed, dismissWelcome,
       bookmarks, toggleBookmark,
-      practiceMode, practiceAnswers, practiceRevealedIds,
+      practiceMode, practiceAnswers, practiceWrongAttempts, practiceRevealedIds,
       practiceStreak, practiceBestStreak, practiceCompleted,
       startPractice, setPracticeAnswer, finishPractice,
       showResults, setShowResults,

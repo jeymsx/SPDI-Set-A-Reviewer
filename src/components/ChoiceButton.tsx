@@ -10,6 +10,10 @@ interface Props {
   isGraded: boolean;
   practiceMode: boolean;
   isRevealed: boolean;
+  // Practice mode retry-until-correct: this choice has already been tried and
+  // was wrong, but the correct answer hasn't been found yet — so it's disabled
+  // and marked, without revealing the correct one or any feedback.
+  triedWrong?: boolean;
   onSelect: (choice: string) => void;
 }
 
@@ -19,21 +23,24 @@ function labelFor(index: number): string {
   return index < 26 ? String.fromCharCode(65 + index) : String(index + 1);
 }
 
-export default function ChoiceButton({ choice, index, question, selectedAnswer, isGraded, practiceMode, isRevealed, onSelect }: Props) {
+export default function ChoiceButton({ choice, index, question, selectedAnswer, isGraded, practiceMode, isRevealed, triedWrong = false, onSelect }: Props) {
   const isSelected = selectedAnswer === choice;
   const isCorrect = choice === question.correctAnswer;
   const showResult = isGraded || (practiceMode && isRevealed);
-  const isDisabled = isGraded || (practiceMode && isRevealed);
+  const isDisabled = isGraded || (practiceMode && (isRevealed || triedWrong));
   const label = labelFor(index);
   // When the choice text IS itself a single letter (diagram-labeling questions,
   // e.g. choice "B" for point B), showing the index-derived badge letter next to
   // it would double up ("[A] A") — skip the redundant badge letter in that case.
   const isSelfLabeled = choice.length === 1 && choice.toUpperCase() === label;
+  const isWrongMarked = showResult ? (isSelected || triedWrong) : triedWrong;
 
   let variant: 'default' | 'correct' | 'wrong' | 'selected' = 'default';
   if (showResult) {
     if (isCorrect) variant = 'correct';
-    else if (isSelected) variant = 'wrong';
+    else if (isWrongMarked) variant = 'wrong';
+  } else if (isWrongMarked) {
+    variant = 'wrong';
   } else if (isSelected) {
     variant = 'selected';
   }
@@ -58,8 +65,8 @@ export default function ChoiceButton({ choice, index, question, selectedAnswer, 
         variant === 'correct' && 'bg-emerald-500 text-white',
         variant === 'wrong' && 'bg-destructive text-white',
       )}>
-        {showResult && isCorrect ? <Check className="h-3.5 w-3.5" /> :
-         showResult && isSelected ? <X className="h-3.5 w-3.5" /> :
+        {isCorrect && showResult ? <Check className="h-3.5 w-3.5" /> :
+         isWrongMarked ? <X className="h-3.5 w-3.5" /> :
          isSelfLabeled ? <span className="h-1.5 w-1.5 rounded-full bg-current" /> :
          label}
       </span>

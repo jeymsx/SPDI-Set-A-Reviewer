@@ -1,4 +1,4 @@
-import { AlertTriangle, BookOpen, ChevronLeft, Clock, Play, RotateCcw, Shuffle, Trash2 } from 'lucide-react';
+import { AlertTriangle, BookOpen, ChevronLeft, Clock, Lightbulb, Play, RotateCcw, Shuffle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -29,6 +29,7 @@ export default function StartScreen() {
     shuffleQuestionsEnabled, shuffleChoicesEnabled,
     setShuffleQ, setShuffleC, timerDuration,
     canResume, timerPausedMs, resumeExam,
+    activeRecallEnabled, setActiveRecall,
   } = useExam();
 
   function formatPausedTime(ms: number) {
@@ -151,6 +152,21 @@ export default function StartScreen() {
                 </label>
                 <Switch id="shuffle-c" checked={shuffleChoicesEnabled} onCheckedChange={setShuffleC} />
               </div>
+            </div>
+
+            <Separator />
+
+            {/* Active recall */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium flex items-center gap-2 cursor-pointer" htmlFor="active-recall">
+                  <Lightbulb className="h-4 w-4 text-primary" /> Active Recall
+                </label>
+                <Switch id="active-recall" checked={activeRecallEnabled} onCheckedChange={setActiveRecall} />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Hides answer choices until you tap "Show options" — think of the answer first to strengthen recall.
+              </p>
             </div>
 
             <Separator />

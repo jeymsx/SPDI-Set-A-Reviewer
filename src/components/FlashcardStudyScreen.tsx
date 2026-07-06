@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { db } from '../db';
 import { useApp } from '../context/AppContext';
 import { masteryFor, orderSmart, recordCardResult, type MasteryStats } from '@/lib/flashcard-sr';
+import { fireConfetti } from '@/lib/confetti';
 import type { Flashcard, FlashcardProgress } from '../types';
 
 const LS_FLIP = 'fc_flip_direction';
@@ -255,6 +256,14 @@ function CompletionScreen({ total, knownCount, stillLearningCount, mastery, past
   // pastSessions includes the session just completed (saved before this renders)
   const history = pastSessions.slice(0, 5);
   const masteryPct = mastery.total > 0 ? Math.round((mastery.mastered / mastery.total) * 100) : 0;
+
+  const confettiFiredRef = useRef(false);
+  useEffect(() => {
+    if (pct === 100 && !confettiFiredRef.current) {
+      confettiFiredRef.current = true;
+      fireConfetti();
+    }
+  }, [pct]);
   return (
     <div className="flex flex-col items-center justify-center py-10 gap-6 text-center max-w-sm mx-auto">
       <div className={cn(
