@@ -1,4 +1,4 @@
-import { Award, ClipboardList, Keyboard, Layers, Timer, Volume2, VolumeX, X } from 'lucide-react';
+import { ClipboardList, Keyboard, Layers, Timer, Volume2, VolumeX, X } from 'lucide-react';
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -23,9 +23,7 @@ export default function Header() {
             onClick={() => guardedNavigation(showExamSelect)}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer bg-transparent border-0 p-0"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Award className="h-4 w-4" />
-            </div>
+            <img src="/favicon.svg" alt="Prepwise logo" className="h-8 w-8 rounded-lg" />
             <span className="font-bold text-sm tracking-tight">Prepwise</span>
           </button>
 
