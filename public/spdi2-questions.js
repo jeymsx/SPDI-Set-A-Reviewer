@@ -104,7 +104,7 @@ window.spdi2QuestionsData = [
       "gong",
       "striker"
     ],
-    "correctAnswer": "Metal strip",
+    "correctAnswer": "metal strip",
     "feedback": "Source: DepEd Information Sheet\n\nAdditional info:\n- Metal Strip: a thin sheet of electromagnetic materials which vibrates\nwhen electromagnet is energized and produces a buzzing sound.\n- Hammer or beater (striker): part of an electric bell; This is a small ball attached to the armature which strikes the gong.\n- Gong bell: part of an electric bell; A concave disc that produces loud sound when stuck by the hammer."
   },
   {
@@ -212,7 +212,7 @@ window.spdi2QuestionsData = [
       "6\"",
       "2\""
     ],
-    "correctAnswer": "4\" or 100 mm",
+    "correctAnswer": "4\"",
     "feedback": "Source: NBC; PD 1096"
   },
   {
@@ -236,7 +236,7 @@ window.spdi2QuestionsData = [
       "1 1/2\"",
       "3\""
     ],
-    "correctAnswer": "1 1/2\" or 38 mm",
+    "correctAnswer": "1 1/2\"",
     "feedback": "Source: RA 9514\n\nAdditional info:\n- 2 1/2\"- fire house outlet of dry standpipe"
   },
   {
@@ -260,7 +260,7 @@ window.spdi2QuestionsData = [
       "Aerator",
       "Wet Vent"
     ],
-    "correctAnswer": "aerator",
+    "correctAnswer": "Aerator",
     "feedback": "Source: PDE by Max Fajardo\n\nAdditional info:\n- Deaerator- designed to overcome tendency of the falling waste to stock up excessive back pressure at the bottom of the stack"
   },
   {
@@ -406,7 +406,7 @@ window.spdi2QuestionsData = [
       "Fully developed",
       "Decay"
     ],
-    "correctAnswer": "Fully Developed",
+    "correctAnswer": "Fully developed",
     "feedback": "Additional info:\n- Flashover: surfaces exposed to thermal radiation reach its ignition temperature more or less simultaneously and fire spreads rapidly throughout the space\n- Flash point:  The lowest temperature a liquid at which sufficient \nvapor is given off to form an ignitable mixture with air, near the surface of the liquid or within the vessel used, as determined by appropriate laboratory test.\n- Decay: the phase when the fire decreases in intensity until it is either a smolder or non-existent"
   },
   {
@@ -454,7 +454,7 @@ window.spdi2QuestionsData = [
       "Water Extinguisher",
       "Wet Chemical Extinguisher"
     ],
-    "correctAnswer": "Dry Powder Extinguisher (also for Class A, B, and C)",
+    "correctAnswer": "Dry Powder Extinguisher",
     "feedback": "Source: umb.edu\n\nAdditional info:\n- Water Extinguisher- for Class A fires\n- Foam Extinguisher- for Class A and B\n- Wet Chemical- for Class A and F"
   },
   {
@@ -478,7 +478,7 @@ window.spdi2QuestionsData = [
       "Ball Valves",
       "Butterfly Valves"
     ],
-    "correctAnswer": "Needle Valves (similar to globe valves; for finer control of flow on smaller lines)",
+    "correctAnswer": "Neddle Valves",
     "feedback": "Source: assuredautomation.com"
   },
   {
@@ -526,7 +526,7 @@ window.spdi2QuestionsData = [
       "Coupling",
       "Solvent Welding"
     ],
-    "correctAnswer": "fusion welding",
+    "correctAnswer": "Fusion Welding",
     "feedback": "Source: pprsupply.com; ppr.almatherm; various websites\n\nAdditional info:\n- solvent welding- for pvc, cpvc, abs\n- crimping- for PEX\n- coupling- slip over the outside of two pipes to connect them, usually permanently"
   },
   {
@@ -538,7 +538,7 @@ window.spdi2QuestionsData = [
       "Solenoid Valve",
       "Jockey Valve"
     ],
-    "correctAnswer": "Solenoid Valve:",
+    "correctAnswer": "Solenoid Valve",
     "feedback": "Additional info:\n- Plug Valve:  a quarter-turn rotary motion Valve that uses a tapered or cylindrical plug to stop or start the flow."
   },
   {
@@ -574,7 +574,7 @@ window.spdi2QuestionsData = [
       "Conventional Disc",
       "Composition Disc"
     ],
-    "correctAnswer": "Plug",
+    "correctAnswer": "Plug Type",
     "feedback": "Source: ASPE\n\nAdditional info:\n- Conventional Disc- has a pressure-tight bearing between the disc and the seat recommended for cold water and any temperature service\n- Composition Disc- does not fit into the seat opening, but over it, much as a bottlecap fits over the bottle opening\n- Solid Wedge- a single tapered disc, thin at the bottom and thicker at the top"
   },
   {

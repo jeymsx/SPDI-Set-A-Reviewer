@@ -20,7 +20,7 @@ window.pc1QuestionsData = [
       "Plumbing Official",
       "Professional Regulatory Board for Master Plumbers"
     ],
-    "correctAnswer": "Plumbing Official (Administrative Authority)",
+    "correctAnswer": "Plumbing Official",
     "feedback": "Source: IRR of RA 1378\n\nAdditional info: \n- The Professional Regulatory Board for Master Plumbers is in-charge of the enforcement and implementation of RA 1378 and its IRR."
   },
   {
@@ -44,7 +44,7 @@ window.pc1QuestionsData = [
       "Principle No. 7",
       "Principle No. 13"
     ],
-    "correctAnswer": "Principle #7",
+    "correctAnswer": "Principle No. 7",
     "feedback": "Source: RNPCP"
   },
   {
@@ -103,7 +103,7 @@ window.pc1QuestionsData = [
       "17th",
       "19th"
     ],
-    "correctAnswer": "17th Century",
+    "correctAnswer": "17th",
     "feedback": "Source: History of Plumbing\n\nAdditional info:\n- 18th and 19th century- Filipino plumbers were assigned the task of maintaining, repaiting, and/or remodeling plumbing systems in all pueblos\n20th century- Plumbing took a great leap with the arrival of the American soldiers, engineers, thomasite teachers, doctors, and evangelists"
   },
   {
@@ -126,7 +126,7 @@ window.pc1QuestionsData = [
       "1-1/2\"",
       "1-1/4\""
     ],
-    "correctAnswer": "2\" or 51 mm",
+    "correctAnswer": "2\"",
     "feedback": "Source: Chapter 4\n\nAdditional info:\n- Caulked-on closet rings or closet flanges shall not be less than 6.4 mm\nthick"
   },
   {
@@ -230,7 +230,7 @@ window.pc1QuestionsData = [
       "guilty of immoral or dishonorable conduct",
       "convicted by court for any criminal offense"
     ],
-    "correctAnswer": "failure to pay the required fees (not a ground)",
+    "correctAnswer": "failure to pay the required fees",
     "feedback": "Source: RA 1378"
   },
   {
@@ -242,7 +242,7 @@ window.pc1QuestionsData = [
       "water-tight trap",
       "gas-tight p-trap"
     ],
-    "correctAnswer": "water-sealed trap (Principle no. 10)",
+    "correctAnswer": "water-sealed trap",
     "feedback": "Source: Basic Principles"
   },
   {
@@ -381,7 +381,7 @@ window.pc1QuestionsData = [
       "the inspector will charge a fine for violating the standard process",
       "the inspector will require removal for proper inspection"
     ],
-    "correctAnswer": "inspector will require removal for proper inspection",
+    "correctAnswer": "the inspector will require removal for proper inspection",
     "feedback": "Source: RNPCP, Chapter 1"
   },
   {
@@ -449,7 +449,7 @@ window.pc1QuestionsData = [
       "3 m",
       "1.8 m"
     ],
-    "correctAnswer": "3.0 m",
+    "correctAnswer": "3 m",
     "feedback": "Source: RNPCP, Chapter 3\n\nAdditional info:\n- for IPS piping 25 mm and larger, support intervals shall be 3.6 m"
   },
   {

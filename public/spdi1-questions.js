@@ -32,7 +32,7 @@ window.spdi1QuestionsData = [
       "19 mm",
       "25 mm"
     ],
-    "correctAnswer": "19 mm or 3/4\"",
+    "correctAnswer": "19 mm",
     "feedback": "Source: RNPCP"
   },
   {
@@ -165,7 +165,7 @@ window.spdi1QuestionsData = [
       "8 gpph",
       "8 to 10 gpph"
     ],
-    "correctAnswer": "4 to 6",
+    "correctAnswer": "4 to 6 gpph",
     "feedback": "Source: PDE by Max Fajardo\n\nAdditional info:\n- 4 to 5 gpph: Office\n- 8 gpph: Apartment\n- 8 to 10 gpph: Hotels"
   },
   {
@@ -177,7 +177,7 @@ window.spdi1QuestionsData = [
       "Roof Drain",
       "Beehive roof drain"
     ],
-    "correctAnswer": "Scupper Drain"
+    "correctAnswer": "Scupper drain"
   },
   {
     "id": 16,
@@ -284,7 +284,7 @@ window.spdi1QuestionsData = [
       "copper",
       "iron"
     ],
-    "correctAnswer": "Iron",
+    "correctAnswer": "iron",
     "feedback": "Additional info:\n- Iron and manganese are the common causes of water discoloration"
   },
   {
@@ -380,7 +380,7 @@ window.spdi1QuestionsData = [
       "Grey Water",
       "Soft Water"
     ],
-    "correctAnswer": "Gray Water",
+    "correctAnswer": "Grey Water",
     "feedback": "Additional info:\nBlack Water- the wastewater from bathrooms and toilets that contains faecal matter and urine."
   },
   {
@@ -392,7 +392,7 @@ window.spdi1QuestionsData = [
       "piezometer",
       "barometer"
     ],
-    "correctAnswer": "Piezometer",
+    "correctAnswer": "piezometer",
     "feedback": "Source: sciencedirect.com; various websites\n\nAdditional info:\n- Manometer: a measuring instrument which measures the pressure in a confined space of a fluid or gas\n- Barometer: a scientific instrument used to measure atmospheric pressure\n- Thermometer: an instrument that measures temperature"
   },
   {
@@ -416,7 +416,7 @@ window.spdi1QuestionsData = [
       "Backwater Valve",
       "Globe Valve"
     ],
-    "correctAnswer": "Gate Valve (The corporation stop shuts the flow on or off)"
+    "correctAnswer": "Gate Valve"
   },
   {
     "id": 36,
@@ -451,7 +451,7 @@ window.spdi1QuestionsData = [
       "Axial Flow",
       "Laminar Flow"
     ],
-    "correctAnswer": "Laminar Flow (or Streamline)",
+    "correctAnswer": "Laminar Flow",
     "feedback": "Source: simscale.com"
   },
   {
@@ -535,7 +535,7 @@ window.spdi1QuestionsData = [
       "Gear Pump",
       "Sump Pump"
     ],
-    "correctAnswer": "Centrifugal pump",
+    "correctAnswer": "Centrifugal Pump",
     "feedback": "Source: PDE by Max Fajardo; ksb.com; various websites\n\nAdditional info:\n- Gear Pump- commonly used for pumping high viscosity fluids such as oil, paints, resins or foodstuffs.\n- Sump Pump- a device that moves water from your basement to the outside of your home\n- Piston Pump- a type of positive displacement pump where the high-pressure seal reciprocates with the piston"
   },
   {
@@ -547,7 +547,7 @@ window.spdi1QuestionsData = [
       "1 1/4\"",
       "1\""
     ],
-    "correctAnswer": "1 1/4\" or 32 mm (for wash basin (lavatory single) or drinking fountain (31 mm in RNPCP)",
+    "correctAnswer": "1 1/4\"",
     "feedback": "Source: RNPCP, Table 7-2"
   },
   {
@@ -583,7 +583,7 @@ window.spdi1QuestionsData = [
       "Neutral",
       "Acidic"
     ],
-    "correctAnswer": "acidic",
+    "correctAnswer": "Acidic",
     "feedback": "Source: chemistry.elmhurst.edu, various websites\n\nAdditional info:\n- pH above 7- indicate basic or alkaline\n- pH 7 is neutral\n- all alkali are bases\n- all bases are not alkali"
   },
   {

@@ -8,7 +8,7 @@ window.pc2QuestionsData = [
       "1\"",
       "4\""
     ],
-    "correctAnswer": "1\" or 25.4 mm",
+    "correctAnswer": "1\"",
     "feedback": "Source: RNPCP, Chapter 4\n\nAdditional info: \n- 76 mm (or 3\")- dimension that refers to extension of lining materials above the top of the finished dam or threshold of a shower\n- 101 mm (or 4\")- dimension that refers to extension of folds, laps, and reinforcing webbing in all directions from the corner in a shower sub-pan"
   },
   {
@@ -44,7 +44,7 @@ window.pc2QuestionsData = [
       "3",
       "`10"
     ],
-    "correctAnswer": "3: WSFU of Public Hose Bibb or Sill Cock",
+    "correctAnswer": "3",
     "feedback": "Source: RNPCP, Chapter 6\n\nAdditional info:\n- 5: WSFU of Public Hose Bibb or Sill Cock\n- 2.5: WSFU of Water Closet (economical flush)\n- 10: WSFU of Urinal pedestal, flushing rim slink"
   },
   {
@@ -104,7 +104,7 @@ window.pc2QuestionsData = [
       "None of the above",
       "4184"
     ],
-    "correctAnswer": "3.965 (standard conversion)",
+    "correctAnswer": "3.965",
     "feedback": "Additional info:\n- 1 Kcal = 4184 Joule\n- 1 Kcal = 4.184 KJoule"
   },
   {
@@ -151,7 +151,7 @@ window.pc2QuestionsData = [
       "140 °F",
       "110 °F"
     ],
-    "correctAnswer": "120°F (or 48.88 °C)",
+    "correctAnswer": "120 °F",
     "feedback": "Source: RNPCP, Chapter 4\n\nAdditional info:\n- 43.3°C (or 110°F)- Operating temperature of a backflow prevention for hot water"
   },
   {
@@ -211,7 +211,7 @@ window.pc2QuestionsData = [
       "32 mm O.D.",
       "32 mm I.D."
     ],
-    "correctAnswer": "38 mm O.D.",
+    "correctAnswer": "38 mm. O.D.",
     "feedback": "Source: RNPCP, Chapter 4\n\nAdditional info:\n- 32 mm O.D.- for lavatories, drinking fountains, and similar small fixtures"
   },
   {
@@ -282,7 +282,7 @@ window.pc2QuestionsData = [
       "16 mm",
       "13 mm"
     ],
-    "correctAnswer": "13 mm (or 1/2\")",
+    "correctAnswer": "13 mm",
     "feedback": "Source: Uniform Plumbing Code\n\nAdditional info:\n1/2\" to 4\" pipe- 3/8\" rod size\n5\" to 8\" pipe- 1/2\" rod size\n10\" to 12\"- 5/8\" rod size"
   },
   {
@@ -306,7 +306,7 @@ window.pc2QuestionsData = [
       "Atmospheric Vacuum Breaker",
       "Reduced Pressure Principle Backflow Prevention Assembly"
     ],
-    "correctAnswer": "Atmospheric Vacuum Breaker (AVB)",
+    "correctAnswer": "Atmospheric Vacuum Breaker",
     "feedback": "Source: RNPCP, Chapter 6\n\nAdditional info:\n\n- Double Check Valve Backflow Prevention Assembly (DC)- consists of 2 independently acting internally or externally loaded check valves, 4 properly located test cocks with connectors, and 2 isolation gate valves\n- Pressure Vacuum Breaker Backflow Prevention Assembly (PVB)- consists of a loaded air inlet valve, an internally loaded check valve, 2 properly located test cocks, and 2 isolation gate valves.\n- Reduced Pressure Principle Backflow Prevention Assembly (RP)- consists of 2 independently acting internally loaded check valves, a differential pressure relief valve, 4 properly located test cocks, and 2 isolation gate valves."
   },
   {
@@ -354,7 +354,7 @@ window.pc2QuestionsData = [
       "Air Break",
       "Pressure Vaccuum Breaker"
     ],
-    "correctAnswer": "Atmospheric Vacuum Breaker (AVB)- consists of a body, a checking member, and an atmospheric opening",
+    "correctAnswer": "Atmospheric Vacuum Breaker",
     "feedback": "Source: RNPCP, Chapter 6"
   },
   {
@@ -474,7 +474,7 @@ window.pc2QuestionsData = [
       "Heat fusion",
       "Silver Brazing"
     ],
-    "correctAnswer": "silver brazing",
+    "correctAnswer": "Silver Brazing",
     "feedback": "Source: plumbinghelp.com\n\nAdditional info:\n- Soldering- a process in which two or more items are joined by melting and putting a filler metal (solder) into the joint\n- Pressure-lock type- A mechanical connection which depends on an internal retention device to prevent pipe or tubing separation\n- Heat fusion- common joint for PPR (Polypropylene Random Copolymer)"
   },
   {
@@ -486,7 +486,7 @@ window.pc2QuestionsData = [
       "256",
       "600"
     ],
-    "correctAnswer": "216 (for Branch or Horizontal Pipe)",
+    "correctAnswer": "216",
     "feedback": "Source: RNPCP, Chapter 7\n\nAdditional info:\n256- Maximum DFU loading for 102 mm Stack (or vertical pipe)\n600- Maximum DFU loading for 127 mm Stack (or vertical pipe)\n1380- Maximum DFU loading for 152 mm Stack (or vertical pipe)"
   },
   {
@@ -522,7 +522,7 @@ window.pc2QuestionsData = [
       "60 psi",
       "103 kpa"
     ],
-    "correctAnswer": "80 psi (or 551 kpa)",
+    "correctAnswer": "80 psi",
     "feedback": "Source: RNPCP, Chapter 7\n\nAdditional Info:\n\n103 kpa (or 15 psi)- this refers to the minimum water pressure, otherwise a tank or a booster pump must be installed"
   },
   {
@@ -534,7 +534,7 @@ window.pc2QuestionsData = [
       "ANSI",
       "ASTM"
     ],
-    "correctAnswer": "IAPMO (International Association of Plumbing & Mechanical Officials)",
+    "correctAnswer": "IAPMO",
     "feedback": "Source: RNPCP, Chapter 13"
   },
   {
@@ -558,7 +558,7 @@ window.pc2QuestionsData = [
       "1500 psi",
       "1033 kpa"
     ],
-    "correctAnswer": "1033 kpa (or 150 psi)",
+    "correctAnswer": "1033 kpa",
     "feedback": "Source: RNPCP, Chapter 6"
   },
   {

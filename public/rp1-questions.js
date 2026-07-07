@@ -80,7 +80,7 @@ window.rp1QuestionsData = [
       "Trapeze",
       "Clevis"
     ],
-    "correctAnswer": "Riser Clamp",
+    "correctAnswer": "Riser clamp",
     "feedback": "Additional info:\n- Trapeze: uysed to support suspended multiple horizontal pipes\n- Clevis: used to supported suspended single horizontal pipe"
   },
   {
@@ -212,7 +212,7 @@ window.rp1QuestionsData = [
       "Lower Explosive Limit",
       "Last Explosive Limit"
     ],
-    "correctAnswer": "Lower Explosive Limit (the lowest concentration (in air) that is needed for the gas to ignite and explode)",
+    "correctAnswer": "Lower Explosive Limit",
     "feedback": "Source: enviromed.ca"
   },
   {
@@ -236,7 +236,7 @@ window.rp1QuestionsData = [
       "Curved diggers",
       "Square diggers"
     ],
-    "correctAnswer": "Pointed Digger",
+    "correctAnswer": "Pointed diggers",
     "feedback": "Source: trees.com\n\nAdditional info:\n- Square diggers- a flat shovel, and is used mostly for edging, transplanting woody perennials and small shrubs due to how easy it is to cut through roots, and trenching.\n- Rounded diggers- work well for digging in softer soils, and for transplanting plants."
   },
   {
@@ -260,7 +260,7 @@ window.rp1QuestionsData = [
       "smaller the OD of the pipe",
       "thicker the wall of the pipe"
     ],
-    "correctAnswer": "thinner the wall of the pipe.",
+    "correctAnswer": "thinner the wall of the pipe",
     "feedback": "Additional info:\n- SDR is Outer Diameter divided by the wall thickness"
   },
   {
@@ -296,7 +296,7 @@ window.rp1QuestionsData = [
       "guilty of immoral or dishonorable conduct",
       "failure to pay the required fees"
     ],
-    "correctAnswer": "failure to pay the required fees (not a ground)",
+    "correctAnswer": "failure to pay the required fees",
     "feedback": "Source: RA 1378"
   },
   {
@@ -332,7 +332,7 @@ window.rp1QuestionsData = [
       "Reamer and knife",
       "Pipe cutter and hacksaw"
     ],
-    "correctAnswer": "Pipe Cutter and Hacksaw",
+    "correctAnswer": "Pipe cutter and hacksaw",
     "feedback": "Additional info:\n- Reamer- a cutting tool used for machining, designed to slightly enlarge the size of a drilled hole, but with high precision; also used for deburring before threading\n- Knife- not a suitable cutter for pipes\n- 14 TPI Hacksaw- suitable for galvanized steel pipe"
   },
   {
@@ -538,7 +538,7 @@ window.rp1QuestionsData = [
       "Heavy-Duty Instrument Bender",
       "Instrument Bender"
     ],
-    "correctAnswer": "Heavy-Duty Instrument Benders",
+    "correctAnswer": "Heavy-Duty Instrument Bender",
     "feedback": "Source: Ridgid",
     "image": "assets/rp1-q45-tool.jpg"
   },
@@ -587,7 +587,7 @@ window.rp1QuestionsData = [
       "Straight Pein Hammer",
       "Ballpeen Hammer"
     ],
-    "correctAnswer": "Cross Pein/ Cross Peen Hammer",
+    "correctAnswer": "Cross Pein Hammer",
     "image": "assets/rp1-q49-tool.jpg"
   },
   {

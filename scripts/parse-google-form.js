@@ -136,22 +136,42 @@ for (let i = 0; i < blocks.length; i += 2) {
   if (punaMatch) {
     const punaText = decodeHtml(punaMatch[1]);
 
-    // "Correct answer: X" is always the first line when Puna is present
+    // "Correct answer: X" is always the first line when Puna is present.
+    // NOTE: this text is often annotated — e.g. "water-sealed trap (Principle
+    // no. 10)" or "Principle #7" — so it must NEVER be the stored answer unless
+    // it exactly matches a choice. Prefer the actual marked choice instead.
     const caMatch = punaText.match(/^Correct answer:\s*(.+?)(\n|$)/i);
     if (caMatch) {
       const punaAnswer = caMatch[1].trim();
       const subDecoded = submittedAnswer ? decodeHtml(submittedAnswer) : '';
-      // Priority: Puna text (if exact match) → tamaAnswer (wrong submission) →
-      // submittedAnswer (correct submission, choice matches) → Puna text as-is
-      correctAnswer = choices.includes(punaAnswer)   ? punaAnswer
-                    : tamaAnswer                      ? tamaAnswer
-                    : choices.includes(subDecoded)    ? subDecoded
-                    : punaAnswer;
+      // Priority (all exact-choice sources first):
+      //  1. tamaAnswer — the revealed correct choice (a wrong submission)
+      //  2. subDecoded — the selected choice when it was correct (right submission)
+      //  3. punaAnswer — only if it's an exact choice
+      //  4. fallback below (normalized against choices)
+      correctAnswer = (tamaAnswer && choices.includes(tamaAnswer)) ? tamaAnswer
+                    : choices.includes(subDecoded)                 ? subDecoded
+                    : choices.includes(punaAnswer)                 ? punaAnswer
+                    : (tamaAnswer || punaAnswer || subDecoded);
     }
 
     // Feedback = everything after the "Correct answer:" line
     const afterCa = punaText.replace(/^Correct answer:[^\n]*\n?/i, '').trim();
     if (afterCa) feedback = afterCa;
+  }
+
+  // Safety net: the correct answer must be one of the choices. If it still isn't
+  // (annotated text leaked through), map it to the matching choice by stripping a
+  // trailing "(...)" annotation and comparing case-insensitively / by prefix.
+  if (!choices.includes(correctAnswer)) {
+    const low = correctAnswer.toLowerCase();
+    const stripped = correctAnswer.replace(/\s*\([^)]*\)\s*$/, '').trim().toLowerCase();
+    const match = choices.find(c => c.toLowerCase() === low)
+      || choices.find(c => c.toLowerCase() === stripped)
+      || choices.find(c => low.startsWith(c.toLowerCase()))
+      || choices.find(c => c.toLowerCase().startsWith(stripped) && stripped.length > 3);
+    if (match) correctAnswer = match;
+    else process.stderr.write(`  ⚠ Q${startId + questions.length}: correctAnswer "${correctAnswer}" not in choices\n`);
   }
 
   // ── image in question ─────────────────────────────────────────────────────

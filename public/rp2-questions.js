@@ -44,7 +44,7 @@ window.rp2QuestionsData = [
       "Unhinged flapper",
       "Loose Closet bolts"
     ],
-    "correctAnswer": "Loose Closet Bolts",
+    "correctAnswer": "Loose Closet bolts",
     "feedback": "Additional info:\n- Loose Closet Bolts cause water to leak beneath the toilet"
   },
   {
@@ -92,7 +92,7 @@ window.rp2QuestionsData = [
       "combination thermostatic/ pressure-balancing valve",
       "thermostatic valve"
     ],
-    "correctAnswer": "Thermostatic Valve",
+    "correctAnswer": "thermostatic valve",
     "feedback": "Source: Louisiana State Plumbing Code\n\nAdditional info:\n- pressure balancing valve: senses incoming hot and cold water pressure and compensates for fluctuations in either to stabilize outlet temperature"
   },
   {
@@ -153,7 +153,7 @@ window.rp2QuestionsData = [
       "Screwed-in bonnet",
       "Bolted Bonnet joint"
     ],
-    "correctAnswer": "Bolted bonnet joint",
+    "correctAnswer": "Bolted Bonnet joint",
     "feedback": "Source: ASPE Volume 4\n\nAdditional info:\n- Screwed-in bonnet: simplest and least expensive construction, frequently used on bronze gate, globe, and angle valves and recommended where frequent dismantling is not needed\n- Screwed union-ring bonnet: convenient where valves need frequent inspection or cleaning—also for quick renewal or changeover of the disc in composition disc valves"
   },
   {
@@ -225,7 +225,7 @@ window.rp2QuestionsData = [
       "during the rough-in phase of construction",
       "during the trim phase of construction"
     ],
-    "correctAnswer": "During the rough-in phase of construction",
+    "correctAnswer": "during the rough-in phase of construction",
     "feedback": "Source: josam.com\n\nInfo: Installation of fixture carrier is aligned with the wall support studs before the finish wall is installed. Installation is done by competent journeymen and installers."
   },
   {
@@ -297,7 +297,7 @@ window.rp2QuestionsData = [
       "Department of Public Works and Highways",
       "Department of Interior and Local Government"
     ],
-    "correctAnswer": "Department of Interior and Local Government (DILG)",
+    "correctAnswer": "Department of Interior and Local Government",
     "feedback": "Source: PGBC\n\nAdditional info:\n- Department of Energy (DOE) - the executive department of the Philippine Government responsible for preparing, integrating, coordinating, supervising and controlling all plans, programs, projects and activities of the Government relative to energy exploration,\ndevelopment, utilization, distribution and conservation\n\n- Department of Environment and Natural Resources (DENR) - the executive department of the Philippine Government responsible for supervising and managing the different programs and implementing rules governing the use and development of the country's natural resources\n\n- Department of Public Works and Highways (DPWH) - executive department of the Philippine Government that functions as the engineering and construction arm of the Government tasked to continuously develop its technology for the purpose of ensuring\nthe safety of all infrastructure facilities and securing for all public works and highways the highest efficiency and quality in construction"
   },
   {
@@ -346,7 +346,7 @@ window.rp2QuestionsData = [
       "pipes are labeled",
       "pipes are placed underground and unmarked"
     ],
-    "correctAnswer": "pipes are labeled (pipes should be identified as non-potable)"
+    "correctAnswer": "pipes are labeled"
   },
   {
     "id": 30,
@@ -381,7 +381,7 @@ window.rp2QuestionsData = [
       "two-piece toilet",
       "one piece toilet"
     ],
-    "correctAnswer": "Two-piece toilet",
+    "correctAnswer": "two-piece toilet",
     "feedback": "Additional info:\n- Two-piece toilet- one with a two-piece tank and bowl fixture.\n- One-piece toilet- one with the tank and bowl as one piece\n- Corner toilet- has a triangular shaped tank; good for small bathroom"
   },
   {
@@ -417,7 +417,7 @@ window.rp2QuestionsData = [
       "4 feet",
       "3 feet"
     ],
-    "correctAnswer": "0.9m (or 3 feet)",
+    "correctAnswer": "3 feet",
     "feedback": "Source: OSHA"
   },
   {
