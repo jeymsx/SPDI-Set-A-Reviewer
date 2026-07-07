@@ -28,18 +28,38 @@ export function nextDue(box: number, now: number): number {
 }
 
 // Record a grade for one card, upserting its progress row.
+//
+// A correct answer only promotes the box when the card was actually DUE
+// (now >= due), or is brand new. Reviewing a card early — e.g. by restarting a
+// deck several times in one sitting — holds the box and its schedule, so
+// "mastery" can't be farmed in a single session and genuinely reflects correct
+// reviews spread across the spacing intervals. A miss always resets to box 0.
 export async function recordCardResult(setId: number, cardId: number, known: boolean): Promise<void> {
   const now = Date.now();
   const key = `${setId}:${cardId}`;
   const existing = await db.flashcardProgress.get(key);
   const prevBox = existing?.box ?? 0;
-  const box = known ? Math.min(prevBox + 1, MAX_BOX) : 0;
+  const wasDue = !existing || now >= existing.due;
+
+  let box: number;
+  let due: number;
+  if (!known) {
+    box = 0;
+    due = nextDue(0, now);           // missed — due again immediately
+  } else if (wasDue) {
+    box = Math.min(prevBox + 1, MAX_BOX);
+    due = nextDue(box, now);         // promoted — reschedule from now
+  } else {
+    box = prevBox;
+    due = existing.due;              // reviewed early — hold box and schedule
+  }
+
   await db.flashcardProgress.put({
     key,
     setId,
     cardId,
     box,
-    due: nextDue(box, now),
+    due,
     lastSeen: now,
     timesKnown: (existing?.timesKnown ?? 0) + (known ? 1 : 0),
     timesStillLearning: (existing?.timesStillLearning ?? 0) + (known ? 0 : 1),

@@ -454,13 +454,14 @@ export default function FlashcardStudyScreen() {
 
   // Per-card spaced-repetition progress for this set. Kept in a ref so buildDeck
   // can read the latest values without re-running (and re-ordering) on every write.
+  // No default value: `progressRows` is `undefined` until the query resolves, so
+  // the deck builder can tell "SR progress not loaded yet" from "loaded, empty".
   const progressRows = useLiveQuery(
     () => currentFlashcardSetId != null
       ? db.flashcardProgress.where('setId').equals(currentFlashcardSetId).toArray()
       : Promise.resolve([]),
     [currentFlashcardSetId],
-    [],
-  ) as FlashcardProgress[];
+  ) as FlashcardProgress[] | undefined;
   const progressRef = useRef<Map<number, FlashcardProgress>>(new Map());
   useEffect(() => {
     progressRef.current = new Map((progressRows ?? []).map(p => [p.cardId, p]));
@@ -524,8 +525,16 @@ export default function FlashcardStudyScreen() {
     }
   }, [currentFlashcardSetId]);
 
+  // Build the initial deck once per set. Depends on progressRows so that, in
+  // Smart mode, a fresh build waits for this set's SR progress to load before
+  // ordering weakest-first (otherwise the deck could be built in original order
+  // if rawCards resolved before the progress query). builtForSetRef ensures the
+  // effect never rebuilds mid-session when progressRows later updates on grading.
+  const builtForSetRef = useRef<number | null>(null);
   useEffect(() => {
     if (!rawCards.length || currentFlashcardSetId == null) return;
+    if (builtForSetRef.current === currentFlashcardSetId) return;
+
     const saved = localStorage.getItem(sessionKey(currentFlashcardSetId));
     if (saved) {
       try {
@@ -541,14 +550,21 @@ export default function FlashcardStudyScreen() {
           setSessionStartedAt(s.startedAt);
           setFlipped(false);
           setSnapFlip(false);
+          builtForSetRef.current = currentFlashcardSetId;
           return;
         }
       } catch {
         localStorage.removeItem(sessionKey(currentFlashcardSetId));
       }
     }
+
+    // Fresh build. In Smart mode, hold off until SR progress has loaded.
+    if (studyModeRef.current === 'smart' && progressRows === undefined) return;
+
     buildDeck(rawCards, shuffleRef.current);
-  }, [rawCards, currentFlashcardSetId]); // shuffleRef always current; not a dep to avoid re-running on toggle
+    builtForSetRef.current = currentFlashcardSetId;
+  // shuffleRef always current; not a dep to avoid re-running on toggle
+  }, [rawCards, currentFlashcardSetId, progressRows]);
 
   // Advance to next card: snap the flip back instantly (no animation), then on the
   // next two frames (after the snap has painted) swap the card. This prevents the
