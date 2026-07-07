@@ -43,7 +43,15 @@ export default function StartScreen() {
     return `${m}:${String(s).padStart(2, '0')}`;
   }
 
-  const [selectedDuration, setSelectedDuration] = useState(timerDuration);
+  // Timer selection: a preset (minutes) or a custom value the user types in.
+  const startedAsPreset = TIMER_OPTIONS.some(o => o.value === timerDuration);
+  const [timerChoice, setTimerChoice] = useState<number | 'custom'>(startedAsPreset ? timerDuration : 'custom');
+  const [customMinutes, setCustomMinutes] = useState<string>(startedAsPreset ? '' : String(timerDuration));
+  const CUSTOM_MIN = 1, CUSTOM_MAX = 600;
+  const parsedCustom = Math.min(CUSTOM_MAX, Math.max(CUSTOM_MIN, Math.floor(Number(customMinutes)) || 0));
+  const customValid = customMinutes.trim() !== '' && Number(customMinutes) >= CUSTOM_MIN;
+  const effectiveDuration = timerChoice === 'custom' ? parsedCustom : timerChoice;
+
   const [tab, setTab] = useState<'settings' | 'history' | 'weak'>('settings');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
@@ -127,14 +135,38 @@ export default function StartScreen() {
                 <Clock className="h-4 w-4 text-primary" /> Timer (Exam Mode only)
               </label>
               <select
-                value={selectedDuration}
-                onChange={e => setSelectedDuration(Number(e.target.value))}
+                value={timerChoice}
+                onChange={e => setTimerChoice(e.target.value === 'custom' ? 'custom' : Number(e.target.value))}
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               >
                 {TIMER_OPTIONS.map(o => (
                   <option key={o.value} value={o.value}>{o.label}</option>
                 ))}
+                <option value="custom">Custom…</option>
               </select>
+
+              {timerChoice === 'custom' && (
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      min={CUSTOM_MIN}
+                      max={CUSTOM_MAX}
+                      value={customMinutes}
+                      onChange={e => setCustomMinutes(e.target.value)}
+                      placeholder="e.g. 45"
+                      className="w-28 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    />
+                    <span className="text-sm text-muted-foreground">minutes</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {customValid
+                      ? `Timer set to ${parsedCustom} minute${parsedCustom === 1 ? '' : 's'}.`
+                      : `Enter a whole number from ${CUSTOM_MIN} to ${CUSTOM_MAX}.`}
+                  </p>
+                </div>
+              )}
             </div>
 
             <Separator />
@@ -197,7 +229,13 @@ export default function StartScreen() {
               <Button variant="outline" size="lg" className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startPractice()}>
                 <Play className="h-4 w-4" /> {canResume ? 'Restart Practice' : 'Practice Mode'}
               </Button>
-              <Button size="lg" variant={canResume ? 'outline' : 'default'} className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startExam(selectedDuration)}>
+              <Button
+                size="lg"
+                variant={canResume ? 'outline' : 'default'}
+                disabled={timerChoice === 'custom' && !customValid}
+                className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto"
+                onClick={() => startExam(effectiveDuration)}
+              >
                 <Play className="h-4 w-4" /> {canResume ? 'Restart Exam' : 'Start Exam'}
               </Button>
             </div>
