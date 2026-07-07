@@ -22,6 +22,11 @@ function AppShell() {
 
   useEffect(() => { seedDefaultTags(); dedupeFlashcardSessions(); }, []);
 
+  // Reset scroll to the top whenever the top-level screen changes — otherwise the
+  // window keeps the previous screen's scroll offset (e.g. clicking an exam far
+  // down the select list would open the start screen already scrolled down).
+  useEffect(() => { window.scrollTo(0, 0); }, [screen]);
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       <Header />
