@@ -54,6 +54,9 @@ export default function StartScreen() {
 
   const [tab, setTab] = useState<'settings' | 'history' | 'weak'>('settings');
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  // When a session is resumable, restarting must be confirmed so a misclick
+  // can't wipe in-progress answers. null = no dialog; otherwise the mode to start.
+  const [confirmRestart, setConfirmRestart] = useState<'practice' | 'exam' | null>(null);
 
   const exam = currentExam;
   const weakQuestions = useWeakQuestions(exam?.id ?? null);
@@ -226,7 +229,12 @@ export default function StartScreen() {
 
             {/* Start buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button variant="outline" size="lg" className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto" onClick={() => startPractice()}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto"
+                onClick={() => canResume ? setConfirmRestart('practice') : startPractice()}
+              >
                 <Play className="h-4 w-4" /> {canResume ? 'Restart Practice' : 'Practice Mode'}
               </Button>
               <Button
@@ -234,7 +242,7 @@ export default function StartScreen() {
                 variant={canResume ? 'outline' : 'default'}
                 disabled={timerChoice === 'custom' && !customValid}
                 className="flex-1 gap-2 py-3 sm:py-2.5 text-base sm:text-sm h-auto"
-                onClick={() => startExam(effectiveDuration)}
+                onClick={() => canResume ? setConfirmRestart('exam') : startExam(effectiveDuration)}
               >
                 <Play className="h-4 w-4" /> {canResume ? 'Restart Exam' : 'Start Exam'}
               </Button>
@@ -265,6 +273,34 @@ export default function StartScreen() {
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <Button variant="destructive" onClick={() => { resetProgress(); setShowResetConfirm(false); }}>
                     Reset
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+            {/* Restart confirmation — only shown while a session is resumable */}
+            <AlertDialog open={confirmRestart !== null} onOpenChange={open => !open && setConfirmRestart(null)}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Restart and lose your progress?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    You have a session in progress on this exam. Restarting clears your saved
+                    answers and starts over from question 1. To keep your progress, cancel and
+                    tap Resume instead.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <Button
+                    variant="destructive"
+                    onClick={() => {
+                      const mode = confirmRestart;
+                      setConfirmRestart(null);
+                      if (mode === 'practice') startPractice();
+                      else if (mode === 'exam') startExam(effectiveDuration);
+                    }}
+                  >
+                    {confirmRestart === 'practice' ? 'Restart Practice' : 'Restart Exam'}
                   </Button>
                 </AlertDialogFooter>
               </AlertDialogContent>
