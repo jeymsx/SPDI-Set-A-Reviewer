@@ -215,6 +215,26 @@ export const EXAMS: Exam[] = [
     description: 'Definition of terms for plumbing arithmetic — engineering economics, mathematics, geometry, mechanics, and fluid properties.',
     defaultTags: ['Plumbing Arithmetic', 'Definitions', 'Memorization'],
   },
+  {
+    id: 'pa-terms2',
+    title: 'Plumbing Arithmetic — Terms II',
+    subtitle: 'Definition of Terms',
+    dataVar: 'paTerms2QuestionsData',
+    scriptSrc: '/pa-terms2-questions.js',
+    questionCount: 53,
+    description: 'Definition of terms for plumbing arithmetic — business organization, depreciation, conic sections, unit conversions, electricity, and fluid properties.',
+    defaultTags: ['Plumbing Arithmetic', 'Definitions', 'Memorization'],
+  },
+  {
+    id: 'pa-terms3',
+    title: 'Plumbing Arithmetic — Terms III',
+    subtitle: 'Definition of Terms',
+    dataVar: 'paTerms3QuestionsData',
+    scriptSrc: '/pa-terms3-questions.js',
+    questionCount: 50,
+    description: 'Definition of terms for plumbing arithmetic — annuities and bonds, solid geometry, statistics, mechanics, magnetism, and pump terminology.',
+    defaultTags: ['Plumbing Arithmetic', 'Definitions', 'Memorization'],
+  },
 ];
 
 export function loadExamData(exam: Exam): Promise<Question[]> {
