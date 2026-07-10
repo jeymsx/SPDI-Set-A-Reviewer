@@ -235,6 +235,16 @@ export const EXAMS: Exam[] = [
     description: 'Definition of terms for plumbing arithmetic — annuities and bonds, solid geometry, statistics, mechanics, magnetism, and pump terminology.',
     defaultTags: ['Plumbing Arithmetic', 'Definitions', 'Memorization'],
   },
+  {
+    id: 'pa-terms4',
+    title: 'Plumbing Arithmetic — Terms IV',
+    subtitle: 'Definition of Terms',
+    dataVar: 'paTerms4QuestionsData',
+    scriptSrc: '/pa-terms4-questions.js',
+    questionCount: 31,
+    description: 'Definition of terms for plumbing arithmetic — algebraic laws of equality, number theory, progressions, kinematics, heat transfer, and accounting.',
+    defaultTags: ['Plumbing Arithmetic', 'Definitions', 'Memorization'],
+  },
 ];
 
 export function loadExamData(exam: Exam): Promise<Question[]> {
