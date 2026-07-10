@@ -203,6 +203,18 @@ export const EXAMS: Exam[] = [
     description: "Mastery test on tools, fixtures, field scenarios, and practical plumbing problems — with photos for tool/part identification questions.",
     defaultTags: ['Practical', "Master's", 'Mastery Test'],
   },
+
+  // ── Plumbing Arithmetic ──────────────────────────────────────────────────
+  {
+    id: 'pa-terms1',
+    title: 'Plumbing Arithmetic — Terms I',
+    subtitle: 'Definition of Terms',
+    dataVar: 'paTerms1QuestionsData',
+    scriptSrc: '/pa-terms1-questions.js',
+    questionCount: 51,
+    description: 'Definition of terms for plumbing arithmetic — engineering economics, mathematics, geometry, mechanics, and fluid properties.',
+    defaultTags: ['Plumbing Arithmetic', 'Definitions', 'Memorization'],
+  },
 ];
 
 export function loadExamData(exam: Exam): Promise<Question[]> {

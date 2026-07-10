@@ -15,6 +15,7 @@ import TagEditor from './TagEditor';
 const EXAM_TAG_SUGGESTIONS = [
   'SPDI', 'Plumbing Code', 'NPC', 'Preboards', "Master's",
   'Refresher', 'Memorization', 'Practical', 'Definitions', 'Principles', 'WSFU & DFU',
+  'Plumbing Arithmetic',
 ];
 
 export default function ExamSelectScreen() {
