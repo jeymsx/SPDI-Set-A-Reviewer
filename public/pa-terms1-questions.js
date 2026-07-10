@@ -74,7 +74,7 @@ window.paTerms1QuestionsData = [
       "Coefficient",
       "Root"
     ],
-    "correctAnswer": "Exponent"
+    "correctAnswer": "Number"
   },
   {
     "id": 8,
@@ -223,12 +223,12 @@ window.paTerms1QuestionsData = [
     "id": 21,
     "question": "The property of the body which measures its resistance to change in motion",
     "choices": [
-      "Kinematics",
+      "Inertia",
       "Displacement",
       "Acceleration",
       "Velocity"
     ],
-    "correctAnswer": "Acceleration"
+    "correctAnswer": "Inertia"
   },
   {
     "id": 22,
@@ -437,7 +437,7 @@ window.paTerms1QuestionsData = [
       "Attached",
       "Obligatory"
     ],
-    "correctAnswer": "Gratuitous"
+    "correctAnswer": "Pure"
   },
   {
     "id": 41,
@@ -524,7 +524,7 @@ window.paTerms1QuestionsData = [
       "Toughness",
       "Solidity"
     ],
-    "correctAnswer": "Ductility"
+    "correctAnswer": "Toughness"
   },
   {
     "id": 49,

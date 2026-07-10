@@ -118,7 +118,7 @@ window.paTerms2QuestionsData = [
       "Space Bar",
       "Vacuum"
     ],
-    "correctAnswer": "Outer Space"
+    "correctAnswer": "Vacuum"
   },
   {
     "id": 12,
@@ -283,7 +283,7 @@ window.paTerms2QuestionsData = [
       "They contain free electrons",
       "All of the Above"
     ],
-    "correctAnswer": "All of the Above"
+    "correctAnswer": "They contain free electrons"
   },
   {
     "id": 27,
@@ -514,7 +514,7 @@ window.paTerms2QuestionsData = [
       "Volume",
       "Density"
     ],
-    "correctAnswer": "Volume"
+    "correctAnswer": "Density"
   },
   {
     "id": 48,
@@ -553,12 +553,12 @@ window.paTerms2QuestionsData = [
     "id": 51,
     "question": "The ratio of the volume of voids to the volume of the soil sample or specimen. It is simply the open space between the soil grains.",
     "choices": [
-      "Monopoly",
+      "Void Ratio",
       "Monopsony",
       "Monarchy",
       "Barter"
     ],
-    "correctAnswer": "Monopoly"
+    "correctAnswer": "Void Ratio"
   },
   {
     "id": 52,

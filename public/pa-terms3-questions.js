@@ -94,9 +94,9 @@ window.paTerms3QuestionsData = [
       "Necessity",
       "Caprices",
       "Luxury",
-      "Brilliant"
+      "Utility"
     ],
-    "correctAnswer": "Luxury"
+    "correctAnswer": "Utility"
   },
   {
     "id": 10,
