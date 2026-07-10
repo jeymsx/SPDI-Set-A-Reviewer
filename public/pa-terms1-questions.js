@@ -169,11 +169,11 @@ window.paTerms1QuestionsData = [
     "question": "This implies the resistance to shock or difficulty of breaking and expresses the work per unit volume required to fracture a material.",
     "choices": [
       "Cracking Moment",
-      "Breakability",
+      "Toughness",
       "Ductility",
       "Malleability"
     ],
-    "correctAnswer": "Ductility"
+    "correctAnswer": "Toughness"
   },
   {
     "id": 17,

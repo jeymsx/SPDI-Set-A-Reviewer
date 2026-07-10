@@ -347,9 +347,9 @@ window.paTerms3QuestionsData = [
       "Inflection Point",
       "Maxima",
       "Minima",
-      "Absolute Point"
+      "Critical Point"
     ],
-    "correctAnswer": "Inflection Point"
+    "correctAnswer": "Critical Point"
   },
   {
     "id": 33,
